@@ -18,6 +18,11 @@ in your terminal and in VS Code. No cloud, no API keys, no telemetry.
 
 ---
 
+<p align="center">
+  <img src="docs/airgap-demo.gif" alt="A real Airgap run: gpt-oss:20b on a local GPU reads the code, runs the failing test, proposes a one-line fix to is_leap_year, waits for approval, and the tests pass" width="100%">
+  <br><sub>A real run on a local GPU. Every command and edit was approved by a human; only the waiting time was shortened.</sub>
+</p>
+
 ```mermaid
 flowchart TD
     U(["👤 You"]) -->|task| A["🛡️ Airgap agent"]
