@@ -2,7 +2,7 @@
   "name": "kod-ajani",
   "displayName": "Airgap",
   "description": "Security-hardened AI coding agent that runs 100% locally with Ollama",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "publisher": "cybergah",
   "private": true,
   "license": "MIT",
@@ -18,12 +18,12 @@
     },
     "views": {
       "kodAjani": [
-        { "id": "kodAjani.panel", "name": "Sohbet", "type": "webview" }
+        { "id": "kodAjani.panel", "name": "Chat", "type": "webview" }
       ]
     },
     "commands": [
-      { "command": "kodAjani.yeni", "title": "Yeni sohbet", "category": "Airgap", "icon": "$(add)" },
-      { "command": "kodAjani.seciliDuzenle", "title": "Seçili kodu düzenle", "category": "Airgap" }
+      { "command": "kodAjani.yeni", "title": "New chat", "category": "Airgap", "icon": "$(add)" },
+      { "command": "kodAjani.seciliDuzenle", "title": "Edit selection", "category": "Airgap" }
     ],
     "keybindings": [
       { "command": "kodAjani.seciliDuzenle", "key": "ctrl+alt+k", "mac": "cmd+alt+k", "when": "editorTextFocus && !editorReadonly" }
@@ -39,51 +39,58 @@
     "configuration": {
       "title": "Airgap",
       "properties": {
+        "kodAjani.dil": {
+          "type": "string",
+          "enum": ["en", "tr"],
+          "enumDescriptions": ["English", "Türkçe"],
+          "default": "en",
+          "description": "Interface language. Text sent to the model is not affected."
+        },
         "kodAjani.model": {
           "type": "string",
           "default": "gpt-oss:20b",
-          "description": "Kullanılacak Ollama modeli."
+          "description": "Ollama model to use."
         },
         "kodAjani.gommeModeli": {
           "type": "string",
           "default": "nomic-embed-text",
-          "description": "Proje araması için kullanılacak Ollama gömme (embedding) modeli."
+          "description": "Ollama embedding model used for project search."
         },
         "kodAjani.haritaButcesi": {
           "type": "number",
           "default": 1000,
           "minimum": 0,
-          "description": "Modele verilen proje haritasının yaklaşık belirteç bütçesi. 0 haritayı kapatır."
+          "description": "Approximate token budget for the repo map given to the model. 0 turns the map off."
         },
         "kodAjani.korumaliCalistirma": {
           "type": "boolean",
           "default": false,
-          "description": "Komutları ağı kapalı bir Docker kapsayıcısında çalıştır. Docker çalışmıyorsa komutlar bilgisayarda çalıştırılmaz, reddedilir."
+          "description": "Run commands in a Docker container with no network. If Docker is not running, commands are rejected instead of running on your computer."
         },
         "kodAjani.korumaliImaj": {
           "type": "string",
           "default": "python:3.13-slim",
-          "description": "Korumalı çalıştırma için Docker imajı. Otomatik indirilmez; önce docker pull ile indirilmelidir."
+          "description": "Docker image for the sandbox. It is not downloaded automatically; run docker pull first."
         },
         "kodAjani.python": {
           "type": "string",
           "default": "python",
-          "description": "Ajanı çalıştıracak Python komutu."
+          "description": "Python command used to run the agent."
         },
         "kodAjani.ajanYolu": {
           "type": "string",
           "default": "",
-          "description": "ajan.py dosyasının tam yolu. Boşsa eklentiyle gelen kullanılır."
+          "description": "Full path to ajan.py. Leave empty to use the one bundled with the extension."
         },
         "kodAjani.baglam": {
           "type": "number",
           "default": 16384,
-          "description": "Model bağlam boyutu (num_ctx)."
+          "description": "Model context size (num_ctx)."
         },
         "kodAjani.maksAdim": {
           "type": "number",
           "default": 40,
-          "description": "Bir istekte en fazla model çağrısı."
+          "description": "Maximum model calls per request."
         }
       }
     }

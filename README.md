@@ -106,7 +106,7 @@ git clone https://github.com/cybergah/airgap
 python airgap/kod-ajani/ajan.py --dizin /path/to/your/project
 ```
 
-Chat commands: `/geri` undo the last turn · `/yeni` new chat · `/onay` toggle approvals · `/yardim` help · `/cik` quit.
+Chat commands: `/undo` undo the last turn · `/new` new chat · `/approve` toggle approvals · `/help` help · `/quit` quit.
 One-shot mode: `--gorev "fix the failing tests" --otomatik`. Sandbox: `--korumali` (first run `docker pull python:3.13-slim`).
 
 **VS Code**
@@ -114,7 +114,7 @@ One-shot mode: `--gorev "fix the failing tests" --otomatik`. Sandbox: `--korumal
 Download `kod-ajani-<version>.vsix` from the [latest release](https://github.com/cybergah/airgap/releases/latest) and install it:
 
 ```bash
-code --install-extension kod-ajani-0.10.1.vsix --force
+code --install-extension kod-ajani-0.11.0.vsix --force
 ```
 
 The extension ships with the agent inside; you only need Python and Ollama. To build it yourself: `python airgap/kod-ajani/paketle.py` (writes `airgap/dist/`).
@@ -127,13 +127,18 @@ Open a folder and click the `</>` icon in the activity bar. Settings live under 
 python -m pip install tree-sitter tree-sitter-javascript tree-sitter-typescript tree-sitter-c-sharp
 ```
 
-## Language note
+## Language
 
-Airgap started as **Kod Ajanı**, a Turkish project. The model-facing prompts and tool definitions are in English, but the **UI, CLI messages and code identifiers are currently in Turkish**. An English interface is the most valuable contribution right now. See [CONTRIBUTING.md](CONTRIBUTING.md).
+The interface is in **English** by default, and fully available in **Turkish** (Airgap started as *Kod Ajanı*):
+
+- VS Code: setting **Airgap › Dil** (`kodAjani.dil`) → `tr`
+- Terminal: `AIRGAP_LANG=tr` (PowerShell: `$env:AIRGAP_LANG="tr"`)
+
+Only what *you* see changes. Prompts, tool results and everything else the model receives stay identical, so behavior and benchmark numbers do not depend on the UI language. Code identifiers are still Turkish; want to add another language? See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Tests
 
-216 unit tests plus a VS Code smoke test run on every push (Windows). Real-model benchmarks and the real VS Code window test run locally.
+227 unit tests plus VS Code smoke and panel tests run on every push (Windows). Real-model benchmarks and the real VS Code window test run locally.
 
 ```bash
 cd kod-ajani && python -B -m unittest discover -p "test_*.py"

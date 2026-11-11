@@ -62,7 +62,7 @@ const ortam = {
   document: {
     getElementById: (id) => ogeler[id],
     createElement: (e) => new Oge(e),
-    body: { dataset: { model: "gpt-oss%3A20b" } },
+    body: { dataset: { model: "gpt-oss%3A20b", dil: "tr" } },
   },
   window: { addEventListener: (ad, f) => { dinleyici[ad] = f; } },
   acquireVsCodeApi: () => ({ postMessage: (m) => giden.push(m) }),
@@ -132,4 +132,21 @@ gonder({ tur: "tur_bitti", basarili: true });
 assert.strictEqual(durum.textContent, "gpt-oss:20b");
 assert.strictEqual(ogeler.gonder.disabled, false);
 assert.ok(zamanlayicilar.every((f) => f === null), "tur bitince sayac durur");
+// English is the default when the extension does not say otherwise.
+{
+  const o2 = Object.fromEntries(["akis", "girdi", "form", "durum", "gonder", "dur"].map((id) => [id, new Oge("div")]));
+  const d2 = {};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname, "..", "media", "panel.js"), "utf8"), {
+    ...ortam,
+    document: { ...ortam.document, getElementById: (id) => o2[id], body: { dataset: { model: "m" } } },
+    window: { addEventListener: (ad, f) => { d2[ad] = f; } },
+  });
+  d2.message({ data: { tur: "kullanici", metin: "hi" } });
+  assert.strictEqual(o2.durum.textContent, "Model working · 0 s");
+  d2.message({ data: { tur: "komut", komut: "ls" } });
+  d2.message({ data: { tur: "onay", id: 9, soru: "?" } });
+  assert.strictEqual(o2.durum.textContent, "Waiting for your approval");
+  const etiketler = o2.akis.querySelectorAll(".dugmeler button").map((b) => b.textContent);
+  assert.deepStrictEqual(etiketler, ["Run", "Reject", "Always allow in this chat"]);
+}
 console.log("DURUM TESTI GECTI");

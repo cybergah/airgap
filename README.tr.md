@@ -28,10 +28,12 @@ python kod-ajani/paketle.py
 ```
 
 ```bash
-code --install-extension dist/kod-ajani-0.10.1.vsix --force
+code --install-extension dist/kod-ajani-0.11.0.vsix --force
 ```
 
-Sonra bir klasör aç ve soldaki `</>` simgesine bas. Ayarlar: **Kod Ajanı** (model, Python komutu, bağlam).
+Sonra bir klasör aç ve soldaki `</>` simgesine bas. Ayarlar: **Airgap** (model, Python komutu, bağlam).
+
+**Arayüz dili:** Varsayılan İngilizcedir. Türkçe için VS Code'da **Airgap › Dil** ayarını `tr` yap; terminalde `AIRGAP_LANG=tr` (PowerShell: `$env:AIRGAP_LANG="tr"`). Yalnız ekranda gördüklerin değişir; modele giden metinler aynı kalır.
 
 Kod seçip **Ctrl+Alt+K**'ye basınca (veya sağ tık menüsünden) ne değişeceğini yazarsın; öneriyi fark görünümünde görüp uygular ya da reddedersin. Seçim yoksa bulunduğun satır düzenlenir. Uygulanan değişiklik kaydedilmez ve Ctrl+Z ile geri alınır.
 

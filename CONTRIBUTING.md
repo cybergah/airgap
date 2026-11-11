@@ -11,7 +11,7 @@ come before everything else:
 
 | Area | What | Where |
 |---|---|---|
-| 🌍 **English UI** | The interface, CLI messages and identifiers are in Turkish. Translating user-facing strings is the most valuable contribution right now. | `kod-ajani/ajan.py` (printed messages), `kod-ajani/vscode-eklenti/` (panel, settings) |
+| 🌍 **Languages** | The UI is English by default and Turkish with `AIRGAP_LANG=tr`. Add another language, or polish the English. Only translate what the user sees: never the prompts or tool results the model receives. | `L(...)`, `RISK_EN`, `_MESAJ_EN` in `kod-ajani/ajan.py`; `L(...)` in `vscode-eklenti/extension.js` and `media/panel.js`; `test_dil.py` |
 | 🛡️ **Command analyzer** | Find commands that slip past risk detection and add them as test cases. | `kod-ajani/komut_ornekleri.py`, `komut_sinav.py`, `test_guvenlik.py` |
 | 📏 **Benchmarks** | Add tasks with hidden tests, or measure other local models. | `kod-ajani/olcum_gorevleri.py`, `olcum.py` |
 | 🗺️ **Repo map** | Better Tree-sitter support for more languages. | `dosya_tanimlari` / `_ts_tanimlari` in `ajan.py` |

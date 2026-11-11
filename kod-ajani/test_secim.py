@@ -1,7 +1,9 @@
+import os
 import shutil
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import ajan as a
 from test_sunucu import Oturum
@@ -68,12 +70,13 @@ class SecimSunucuTesti(unittest.TestCase):
         sonraki = [m["content"] for m in o.sunucu.istekler[-1]["messages"]]
         self.assertFalse([m for m in sonraki if "iki yap" in m])
 
+    @patch.dict(os.environ, {"AIRGAP_LANG": "en"})  # checks the English UI text
     def test_bos_ve_uzun_secim_model_cagirmadan_reddedilir(self):
         o = self.oturum([])
         o.gonder(tur="secim", id=1, istek="x", secim="   ")
-        self.assertIn("bos", o.bekle("secim_sonuc")["hata"])
+        self.assertIn("empty", o.bekle("secim_sonuc")["hata"])
         o.gonder(tur="secim", id=2, istek="x", secim="a" * (a.SECIM_SINIRI + 1))
-        self.assertIn("uzun", o.bekle("secim_sonuc")["hata"])
+        self.assertIn("too long", o.bekle("secim_sonuc")["hata"])
         self.assertEqual(o.sunucu.istekler, [])
 
     def test_bos_yanit_hata_olur(self):
