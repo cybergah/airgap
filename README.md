@@ -19,7 +19,7 @@ in your terminal and in VS Code. No cloud, no API keys, no telemetry.
 ---
 
 ```mermaid
-flowchart LR
+flowchart TD
     U(["👤 You"]) -->|task| A["🛡️ Airgap agent"]
     A <-->|localhost| O[("Ollama<br/>model on your GPU")]
     N["📄 AGENTS.md"] -.->|untrusted note,<br/>cannot grant permissions| A
