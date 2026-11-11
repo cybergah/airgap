@@ -1,12 +1,11 @@
 <div align="center">
 
-# 🛡️ Airgap
-
-**Your code never leaves the machine.**
+<img src="docs/banner.svg" alt="Airgap: your code never leaves the machine" width="100%">
 
 A security-hardened AI coding agent that runs **100% locally** on [Ollama](https://ollama.com):
 in your terminal and in VS Code. No cloud, no API keys, no telemetry.
 
+[![release](https://img.shields.io/github/v/release/cybergah/airgap?color=00FF41&labelColor=0D1117)](https://github.com/cybergah/airgap/releases/latest)
 [![tests](https://github.com/cybergah/airgap/actions/workflows/testler.yml/badge.svg)](https://github.com/cybergah/airgap/actions/workflows/testler.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white)](#quick-start)
@@ -19,12 +18,19 @@ in your terminal and in VS Code. No cloud, no API keys, no telemetry.
 
 ---
 
-```text
- you ──► Airgap ──► Ollama (your GPU)          nothing leaves this box
-           │
-           ├── read / search / edit / run      every write and command: approve or reject
-           ├── command analyzer                real shell parsers, not just regex
-           └── docker sandbox (optional)       no network, read-only .git, fails closed
+```mermaid
+flowchart LR
+    U(["👤 You"]) -->|task| A["🛡️ Airgap agent"]
+    A <-->|localhost| O[("Ollama<br/>model on your GPU")]
+    N["📄 AGENTS.md"] -.->|untrusted note,<br/>cannot grant permissions| A
+    A --> T{"tool call"}
+    T -->|read · search| F["project files"]
+    T -->|write · edit| D["diff + your approval"] --> F
+    T -->|run_command| C["command analyzer<br/>PowerShell / shlex parser"]
+    C -->|risky| R["warning,<br/>no auto-allow"] --> AP
+    C --> AP["your approval"]
+    AP -->|sandbox on| S[["Docker sandbox<br/>no network · read-only .git<br/>seccomp probed · fails closed"]]
+    AP -->|sandbox off| H["your shell"]
 ```
 
 ## Why Airgap?
@@ -105,10 +111,13 @@ One-shot mode: `--gorev "fix the failing tests" --otomatik`. Sandbox: `--korumal
 
 **VS Code**
 
+Download `kod-ajani-<version>.vsix` from the [latest release](https://github.com/cybergah/airgap/releases/latest) and install it:
+
 ```bash
-python airgap/kod-ajani/paketle.py
-code --install-extension airgap/dist/kod-ajani-0.10.1.vsix --force
+code --install-extension kod-ajani-0.10.1.vsix --force
 ```
+
+The extension ships with the agent inside; you only need Python and Ollama. To build it yourself: `python airgap/kod-ajani/paketle.py` (writes `airgap/dist/`).
 
 Open a folder and click the `</>` icon in the activity bar. Settings live under **Airgap**.
 

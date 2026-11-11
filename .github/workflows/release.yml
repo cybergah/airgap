@@ -1,0 +1,47 @@
+# When a GitHub Release is published: run the tests, build the VS Code extension
+# and attach the .vsix to the release, so users can install it in one step.
+name: release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  vsix:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Tag must match the extension version
+        shell: pwsh
+        run: |
+          $v = (Get-Content kod-ajani/vscode-eklenti/package.json -Raw | ConvertFrom-Json).version
+          if ("v$v" -ne "${{ github.event.release.tag_name }}") {
+            throw "Release tag ${{ github.event.release.tag_name }} does not match extension version v$v"
+          }
+
+      - name: Git identity (for the checkpoint tests)
+        run: |
+          git config --global user.name "ci"
+          git config --global user.email "ci@example.invalid"
+
+      - name: Unit tests
+        working-directory: kod-ajani
+        run: python -B -m unittest discover -p "test_*.py"
+
+      - name: Build the extension
+        run: python kod-ajani/paketle.py
+
+      - name: Attach the .vsix to the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          files: dist/*.vsix
