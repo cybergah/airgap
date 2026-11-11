@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Durum satiri onizleme</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* onizleme.html ile ayni koyu tema degiskenleri; yalniz gorsel denetim icin. */
+html { --vscode-foreground:#ccc; --vscode-font-family:Segoe UI,sans-serif; --vscode-font-size:13px;
+  --vscode-input-background:#3c3c3c; --vscode-input-foreground:#ccc; --vscode-input-border:#555;
+  --vscode-descriptionForeground:#9d9d9d; --vscode-panel-border:#444; --vscode-editor-font-family:Consolas,monospace;
+  --vscode-editor-font-size:12px; --vscode-textCodeBlock-background:#2a2a2a; --vscode-button-foreground:#fff;
+  --vscode-button-background:#0e639c; --vscode-button-secondaryForeground:#ccc; --vscode-button-secondaryBackground:#3a3d41;
+  --vscode-textLink-foreground:#3794ff; --vscode-focusBorder:#007fd4; }
+html, body { background:#252526; }
+</style>
+<link rel="stylesheet" href="../media/panel.css"></head>
+<body data-model="gpt-oss%3A20b">
+<main id="akis"></main>
+<form id="form">
+  <textarea id="girdi" rows="3"></textarea>
+  <div class="alt"><span id="durum"></span><button id="dur" type="button" class="ikincil" hidden>Durdur</button><button id="gonder" type="submit">Gönder</button></div>
+</form>
+<!-- Model calisiyor ve sessiz: durum satiri sayaci gostermeli. Test bu sayfayi acip window.durumlar'a bakar. -->
+<script>window.acquireVsCodeApi = () => ({ postMessage: (m) => { (window.gidenler = window.gidenler || []).push(m); } });</script>
+<script src="../media/panel.js"></script>
+<script>
+window.postMessage({ tur: "kullanici", metin: "hesap.py dosyasini yaz" }, "*");
+window.postMessage({ tur: "dusunce", metin: "Dosyayi yazacagim." }, "*");
+</script>
+</body></html>

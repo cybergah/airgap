@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Panel önizleme</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+/* VS Code'un koyu temasına benzeyen değişkenler; yalnız görsel denetim için. */
+html { --vscode-foreground:#ccc; --vscode-font-family:Segoe UI,sans-serif; --vscode-font-size:13px;
+  --vscode-input-background:#3c3c3c; --vscode-input-foreground:#ccc; --vscode-input-border:#555;
+  --vscode-descriptionForeground:#9d9d9d; --vscode-editorWarning-foreground:#cca700; --vscode-errorForeground:#f48771;
+  --vscode-panel-border:#444; --vscode-editor-font-family:Consolas,monospace; --vscode-editor-font-size:12px;
+  --vscode-textCodeBlock-background:#2a2a2a; --vscode-gitDecoration-addedResourceForeground:#81b88b;
+  --vscode-gitDecoration-deletedResourceForeground:#c74e39; --vscode-diffEditor-insertedLineBackground:#23382a;
+  --vscode-diffEditor-removedLineBackground:#402524; --vscode-button-foreground:#fff; --vscode-button-background:#0e639c;
+  --vscode-button-hoverBackground:#1177bb; --vscode-button-secondaryForeground:#ccc; --vscode-button-secondaryBackground:#3a3d41;
+  --vscode-button-secondaryHoverBackground:#45494e; --vscode-textLink-foreground:#3794ff; --vscode-focusBorder:#007fd4; }
+html, body { background:#252526; }
+</style>
+<link rel="stylesheet" href="../media/panel.css"></head>
+<body data-model="gpt-oss%3A20b">
+<main id="akis"></main>
+<form id="form">
+  <textarea id="girdi" rows="3" placeholder="Ne yapayım? (Enter gönderir, Shift+Enter yeni satır)"></textarea>
+  <div class="alt"><span id="durum"></span><button id="dur" type="button" class="ikincil" hidden>Durdur</button><button id="gonder" type="submit">Gönder</button></div>
+</form>
+<script>window.acquireVsCodeApi = () => ({ postMessage: (m) => { (window.gidenler = window.gidenler || []).push(m); } });</script>
+<script src="../media/panel.js"></script>
+<script>
+[
+  { tur: "kullanici", metin: "Testler başarısız, hatayı düzelt." },
+  { tur: "dusunce", metin: "Önce testleri çalıştırmalıyım." },
+  { tur: "mesaj_bitti" },
+  { tur: "komut", komut: "python -B -m unittest" },
+  { tur: "onay", id: 1, soru: "Komut calistirilsin mi?" },
+].forEach((d) => window.postMessage(d, "*"));
+setTimeout(() => {
+  document.querySelector(".dugmeler button").click();
+  [
+    { tur: "sonuc", ad: "run_command", metin: "FAIL: test_ara_toplam\nAssertionError: 150 != 250\n[cikis kodu: 1]" },
+    { tur: "arac", ad: "read_file", arg: { path: "sepet.py" } },
+    { tur: "icerik", metin: "Toplamda adet sayılmıyor, düzeltiyorum.<b>etiket yorumlanmamalı</b>" },
+    { tur: "mesaj_bitti" },
+    { tur: "degisiklik", ad: "edit_file", yol: "sepet.py", fark: "--- a/sepet.py\n+++ b/sepet.py\n@@ -12,1 +12,1 @@\n-        return sum(urun.fiyat for urun, adet in self.kalemler)\n+        return sum(urun.fiyat * adet for urun, adet in self.kalemler)" },
+    { tur: "onay", id: 2, soru: "Degisiklik uygulansin mi?" },
+    { tur: "uyari", metin: "Örnek uyarı metni" },
+    { tur: "hata", metin: "Örnek hata metni" },
+    { tur: "tur_bitti", basarili: true, nokta: "a".repeat(40), dosyalar: [{ durum: "M", yol: "sepet.py" }, { durum: "A", yol: "alt/klasor/yeni_cok_uzun_bir_dosya_adi_olabilir.py" }, { durum: "D", yol: "eski.py" }] },
+  ].forEach((d) => window.postMessage(d, "*"));
+  setTimeout(() => {
+    document.querySelector(".geri-dugme").click();
+    window.postMessage({ tur: "geri_alindi", nokta: "a".repeat(40), guvenlik: "b".repeat(40), dosyalar: [{ durum: "M", yol: "sepet.py" }] }, "*");
+  }, 100);
+}, 100);
+</script>
+</body></html>

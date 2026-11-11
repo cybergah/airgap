@@ -1,0 +1,226 @@
+{
+ "etiket": "baglam-olcum",
+ "tarih": "2026-11-11 16:52",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 1,
+  "oran": 0.333,
+  "guven_alt": 0.061,
+  "guven_ust": 0.792,
+  "ortanca_sure": 26.1,
+  "toplam_sure": 91,
+  "turler": {
+   "gercek_hata": [
+    1,
+    2
+   ],
+   "gercek_ozellik": [
+    0,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "mi_maxsplit",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 26.1,
+   "gizli_test": true,
+   "arac": 7,
+   "komut": 2,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 517,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "yor ve `maxsplit` azaltılıyor.\n\n**Test sonucu:**\n```python\nlist(split_at('abcdcba', lambda x: x=='b', maxsplit=1))\n# [['a'], ['c', 'd', 'c', 'b', 'a']]\n```\nBu şekilde beklenen tek bölme gerçekleşiyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 7,
+    "okunan_toplam": 22860,
+    "okunan_en_fazla": 4641,
+    "okuma_sn": 1.3,
+    "uretim_sn": 14.5,
+    "tam_okuma": 6,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2266,
+     2332,
+     2402,
+     2894,
+     3784,
+     4541,
+     4641
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 43.4,
+   "gizli_test": false,
+   "arac": 27,
+   "komut": 0,
+   "okunan": [
+    "more_itertools/__init__.py",
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 5266,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "Search for 'every_nth' in .pyi. None. We'll add a signature: def every_nth(iterable: Iterable[_T], n: int) -> Iterator[_T]: ... Also need to import Iterable, Iterator, _T. Let's check top of more.pyi.",
+   "test_cikti": "/usr/local/lib/python3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\n  File \"/work/more_itertools/__init__.py\", line 3, in <module>\n    from .more import *  # noqa\n    ^^^^^^^^^^^^^^^^^^^\nAttributeError: module 'more_itertools.more' has no attribute 'every_nth'\n",
+   "son_hata": [
+    "x old_text bos olamaz"
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 29,
+    "okunan_toplam": 166973,
+    "okunan_en_fazla": 9019,
+    "okuma_sn": 5.5,
+    "uretim_sn": 30.5,
+    "tam_okuma": 28,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2251,
+     2307,
+     2525,
+     2594,
+     2684,
+     2754,
+     4121,
+     4264,
+     4403,
+     4448,
+     4490,
+     5683,
+     5728,
+     5770,
+     5885,
+     6067,
+     6135,
+     6178,
+     6222,
+     6262,
+     8047,
+     8134,
+     8282,
+     8339,
+     8383,
+     8516,
+     8706,
+     8776,
+     9019
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 21.6,
+   "gizli_test": false,
+   "arac": 30,
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [],
+   "dusunce": 1333,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "atting prints options. Search for \"Option\" in formatting.We need to find where help formatting prints options. Search for \"write_help\" again maybe in formatting. Search for \"write(\" inside formatting.",
+   "test_cikti": " File \"/work/_gizli_test.py\", line 15, in test_gizli\n    self.assertIn('-v, --verbose', r.output)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-v, --verbose' not found in 'Usage: k [OPTIONS]\\n\\nOptions:\\n  --verbose, -v\\n  --help         Show this message and exit.\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.022s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 160868,
+    "okunan_en_fazla": 9496,
+    "okuma_sn": 3.3,
+    "uretim_sn": 14.9,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2245,
+     2305,
+     2656,
+     3007,
+     3087,
+     3408,
+     3759,
+     3817,
+     3893,
+     3951,
+     3992,
+     4050,
+     4132,
+     4201,
+     4270,
+     4339,
+     4656,
+     4732,
+     4790,
+     7127,
+     7358,
+     7427,
+     7795,
+     7861,
+     7930,
+     8307,
+     8373,
+     8481,
+     9423,
+     9496
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

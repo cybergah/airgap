@@ -1,0 +1,91 @@
+{
+  "name": "kod-ajani",
+  "displayName": "Airgap",
+  "description": "Security-hardened AI coding agent that runs 100% locally with Ollama",
+  "version": "0.10.1",
+  "publisher": "cybergah",
+  "private": true,
+  "license": "MIT",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Other"],
+  "main": "./extension.js",
+  "activationEvents": ["onView:kodAjani.panel", "onCommand:kodAjani.seciliDuzenle", "onCommand:kodAjani.yeni"],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "kodAjani", "title": "Airgap", "icon": "media/ikon.svg" }
+      ]
+    },
+    "views": {
+      "kodAjani": [
+        { "id": "kodAjani.panel", "name": "Sohbet", "type": "webview" }
+      ]
+    },
+    "commands": [
+      { "command": "kodAjani.yeni", "title": "Yeni sohbet", "category": "Airgap", "icon": "$(add)" },
+      { "command": "kodAjani.seciliDuzenle", "title": "Seçili kodu düzenle", "category": "Airgap" }
+    ],
+    "keybindings": [
+      { "command": "kodAjani.seciliDuzenle", "key": "ctrl+alt+k", "mac": "cmd+alt+k", "when": "editorTextFocus && !editorReadonly" }
+    ],
+    "menus": {
+      "editor/context": [
+        { "command": "kodAjani.seciliDuzenle", "when": "editorTextFocus && !editorReadonly", "group": "1_modification" }
+      ],
+      "view/title": [
+        { "command": "kodAjani.yeni", "when": "view == kodAjani.panel", "group": "navigation" }
+      ]
+    },
+    "configuration": {
+      "title": "Airgap",
+      "properties": {
+        "kodAjani.model": {
+          "type": "string",
+          "default": "gpt-oss:20b",
+          "description": "Kullanılacak Ollama modeli."
+        },
+        "kodAjani.gommeModeli": {
+          "type": "string",
+          "default": "nomic-embed-text",
+          "description": "Proje araması için kullanılacak Ollama gömme (embedding) modeli."
+        },
+        "kodAjani.haritaButcesi": {
+          "type": "number",
+          "default": 1000,
+          "minimum": 0,
+          "description": "Modele verilen proje haritasının yaklaşık belirteç bütçesi. 0 haritayı kapatır."
+        },
+        "kodAjani.korumaliCalistirma": {
+          "type": "boolean",
+          "default": false,
+          "description": "Komutları ağı kapalı bir Docker kapsayıcısında çalıştır. Docker çalışmıyorsa komutlar bilgisayarda çalıştırılmaz, reddedilir."
+        },
+        "kodAjani.korumaliImaj": {
+          "type": "string",
+          "default": "python:3.13-slim",
+          "description": "Korumalı çalıştırma için Docker imajı. Otomatik indirilmez; önce docker pull ile indirilmelidir."
+        },
+        "kodAjani.python": {
+          "type": "string",
+          "default": "python",
+          "description": "Ajanı çalıştıracak Python komutu."
+        },
+        "kodAjani.ajanYolu": {
+          "type": "string",
+          "default": "",
+          "description": "ajan.py dosyasının tam yolu. Boşsa eklentiyle gelen kullanılır."
+        },
+        "kodAjani.baglam": {
+          "type": "number",
+          "default": 16384,
+          "description": "Model bağlam boyutu (num_ctx)."
+        },
+        "kodAjani.maksAdim": {
+          "type": "number",
+          "default": 40,
+          "description": "Bir istekte en fazla model çağrısı."
+        }
+      }
+    }
+  }
+}

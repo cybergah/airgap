@@ -1,0 +1,45 @@
+# Her gonderimde birim testleri ve eklenti duman testi Windows'ta calisir.
+# Gercek modelli olcumler (Ollama, GPU) ve gercek VS Code penceresi testi burada calismaz; yerelde calistirilir.
+name: testler
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  testler:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Tree-sitter (istege bagli harita destegi)
+        run: python -m pip install --disable-pip-version-check tree-sitter tree-sitter-javascript tree-sitter-typescript tree-sitter-c-sharp
+
+      - name: Git kimligi (geri alma testleri icin)
+        run: |
+          git config --global user.name "ci"
+          git config --global user.email "ci@example.invalid"
+
+      - name: Birim testleri
+        working-directory: kod-ajani
+        run: python -B -m unittest discover -p "test_*.py" -v
+
+      - name: Eklenti duman testi
+        run: node kod-ajani/vscode-eklenti/test/duman.js
+
+      - name: Panel durum satiri testi
+        run: node kod-ajani/vscode-eklenti/test/durum.js
