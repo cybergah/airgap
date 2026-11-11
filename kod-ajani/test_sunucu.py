@@ -10,6 +10,7 @@ import time
 import unittest
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
+from unittest.mock import patch
 
 AJAN = Path(__file__).with_name("ajan.py")
 
@@ -184,6 +185,7 @@ class SunucuTesti(unittest.TestCase):
         icerikler = [m["content"] for m in o.sunucu.istekler[-1]["messages"]]
         self.assertNotIn("ilk", icerikler)
 
+    @patch.dict(os.environ, {"AIRGAP_LANG": "en"})  # checks the English UI text
     def test_ollama_kapaliyken_hata_olayi_gelir(self):
         o = self.oturum([])
         o.sunucu.shutdown()
@@ -191,7 +193,7 @@ class SunucuTesti(unittest.TestCase):
         o.sunucu = HTTPServer(("127.0.0.1", 0), SahteOllama)  # kapat() icin bos sunucu
         threading.Thread(target=o.sunucu.serve_forever, daemon=True).start()
         o.gonder(tur="mesaj", metin="selam")
-        self.assertIn("Model hatasi", o.bekle("hata")["metin"])
+        self.assertIn("Model error", o.bekle("hata")["metin"])
         self.assertFalse(o.bekle("tur_bitti")["basarili"])
 
 

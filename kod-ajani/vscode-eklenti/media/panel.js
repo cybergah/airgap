@@ -9,6 +9,9 @@
   const gonder = document.getElementById("gonder");
   const durBtn = document.getElementById("dur");
   const model = decodeURIComponent(document.body.dataset.model || "");
+  // Arayüz dili eklentiden gelir (kodAjani.dil); varsayılan İngilizce.
+  const DIL = document.body.dataset.dil === "tr" ? "tr" : "en";
+  const L = (tr, en) => (DIL === "tr" ? tr : en);
 
   let mesgul = false;
   let dusunce = null;
@@ -39,12 +42,21 @@
   }
 
   function durumMetni(sn) {
-    if (asama === "onay") return ["Onayını bekliyor", "Ajan devam etmek için onayını bekliyor."];
-    if (asama === "komut") return [`Komut çalışıyor · ${sn} sn`, "Onayladığın komut çalışıyor."];
-    if (sn >= 5) {
-      return [`Model yazıyor · ${sn} sn`, "Model dosya içeriği veya komut hazırlıyor olabilir; bunlar bitince tek seferde görünür."];
+    if (asama === "onay") {
+      return [L("Onayını bekliyor", "Waiting for your approval"),
+        L("Ajan devam etmek için onayını bekliyor.", "The agent needs your approval to continue.")];
     }
-    return [`Model çalışıyor · ${sn} sn`, "Model düşünüyor veya yanıt yazıyor."];
+    if (asama === "komut") {
+      return [L(`Komut çalışıyor · ${sn} sn`, `Command running · ${sn} s`),
+        L("Onayladığın komut çalışıyor.", "The command you approved is running.")];
+    }
+    if (sn >= 5) {
+      return [L(`Model yazıyor · ${sn} sn`, `Model writing · ${sn} s`),
+        L("Model dosya içeriği veya komut hazırlıyor olabilir; bunlar bitince tek seferde görünür.",
+          "The model may be preparing file contents or a command; they appear all at once when done.")];
+    }
+    return [L(`Model çalışıyor · ${sn} sn`, `Model working · ${sn} s`),
+      L("Model düşünüyor veya yanıt yazıyor.", "The model is thinking or writing a reply.")];
   }
 
   function durumYaz() {
@@ -91,7 +103,7 @@
       else if (satir.startsWith("@@")) sinif = "konum";
       pre.appendChild(ogeOlustur("div", sinif, satir || " "));
     });
-    if (satirlar.length > 400) pre.appendChild(ogeOlustur("div", "konum", `… ${satirlar.length - 400} satır daha`));
+    if (satirlar.length > 400) pre.appendChild(ogeOlustur("div", "konum", L(`… ${satirlar.length - 400} satır daha`, `… ${satirlar.length - 400} more lines`)));
     return pre;
   }
 
@@ -105,9 +117,10 @@
     const kart = sonKart || ekle(kartOlustur(olay.soru));
     const dugmeler = ogeOlustur("div", "dugmeler");
     const secenekler = [
-      ["e", kart.dataset.tur === "komut" ? "Çalıştır" : kart.dataset.tur === "degisiklik" ? "Uygula" : "İzin ver", ""],
-      ["h", "Reddet", "ikincil"],
-      ["t", "Bu sohbette hep izin ver", "ikincil"],
+      ["e", kart.dataset.tur === "komut" ? L("Çalıştır", "Run")
+        : kart.dataset.tur === "degisiklik" ? L("Uygula", "Apply") : L("İzin ver", "Allow"), ""],
+      ["h", L("Reddet", "Reject"), "ikincil"],
+      ["t", L("Bu sohbette hep izin ver", "Always allow in this chat"), "ikincil"],
     ];
     // Riskli işlemde "hep izin ver" sunulmaz: ajan bunu yalnız tek seferlik onay sayar.
     secenekler.filter(([yanit]) => yanit !== "t" || olay.hep_izin !== false).forEach(([yanit, etiket, sinif]) => {
@@ -117,7 +130,8 @@
         vscode.postMessage({ tur: "onay", id: olay.id, yanit });
         asamaYap(yanit !== "h" && kart.dataset.tur === "komut" ? "komut" : "model");
         dugmeler.replaceChildren(ogeOlustur("span", "karar",
-          yanit === "h" ? "Reddedildi" : yanit === "t" ? "Bu sohbette izin verildi" : "Onaylandı"));
+          yanit === "h" ? L("Reddedildi", "Rejected")
+            : yanit === "t" ? L("Bu sohbette izin verildi", "Allowed for this chat") : L("Onaylandı", "Approved")));
       });
       dugmeler.appendChild(b);
     });
@@ -130,14 +144,14 @@
     akis.querySelectorAll(".dugmeler button").forEach((b) => { b.disabled = true; });
   }
 
-  const DURUMLAR = { A: "eklendi", M: "değişti", D: "silindi" };
+  const DURUMLAR = DIL === "tr" ? { A: "eklendi", M: "değişti", D: "silindi" } : { A: "added", M: "changed", D: "deleted" };
 
   function dosyaListesi(dosyalar) {
     const liste = ogeOlustur("ul", "dosyalar");
     dosyalar.slice(0, 30).forEach((f) => {
       liste.appendChild(ogeOlustur("li", "", `${f.yol} (${DURUMLAR[f.durum] || f.durum})`));
     });
-    if (dosyalar.length > 30) liste.appendChild(ogeOlustur("li", "", `… ${dosyalar.length - 30} dosya daha`));
+    if (dosyalar.length > 30) liste.appendChild(ogeOlustur("li", "", L(`… ${dosyalar.length - 30} dosya daha`, `… ${dosyalar.length - 30} more files`)));
     return liste;
   }
 
@@ -176,7 +190,7 @@
       case "dusunce":
         if (!dusunce) {
           const d = ogeOlustur("details", "dusunce");
-          d.appendChild(ogeOlustur("summary", "", "Düşünüyor"));
+          d.appendChild(ogeOlustur("summary", "", L("Düşünüyor", "Thinking")));
           dusunce = ogeOlustur("div", "dusunce-metin");
           d.appendChild(dusunce);
           ekle(d);
@@ -202,7 +216,7 @@
             icerik.remove();
           } else {
             const d = ogeOlustur("details", "dusunce");
-            d.appendChild(ogeOlustur("summary", "", "Düşünüyor"));
+            d.appendChild(ogeOlustur("summary", "", L("Düşünüyor", "Thinking")));
             d.appendChild(ogeOlustur("div", "dusunce-metin", icerik.textContent));
             icerik.replaceWith(d);
           }
@@ -212,13 +226,15 @@
       case "arac": {
         akisKapat();
         const hedef = (olay.arg && (olay.arg.path || olay.arg.pattern || olay.arg.query)) || "";
-        const adlar = { read_file: "Okundu", list_files: "Listelendi", search_text: "Arandı", search_code: "Projede arandı" };
+        const adlar = DIL === "tr"
+          ? { read_file: "Okundu", list_files: "Listelendi", search_text: "Arandı", search_code: "Projede arandı" }
+          : { read_file: "Read", list_files: "Listed", search_text: "Searched", search_code: "Searched the project" };
         ekle(ogeOlustur("div", "arac", `${adlar[olay.ad] || olay.ad}: ${hedef || "."}`));
         break;
       }
       case "komut":
         akisKapat();
-        sonKart = kartOlustur("Komut");
+        sonKart = kartOlustur(L("Komut", "Command"));
         sonKart.dataset.tur = "komut";
         sonKart.appendChild(ogeOlustur("pre", "komut", olay.komut));
         ekle(sonKart);
@@ -227,7 +243,7 @@
         akisKapat();
         sonKart = kartOlustur(olay.yol);
         sonKart.dataset.tur = "degisiklik";
-        const ac = ogeOlustur("button", "bag", "Editörde karşılaştır");
+        const ac = ogeOlustur("button", "bag", L("Editörde karşılaştır", "Compare in editor"));
         ac.type = "button";
         ac.addEventListener("click", () => vscode.postMessage({ tur: "fark" }));
         sonKart.appendChild(ac);
@@ -242,7 +258,7 @@
         akisKapat();
         const d = ogeOlustur("details", "sonuc");
         d.open = true;
-        d.appendChild(ogeOlustur("summary", "", olay.ad === "run_command" ? "Komut çıktısı" : "Sonuç"));
+        d.appendChild(ogeOlustur("summary", "", olay.ad === "run_command" ? L("Komut çıktısı", "Command output") : L("Sonuç", "Result")));
         d.appendChild(ogeOlustur("pre", "", olay.metin));
         ekle(d);
         sonKart = null;
@@ -268,7 +284,8 @@
         sonKart = null;
         mesgulYap(false);
         if (olay.nokta && olay.dosyalar && olay.dosyalar.length) {
-          geriKarti(`Bu turda ${olay.dosyalar.length} dosya değişti`, olay.dosyalar, olay.nokta, "Bu turu geri al");
+          geriKarti(L(`Bu turda ${olay.dosyalar.length} dosya değişti`, `${olay.dosyalar.length} file(s) changed in this turn`),
+            olay.dosyalar, olay.nokta, L("Bu turu geri al", "Undo this turn"));
         }
         girdi.focus();
         break;
@@ -276,13 +293,14 @@
         akis.querySelectorAll(".geri-kart").forEach((k) => {
           if (k.dataset.nokta === olay.nokta) {
             const b = k.querySelector(".geri-dugme");
-            b.replaceWith(ogeOlustur("span", "karar", "Geri alındı"));
+            b.replaceWith(ogeOlustur("span", "karar", L("Geri alındı", "Undone")));
           }
         });
         if (olay.dosyalar && olay.dosyalar.length) {
-          geriKarti(`${olay.dosyalar.length} dosya geri alındı`, olay.dosyalar, olay.guvenlik, "Yeniden uygula");
+          geriKarti(L(`${olay.dosyalar.length} dosya geri alındı`, `${olay.dosyalar.length} file(s) restored`),
+            olay.dosyalar, olay.guvenlik, L("Yeniden uygula", "Reapply"));
         } else {
-          ekle(ogeOlustur("div", "uyari", "Geri alınacak bir değişiklik yoktu."));
+          ekle(ogeOlustur("div", "uyari", L("Geri alınacak bir değişiklik yoktu.", "There was nothing to undo.")));
         }
         break;
       }

@@ -8,6 +8,12 @@ const vscode = require("vscode");
 
 const SEMA = "kod-ajani";
 
+/** Arayüz dili: kodAjani.dil ayarı. Varsayılan İngilizce; "tr" Türkçe. Modele gidenler etkilenmez. */
+function dil() {
+  return vscode.workspace.getConfiguration("kodAjani").get("dil") === "tr" ? "tr" : "en";
+}
+const L = (tr, en) => (dil() === "tr" ? tr : en);
+
 /** Fark görünümünün iki yüzü: dosyanın şimdiki hali ve modelin önerdiği hali. */
 class FarkIcerigi {
   constructor() {
@@ -25,7 +31,7 @@ class FarkIcerigi {
     const sag = vscode.Uri.from({ scheme: SEMA, path: `${taban}/oneri/${yol}` });
     this.metinler.set(sol.path, eski);
     this.metinler.set(sag.path, yeni);
-    await vscode.commands.executeCommand("vscode.diff", sol, sag, `Airgap önerisi: ${yol}`, {
+    await vscode.commands.executeCommand("vscode.diff", sol, sag, L(`Airgap önerisi: ${yol}`, `Airgap suggestion: ${yol}`), {
       preview: true,
       preserveFocus: true,
     });
@@ -66,12 +72,13 @@ class AjanSureci {
     if (this.surec) return true;
     const klasor = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0];
     if (!klasor || klasor.uri.scheme !== "file") {
-      this.olayYaz({ tur: "hata", metin: "Önce bir proje klasörü aç (Dosya > Klasör Aç)." });
+      this.olayYaz({ tur: "hata", metin: L("Önce bir proje klasörü aç (Dosya > Klasör Aç).", "Open a project folder first (File > Open Folder).") });
       return false;
     }
     const a = this.ayarlar();
     if (!fs.existsSync(a.ajan)) {
-      this.olayYaz({ tur: "hata", metin: `ajan.py bulunamadı: ${a.ajan}. kodAjani.ajanYolu ayarını kontrol et.` });
+      this.olayYaz({ tur: "hata", metin: L(`ajan.py bulunamadı: ${a.ajan}. kodAjani.ajanYolu ayarını kontrol et.`,
+        `ajan.py not found: ${a.ajan}. Check the kodAjani.ajanYolu setting.`) });
       return false;
     }
     const argumanlar = ["-B", a.ajan, "--sunucu", "--model", a.model, "--dizin", klasor.uri.fsPath,
@@ -81,7 +88,7 @@ class AjanSureci {
     if (a.korumali) argumanlar.push("--korumali", a.korumaliImaj);
     const surec = cp.spawn(a.python, argumanlar, {
       cwd: klasor.uri.fsPath,
-      env: { ...process.env, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1" },
+      env: { ...process.env, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1", AIRGAP_LANG: dil() },
       stdio: ["pipe", "pipe", "pipe"],
       windowsHide: true,
     });
@@ -93,7 +100,7 @@ class AjanSureci {
       try {
         this.olayYaz(JSON.parse(satir));
       } catch {
-        this.gunluk.appendLine(`Çözülemeyen satır: ${satir}`);
+        this.gunluk.appendLine(L(`Çözülemeyen satır: ${satir}`, `Could not parse line: ${satir}`));
       }
     });
     const bitti = (metin) => {
@@ -101,8 +108,9 @@ class AjanSureci {
       this.surec = null;
       this.olayYaz({ tur: "surec_bitti", metin });
     };
-    surec.on("error", (hata) => bitti(`Ajan başlatılamadı (${a.python}): ${hata.message}`));
-    surec.on("exit", (kod) => bitti(`Ajan süreci kapandı (kod ${kod}). Ayrıntı: Çıktı > Airgap.`));
+    surec.on("error", (hata) => bitti(L(`Ajan başlatılamadı (${a.python}): ${hata.message}`, `Could not start the agent (${a.python}): ${hata.message}`)));
+    surec.on("exit", (kod) => bitti(L(`Ajan süreci kapandı (kod ${kod}). Ayrıntı: Çıktı > Airgap.`,
+      `The agent process exited (code ${kod}). Details: Output > Airgap.`)));
     return true;
   }
   gonder(komut) {
@@ -137,8 +145,10 @@ class SohbetPaneli {
       vscode.workspace.onDidChangeConfiguration((d) => {
         if (d.affectsConfiguration("kodAjani")) {
           this.ajan.kapat();
-          this.webviewYaz({ tur: "uyari", metin: "Ayarlar değişti; ajan bir sonraki mesajda yeni ayarlarla başlar, sohbet sıfırlandı." });
+          this.webviewYaz({ tur: "uyari", metin: L("Ayarlar değişti; ajan bir sonraki mesajda yeni ayarlarla başlar, sohbet sıfırlandı.",
+            "Settings changed: the agent restarts with the new settings on your next message, and the chat was reset.") });
           this.webviewYaz({ tur: "tur_bitti", basarili: false });
+          if (d.affectsConfiguration("kodAjani.dil") && this.view) this.view.webview.html = this.html();
         }
       })
     );
@@ -215,18 +225,18 @@ class SohbetPaneli {
   /** Ctrl+Alt+K: seçimi (seçim yoksa satırı) modele düzenletir; onaysız hiçbir şey yazılmaz. */
   async seciliDuzenle() {
     const editor = vscode.window.activeTextEditor;
-    if (!editor) return void vscode.window.showInformationMessage("Önce bir dosya aç ve kod seç.");
+    if (!editor) return void vscode.window.showInformationMessage(L("Önce bir dosya aç ve kod seç.", "Open a file and select some code first."));
     if (this.mesgul || this.secimSuruyor) {
-      return void vscode.window.showInformationMessage("Ajan şu an çalışıyor; bitince yeniden dene.");
+      return void vscode.window.showInformationMessage(L("Ajan şu an çalışıyor; bitince yeniden dene.", "The agent is busy; try again when it finishes."));
     }
     const belge = editor.document;
     const aralik = editor.selection.isEmpty ? belge.lineAt(editor.selection.active.line).range : editor.selection;
     const secim = belge.getText(aralik);
-    if (!secim.trim()) return void vscode.window.showInformationMessage("Düzenlenecek kod yok: önce kod seç.");
+    if (!secim.trim()) return void vscode.window.showInformationMessage(L("Düzenlenecek kod yok: önce kod seç.", "Nothing to edit: select some code first."));
     const istek = await vscode.window.showInputBox({
-      title: "Airgap: seçili kodu düzenle",
-      prompt: "Bu kodda ne değişsin?",
-      placeHolder: "Örn: hata kontrolü ekle",
+      title: L("Airgap: seçili kodu düzenle", "Airgap: edit selection"),
+      prompt: L("Bu kodda ne değişsin?", "What should change in this code?"),
+      placeHolder: L("Örn: hata kontrolü ekle", "e.g. add error handling"),
     });
     if (!istek || !istek.trim()) return;
 
@@ -239,7 +249,7 @@ class SohbetPaneli {
       this.secimSayac += 1;
       const id = this.secimSayac;
       sonuc = await vscode.window.withProgress(
-        { location: vscode.ProgressLocation.Notification, title: "Airgap düzenliyor…", cancellable: true },
+        { location: vscode.ProgressLocation.Notification, title: L("Airgap düzenliyor…", "Airgap is editing…"), cancellable: true },
         (_ilerleme, iptal) => new Promise((coz) => {
           this.secimler.set(id, coz);
           iptal.onCancellationRequested(() => this.ajan.surec && this.ajan.gonder({ tur: "dur" }));
@@ -255,20 +265,23 @@ class SohbetPaneli {
       );
       if (sonuc.iptal) return;
       if (sonuc.hata) return void vscode.window.showErrorMessage(`Airgap: ${sonuc.hata}`);
-      if (sonuc.yeni === secim) return void vscode.window.showInformationMessage("Model bir değişiklik önermedi.");
+      if (sonuc.yeni === secim) return void vscode.window.showInformationMessage(L("Model bir değişiklik önermedi.", "The model suggested no change."));
 
       const ad = path.basename(belge.fileName) || "secim";
       const sag = await this.fark.goster(ad, belge.getText(), once + sonuc.yeni + sonra);
-      const karar = await vscode.window.showInformationMessage(`Öneriyi ${ad} dosyasına uygulayayım mı?`, "Uygula", "Reddet");
+      const uygula = L("Uygula", "Apply");
+      const karar = await vscode.window.showInformationMessage(
+        L(`Öneriyi ${ad} dosyasına uygulayayım mı?`, `Apply the suggestion to ${ad}?`), uygula, L("Reddet", "Reject"));
       await this.fark.kapat(sag);
-      if (karar !== "Uygula") return;
+      if (karar !== uygula) return;
       if (belge.version !== surum) {
-        return void vscode.window.showWarningMessage("Dosya bu arada değişti, öneri uygulanmadı. Yeniden dene.");
+        return void vscode.window.showWarningMessage(L("Dosya bu arada değişti, öneri uygulanmadı. Yeniden dene.",
+          "The file changed in the meantime, so the suggestion was not applied. Try again."));
       }
       const duzenleme = new vscode.WorkspaceEdit();
       duzenleme.replace(belge.uri, aralik, sonuc.yeni);
       if (!(await vscode.workspace.applyEdit(duzenleme))) {
-        return void vscode.window.showErrorMessage("Airgap: düzenleme uygulanamadı.");
+        return void vscode.window.showErrorMessage(L("Airgap: düzenleme uygulanamadı.", "Airgap: the edit could not be applied."));
       }
       await vscode.window.showTextDocument(belge, editor.viewColumn);
     } finally {
@@ -278,11 +291,15 @@ class SohbetPaneli {
 
   async geriAlSor(m) {
     const dosyalar = (m.dosyalar || []).slice(0, 15).map((f) => `• ${f.yol}`).join("\n");
-    const fazla = (m.dosyalar || []).length > 15 ? `\n… ve ${m.dosyalar.length - 15} dosya daha` : "";
-    const detail = `${dosyalar}${fazla}\n\nBu andan sonra bu dosyalarda elle yaptığın değişiklikler de geri alınır, ` +
-      "ama kayıt altında kalır: açılan \"Yeniden uygula\" düğmesiyle geri dönebilirsin.";
-    const secim = await vscode.window.showWarningMessage(`${m.yazi}?`, { modal: true, detail }, "Devam et");
-    if (secim === "Devam et") this.ajan.gonder({ tur: "geri_al", nokta: m.nokta });
+    const fazla = (m.dosyalar || []).length > 15
+      ? L(`\n… ve ${m.dosyalar.length - 15} dosya daha`, `\n… and ${m.dosyalar.length - 15} more files`) : "";
+    const detail = `${dosyalar}${fazla}\n\n` + L("Bu andan sonra bu dosyalarda elle yaptığın değişiklikler de geri alınır, " +
+      "ama kayıt altında kalır: açılan \"Yeniden uygula\" düğmesiyle geri dönebilirsin.",
+      "Changes you made by hand in these files since then are undone as well, but they stay recorded: " +
+      "you can go back with the \"Reapply\" button that appears.");
+    const devam = L("Devam et", "Continue");
+    const secim = await vscode.window.showWarningMessage(`${m.yazi}?`, { modal: true, detail }, devam);
+    if (secim === devam) this.ajan.gonder({ tur: "geri_al", nokta: m.nokta });
   }
 
   yeni() {
@@ -298,15 +315,15 @@ class SohbetPaneli {
     const uri = (ad) => webview.asWebviewUri(vscode.Uri.joinPath(this.context.extensionUri, "media", ad));
     const model = vscode.workspace.getConfiguration("kodAjani").get("model");
     return `<!doctype html>
-<html lang="tr"><head><meta charset="utf-8">
+<html lang="${dil()}"><head><meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${uri("panel.css")}"><title>Airgap</title></head>
-<body data-model="${encodeURIComponent(model)}">
+<body data-model="${encodeURIComponent(model)}" data-dil="${dil()}">
 <main id="akis" aria-live="polite"></main>
 <form id="form">
-  <textarea id="girdi" rows="3" placeholder="Ne yapayım? (Enter gönderir, Shift+Enter yeni satır)" aria-label="Mesaj"></textarea>
-  <div class="alt"><span id="durum"></span><button id="dur" type="button" class="ikincil" hidden>Durdur</button><button id="gonder" type="submit">Gönder</button></div>
+  <textarea id="girdi" rows="3" placeholder="${L("Ne yapayım? (Enter gönderir, Shift+Enter yeni satır)", "What should I do? (Enter sends, Shift+Enter adds a line)")}" aria-label="${L("Mesaj", "Message")}"></textarea>
+  <div class="alt"><span id="durum"></span><button id="dur" type="button" class="ikincil" hidden>${L("Durdur", "Stop")}</button><button id="gonder" type="submit">${L("Gönder", "Send")}</button></div>
 </form>
 <script nonce="${nonce}" src="${uri("panel.js")}"></script>
 </body></html>`;

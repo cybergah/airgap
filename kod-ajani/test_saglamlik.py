@@ -127,10 +127,11 @@ class ModelTesti(unittest.TestCase):
         self.assertTrue(self.ajan.tur("isle"))
         self.assertTrue([m for m in self.ajan.mesajlar if m["content"] == a.BOS_YANIT_NOTU])
 
+    @patch.dict(os.environ, {"AIRGAP_LANG": "en"})  # checks the English UI text
     def test_bos_yanit_siniri_var(self):
         self.kurgula(yanit(), yanit(), yanit(), yanit("asla"))
         self.assertFalse(self.ajan.tur("isle"))
-        self.assertIn("bos yanit", self.ajan.arayuz.hatalar[-1])
+        self.assertIn("empty reply", self.ajan.arayuz.hatalar[-1])
 
 
 class TekrarVeDogrulamaTesti(ModelTesti):

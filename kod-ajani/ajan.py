@@ -32,6 +32,149 @@ from pathlib import Path
 VARSAYILAN_MODEL = os.environ.get("KOD_AJANI_MODEL", "gpt-oss:20b")
 
 
+# ---------------------------------------------------------------- arayuz dili
+# Kullaniciya gorunen metinler varsayilan olarak Ingilizce; AIRGAP_LANG=tr Turkce yapar.
+# Modele giden metinler (istemler, arac sonuclari) bu ayardan ETKILENMEZ: ajanin davranisi
+# ve olcumler dile gore degismez. Ceviri yalniz ekrana yazilan kopyaya uygulanir.
+
+def arayuz_dili() -> str:
+    deger = (os.environ.get("AIRGAP_LANG") or os.environ.get("KOD_AJANI_DIL") or "en").strip().lower()
+    return "tr" if deger.startswith(("tr", "tur", "türk")) else "en"
+
+
+def L(tr: str, en: str) -> str:
+    """Kullaniciya gorunen metnin secili dildeki hali."""
+    return tr if arayuz_dili() == "tr" else en
+
+
+RISK_EN = {
+    "dosya siler": "deletes files",
+    "dosya veya disk siler": "deletes files or disks",
+    "git geçmişini veya dosyaları değiştirir": "changes git history or files",
+    "ağa çıkar": "accesses the network",
+    "paket kurar veya yayınlar": "installs or publishes packages",
+    "gizlenmiş kod çalıştırabilir": "may run obfuscated code",
+    "sistem ayarını değiştirir": "changes system settings",
+    "proje dışına erişebilir": "may reach outside the project",
+    "gizli dosyaya dokunuyor": "touches a secret file",
+    "tam yol kullanıyor, proje dışına erişebilir": "uses an absolute path, may reach outside the project",
+    "komut adı çalışırken belirleniyor, gizlenmiş olabilir": "the command name is computed at runtime, may be obfuscated",
+    "dosya taşır veya adını değiştirir": "moves or renames files",
+    "başka kod veya program çalıştırabilir": "may run other code or programs",
+    "paket indirip çalıştırabilir": "may download and run a package",
+    "satır içi kodda silme, ağ veya program çalıştırma var": "inline code deletes files, uses the network or runs programs",
+    "girdiden gelen kodu çalıştırır, gizlenmiş olabilir": "runs code from its input, may be obfuscated",
+    "iç içe kabuk komutu": "nested shell command",
+    "komut ayrıştırılamadı, dikkatle oku": "the command could not be parsed, read it carefully",
+    "çağrılan işlem adı çalışırken belirleniyor, gizlenmiş olabilir": "the invoked process name is computed at runtime, may be obfuscated",
+    "talimatları geçersiz kılmaya çalışıyor": "tries to override instructions",
+    "ağ erişimi veya adres içeriyor": "contains network access or URLs",
+    "gizli bilgilerden söz ediyor": "mentions secrets",
+    "riskli komut içeriyor": "contains risky commands",
+    "kod çalıştırma ifadesi içeriyor": "contains code-execution expressions",
+    "onayı atlatmaya çalışıyor": "tries to bypass approval",
+    "AGENTS.md proje dışını veya gizli bir dosyayı gösteriyor, okunmadı":
+        "AGENTS.md points outside the project or at a secret file, so it was not read",
+}
+
+
+def risk_metni(neden: str) -> str:
+    return neden if arayuz_dili() == "tr" else RISK_EN.get(neden, neden)
+
+
+# Ajanin urettigi mesaj kaliplari. Yalniz ekranda gosterilen kopyaya uygulanir.
+_MESAJ_EN = [(re.compile(k), y) for k, y in [
+    (r"\AHATA: ", "ERROR: "),
+    (r"ikili dosya, metin olarak okunamaz: ", "binary file, cannot be read as text: "),
+    (r"Dosyayi read_file ile yeniden oku\.", "Read the file again with read_file."),
+    (r"Dosyadaki en yakin satirlar, birebir kopyala:\n", "Closest lines in the file (copy them exactly):\n"),
+    (r"bu duzenleme Python sozdizimini bozar \((.*?), satir (\d+)\), uygulanmadi\. Girintiyi kontrol et\. "
+     r"Duzenleme sonrasi hali:\n",
+     r"this edit would break Python syntax (\1, line \2), so it was not applied. Check the indentation. "
+     r"After the edit:\n"),
+    (r"bu duzenleme gecersiz Python uretir: ", "this edit produces invalid Python: "),
+    (r"proje klasorunun disina cikilamaz: ", "cannot leave the project folder: "),
+    (r"klasor bulunamadi: ", "folder not found: "),
+    (r"dosya bulunamadi: (.*?); yeni dosya icin write_file kullan", r"file not found: \1; use write_file for a new file"),
+    (r"dosya bulunamadi: ", "file not found: "),
+    (r"\(gosterilecek satir yok; dosyada (\d+) satir var\)", r"(no lines to show; the file has \1 lines)"),
+    (r"gecersiz duzenli ifade: ", "invalid regular expression: "),
+    (r"yol bulunamadi: ", "path not found: "),
+    (r"proje aramasi kapali; search_text kullan", "project search is off; use search_text"),
+    (r"query bos olamaz", "query cannot be empty"),
+    (r"proje aramasi calismadi, search_text kullan: ", "project search failed, use search_text: "),
+    (r"proje dizini okunamadi, search_text kullan: ", "the project index could not be read, use search_text: "),
+    (r"proje arama siniri asildi \((\d+) parca\); search_text kullan", r"project search limit exceeded (\1 chunks); use search_text"),
+    (r"bu bir klasor: ", "this is a folder: "),
+    (r"old_text bos olamaz", "old_text cannot be empty"),
+    (r"old_text ve new_text ayni; bu duzenleme hicbir seyi degistirmez\. new_text degistirilmis kodu icermeli\. "
+     r"Degisiklik gerekmiyorsa baska bir adima gec\.",
+     "old_text and new_text are the same, so this edit changes nothing. new_text must contain the changed code. "
+     "If no change is needed, move on."),
+    (r"old_text dosyada bulunamadi\. ", "old_text was not found in the file. "),
+    (r"old_text (\d+) kez geciyor; daha fazla cevre metin ekle", r"old_text occurs \1 times; add more surrounding text"),
+    (r"bilinmeyen arac: ", "unknown tool: "),
+    (r"gecersiz arguman: ", "invalid argument: "),
+    (r"bu komut kullanicinin kurallariyla yasak \((.*?)\)\.", r"this command is forbidden by your rules (\1)."),
+    (r"Docker calismiyor\. Docker Desktop'i baslat; komut bilgisayarda calistirilmadi\.",
+     "Docker is not running. Start Docker Desktop; the command was not run on your computer."),
+    (r"(\S+) imaji yok \(docker pull (\S+)\)\. Komut bilgisayarda calistirilmadi\.",
+     r"image \1 is missing (docker pull \2). The command was not run on your computer."),
+    (r"seccomp kapali: yasak sistem cagrisi kapsayicida calisti", "seccomp is off: a forbidden system call worked in the container"),
+    (r"imajda python3 veya unshare yok, seccomp denetlenemedi", "the image has no python3 or unshare, so seccomp could not be checked"),
+    (r"deneme kapsayicisi calismadi: ", "the probe container failed: "),
+    (r"Korumali ortam guvenli degil \((.*)\)\. Komut calistirilmadi\.", r"The sandbox is not safe (\1). The command was not run."),
+    (r"Docker kullanilamiyor: (.*)\. Komut bilgisayarda calistirilmadi\.", r"Docker is unavailable: \1. The command was not run on your computer."),
+    (r"yolda virgul var, korumali ortam guvenli kurulamadi; komut calistirilmadi\.",
+     "the path contains a comma, so the sandbox cannot be set up safely; the command was not run."),
+    (r"secim bos", "the selection is empty"),
+    (r"secim cok uzun \(en fazla (\d+) karakter\)", r"the selection is too long (at most \1 characters)"),
+    (r"model kod dondurmedi", "the model returned no code"),
+    (r"\nModeli indirmek icin: ollama pull ", "\nTo download the model: ollama pull "),
+    (r"Ollama'ya ulasilamadi \((.*?)\)\. Ollama calisiyor mu\?", r"Could not reach Ollama (\1). Is Ollama running?"),
+    (r" \(modeli indirmek icin: ollama pull ", " (to download the model: ollama pull "),
+    (r"Ollama'ya ulasilamadi: ", "Could not reach Ollama: "),
+    (r"gomme modeli beklenen sayida vektor dondurmedi", "the embedding model returned the wrong number of vectors"),
+    (r"git bulunamadi", "git not found"),
+    (r"git calistirilamadi: ", "git could not be run: "),
+    (r"proje disinda bir yol: ", "a path outside the project: "),
+]]
+# Basarili arac sonuclarinin yalniz ajanin ekledigi parcalari: dosya icerigine ve komut ciktisina dokunulmaz.
+_SONUC_EN = [(re.compile(k), y) for k, y in [
+    (r"\A\(bos\)\Z", "(empty)"),
+    (r"\A\(sonuc yok\)\Z", "(no results)"),
+    (r"\A\(gosterilecek satir yok; dosyada (\d+) satir var\)\Z", r"(no lines to show; the file has \1 lines)"),
+    (r"\A(.+) guncellendi \((\d+) satir\)\Z", r"\1 updated (\2 lines)"),
+    (r"\A(.+) olusturuldu \((\d+) satir\)\Z", r"\1 created (\2 lines)"),
+    (r"\A(.+) duzenlendi\Z", r"\1 edited"),
+    (r"\n\.\.\. ve (\d+) dosya daha\Z", r"\n... and \1 more files"),
+    (r"\n\.\.\. \(ilk 200 sonuc\)\Z", "\n... (first 200 results)"),
+    (r"\n\[(\d+) saniyede bitmedigi icin durduruldu\]\Z", r"\n[stopped: did not finish in \1 seconds]"),
+    (r"\n\[cikis kodu: (-?\d+)\]\Z", r"\n[exit code: \1]"),
+    (r"\n\.\.\. \[(\d+) karakter kisaltildi\] \.\.\.\n", r"\n... [\1 characters truncated] ...\n"),
+]]
+
+
+def ekran_metni(metin: str) -> str:
+    """Ajanin kendi urettigi bir mesajin ekranda gosterilecek hali (hata, uyari)."""
+    if arayuz_dili() == "tr":
+        return metin
+    for kalip, yerine in _MESAJ_EN:
+        metin = kalip.sub(yerine, metin)
+    return metin
+
+
+def ekran_sonucu(metin: str) -> str:
+    """Arac sonucunun ekrandaki hali; dosya icerigi ve komut ciktisi oldugu gibi kalir."""
+    if arayuz_dili() == "tr":
+        return metin
+    if metin.startswith("HATA"):
+        return ekran_metni(metin)
+    for kalip, yerine in _SONUC_EN:
+        metin = kalip.sub(yerine, metin, count=1)
+    return metin
+
+
 def ollama_adresi(deger: str | None) -> str:
     """OLLAMA_HOST degerini baglanilabilir bir adrese cevirir.
 
@@ -1315,7 +1458,8 @@ class ProjeDizini:
             db.commit()
             ozetler = list(bekleyen)
             if len(ozetler) > GOMME_TOPLU:
-                self.ilerleme(f"Proje dizini hazirlaniyor: {len(ozetler)} parca")
+                self.ilerleme(L(f"Proje dizini hazirlaniyor: {len(ozetler)} parca",
+                                f"Building the project index: {len(ozetler)} chunks"))
             for i in range(0, len(ozetler), GOMME_TOPLU):
                 self.kontrol()
                 dilim = ozetler[i:i + GOMME_TOPLU]
@@ -1751,27 +1895,28 @@ class TerminalArayuz:
         print(fark_metni(eski, yeni, yol))
 
     def sonuc(self, ad: str, metin: str) -> None:
-        print(renkli(kisalt(metin, 1500), R.SOLUK))
+        print(renkli(kisalt(ekran_sonucu(metin), 1500), R.SOLUK))
 
     def uyari(self, metin: str) -> None:
-        print(renkli(metin, R.SARI))
+        print(renkli(ekran_metni(metin), R.SARI))
 
     def hata(self, metin: str) -> None:
-        print(renkli(metin, R.KIRMIZI))
+        print(renkli(ekran_metni(metin), R.KIRMIZI))
 
     def sor(self, soru: str) -> str:
         while True:
             try:
-                yanit = input(renkli(f"{soru} [e]vet / [h]ayir / [t]umu: ", R.SARI)).strip().lower()
+                yanit = input(renkli(soru + L(" [e]vet / [h]ayir / [t]umu: ", " [y]es / [n]o / [a]ll: "),
+                                     R.SARI)).strip().lower()
             except EOFError:
                 return "h"
-            if yanit in ("t", "tumu", "tümü"):
+            if yanit in ("t", "tumu", "tümü", "a", "all"):
                 return "t"
             if yanit in ("e", "evet", "y", "yes"):
                 return "e"
             if yanit in ("h", "hayir", "hayır", "n", "no"):
                 return "h"
-            print(renkli("Lutfen e, h veya t yaz.", R.SARI))
+            print(renkli(L("Lutfen e, h veya t yaz.", "Please type y, n or a."), R.SARI))
 
 
 class JsonArayuz:
@@ -1819,13 +1964,13 @@ class JsonArayuz:
         self.yaz("degisiklik", ad=ad, yol=yol, eski=eski, yeni=yeni, fark=fark)
 
     def sonuc(self, ad: str, metin: str) -> None:
-        self.yaz("sonuc", ad=ad, metin=kisalt(metin, 4000))
+        self.yaz("sonuc", ad=ad, metin=kisalt(ekran_sonucu(metin), 4000))
 
     def uyari(self, metin: str) -> None:
-        self.yaz("uyari", metin=metin.strip())
+        self.yaz("uyari", metin=ekran_metni(metin).strip())
 
     def hata(self, metin: str) -> None:
-        self.yaz("hata", metin=metin.strip())
+        self.yaz("hata", metin=ekran_metni(metin).strip())
 
     def sor(self, soru: str) -> str:
         self.sonraki_id += 1
@@ -1872,8 +2017,11 @@ class Ajan:
         kurallar, nedenler = proje_notlari(self.araclar.kok)
         if nedenler and nedenler != getattr(self, "_not_uyarisi", None):
             self._not_uyarisi = nedenler
-            self.arayuz.uyari("AGENTS.md dikkat istiyor: " + "; ".join(nedenler)
-                              + ". Model bunu kural değil, depo yazarının notu olarak görür; yine de dosyayı kendin oku.")
+            self.arayuz.uyari(L("AGENTS.md dikkat istiyor: ", "AGENTS.md needs attention: ")
+                              + "; ".join(risk_metni(n) for n in nedenler)
+                              + L(". Model bunu kural değil, depo yazarının notu olarak görür; yine de dosyayı kendin oku.",
+                                  ". The model sees it as a note from the repository author, not as rules; "
+                                  "still, read the file yourself."))
         self.mesajlar = [{"role": "system", "content": SISTEM_ISTEMI.format(
             kok=self.araclar.kok,
             isletim_sistemi="Linux container" if self.araclar.kum else "Windows" if os.name == "nt" else sys.platform,
@@ -1907,7 +2055,8 @@ class Ajan:
             return False
         if not re.search(r"\[cikis kodu: 1\]\s*$", sonuc):
             return False
-        self.arayuz.uyari("Otomatik test başarısız oldu, model düzeltmeye devam ediyor.")
+        self.arayuz.uyari(L("Otomatik test başarısız oldu, model düzeltmeye devam ediyor.",
+                            "The automatic test failed; the model keeps fixing."))
         self.mesajlar.append({"role": "user", "content": (
             f"[Automatic check] You said you were done, but `{komut}` fails. Fix the code, not the tests. "
             f"Output:\n{kisalt(sonuc, 3000)}")})
@@ -1937,14 +2086,15 @@ class Ajan:
         try:
             nokta = self.noktalar.nokta_al("tur oncesi: " + istek[:60])
         except GeriAlmaHatasi as hata:
-            self.arayuz.uyari(f"Geri alma noktasi alinamadi, bu tur geri alinamaz: {hata}")
+            self.arayuz.uyari(L("Geri alma noktasi alinamadi, bu tur geri alinamaz: ",
+                                "Could not save a checkpoint, this turn cannot be undone: ") + str(hata))
         basarili = self.tur(istek)
         dosyalar: list[dict] = []
         if nokta:
             try:
                 dosyalar = self.noktalar.farklar(nokta)
             except GeriAlmaHatasi as hata:
-                self.arayuz.uyari(f"Degisen dosyalar okunamadi: {hata}")
+                self.arayuz.uyari(L("Degisen dosyalar okunamadi: ", "Could not read the changed files: ") + str(hata))
         return basarili, nokta, dosyalar
 
     def geri_al(self, nokta: str) -> tuple[str, list[dict]]:
@@ -1999,7 +2149,8 @@ class Ajan:
                 komut = str(arg.get("command", ""))
                 yasak = self.izinler.yasakli(komut)
                 if yasak:
-                    self.arayuz.uyari(f"Yasak kural nedeniyle reddedildi ({yasak}): {komut[:160]}")
+                    self.arayuz.uyari(L(f"Yasak kural nedeniyle reddedildi ({yasak}): ",
+                                        f"Rejected by a forbid rule ({yasak}): ") + komut[:160])
                     return f"HATA: bu komut kullanicinin kurallariyla yasak ({yasak})."
                 kabuk = "sh" if self.araclar.kum else None
                 riskler = komut_riskleri(komut, kabuk)
@@ -2007,31 +2158,33 @@ class Ajan:
                 if self.izinler.izinli_mi(komut, kabuk):
                     return self._calistir_ve_bildir(ad, arg)
                 if riskler:
-                    self.arayuz.uyari("Dikkat: bu komut " + ", ".join(riskler) + ".")
+                    self.arayuz.uyari(L("Dikkat: bu komut ", "Warning: this command ")
+                                      + ", ".join(risk_metni(n) for n in riskler) + ".")
                 self.zorunlu_onay = bool(riskler)
-                soru = "Komut calistirilsin mi?"
+                soru = L("Komut calistirilsin mi?", "Run this command?")
             else:
                 try:
                     hedef, eski, yeni = self.araclar.yazma_onizleme(ad, arg)
                 except AracHatasi as hata:
                     self.arayuz.hata(f"  x {hata}")
                     if "old_text" in arg:
-                        self.arayuz.uyari(f"    modelin yazdigi: {arg['old_text'][:300]!r}")
+                        self.arayuz.uyari(L("    modelin yazdigi: ", "    the model wrote: ") + repr(arg['old_text'][:300]))
                     return f"HATA: {hata}"
                 except (KeyError, TypeError) as hata:
                     return f"HATA: gecersiz arguman: {hata}"
                 goreli = self.araclar.goreli(hedef)
                 self.zorunlu_onay = gizli_mi(goreli)
                 if self.zorunlu_onay:
-                    self.arayuz.uyari(f"Dikkat: {goreli} gizli bilgi tutabilir.")
+                    self.arayuz.uyari(L(f"Dikkat: {goreli} gizli bilgi tutabilir.", f"Warning: {goreli} may hold secrets."))
                 self.arayuz.degisiklik(ad, goreli, eski, yeni)
-                soru = "Degisiklik uygulansin mi?"
+                soru = L("Degisiklik uygulansin mi?", "Apply this change?")
             if not self._onay(soru):
                 return REDDEDILDI
         elif ad == "read_file" and self._gizli_okuma(arg):
-            self.arayuz.uyari(f"Dikkat: model gizli bilgi tutabilecek bir dosyayı okumak istiyor: {arg.get('path')}")
+            self.arayuz.uyari(L("Dikkat: model gizli bilgi tutabilecek bir dosyayı okumak istiyor: ",
+                                "Warning: the model wants to read a file that may hold secrets: ") + str(arg.get('path')))
             self.zorunlu_onay = True
-            if not self._onay("Gizli dosya modele gonderilsin mi?"):
+            if not self._onay(L("Gizli dosya modele gonderilsin mi?", "Send this secret file to the model?")):
                 return REDDEDILDI
         else:
             self.arayuz.arac(ad, arg)
@@ -2107,7 +2260,8 @@ class Ajan:
                     if "error parsing tool call" not in str(hata) or bozuk_cagri >= MODEL_YENIDEN_DENEME:
                         raise
                     bozuk_cagri += 1
-                    self.arayuz.uyari("Model bozuk bir arac cagrisi yazdi, yeniden deneniyor.")
+                    self.arayuz.uyari(L("Model bozuk bir arac cagrisi yazdi, yeniden deneniyor.",
+                                        "The model wrote a broken tool call; retrying."))
                     self.mesajlar.append({"role": "user", "content": BOZUK_CAGRI_NOTU})
                     continue
                 cagrilar = yanit["tool_calls"]
@@ -2115,26 +2269,30 @@ class Ajan:
                     if not yanit["content"]:
                         if bos_yanit < MODEL_YENIDEN_DENEME:
                             bos_yanit += 1
-                            self.arayuz.uyari("Model bos yanit verdi, devam etmesi isteniyor.")
+                            self.arayuz.uyari(L("Model bos yanit verdi, devam etmesi isteniyor.",
+                                                "The model gave an empty reply; asking it to continue."))
                             self.mesajlar.append({"role": "user", "content": BOS_YANIT_NOTU})
                             continue
-                        self.arayuz.hata("Model bos yanit dondurdu.")
+                        self.arayuz.hata(L("Model bos yanit dondurdu.", "The model returned an empty reply."))
                         return False
                     if yarim_arac_cagrisi(yanit["content"]) and yarim < MODEL_YENIDEN_DENEME:
                         yarim += 1
-                        self.arayuz.uyari("Model araci metne yazdi, yeniden isteniyor.")
+                        self.arayuz.uyari(L("Model araci metne yazdi, yeniden isteniyor.",
+                                            "The model wrote the tool call as text; asking again."))
                         self.mesajlar.append({"role": "user", "content": YARIM_CAGRI_NOTU})
                         continue
                     self.mesajlar.append({"role": "assistant", "content": yanit["content"]})
                     if son_cagri is not None and not duzenlendi and not kod_hatirlatildi and "```" in yanit["content"]:
                         kod_hatirlatildi = True
-                        self.arayuz.uyari("Model kodu yazdi ama dosyaya uygulamadi, hatirlatiliyor.")
+                        self.arayuz.uyari(L("Model kodu yazdi ama dosyaya uygulamadi, hatirlatiliyor.",
+                                            "The model wrote code but did not apply it; reminding it."))
                         self.mesajlar.append({"role": "user", "content": KOD_UYGULANMADI_NOTU})
                         continue
                     if son_cagri is None and not hatirlatildi:
                         # Hic arac cagirmadan verilen yanit dosyalar hakkinda uydurma olabilir.
                         hatirlatildi = True
-                        self.arayuz.uyari("[Model arac cagirmadi; bir kez hatirlatiliyor]")
+                        self.arayuz.uyari(L("[Model arac cagirmadi; bir kez hatirlatiliyor]",
+                                            "[The model called no tools; reminding it once]"))
                         self.mesajlar.append({"role": "user", "content": (
                             "You called no tools, so anything you said about files or results is unverified. "
                             "If this request involves the project, call a tool now through the function-calling "
@@ -2159,11 +2317,13 @@ class Ajan:
                     if imza in reddedilen and reddedilen[imza] == 1:
                         # Tek bir yanlis tus veya kararsizlik turu bitirmesin: bir hak daha.
                         reddedilen[imza] = 2
-                        self.arayuz.uyari(f"Model reddedilen islemi yeniden istedi, uyarildi: {cagri_ozeti(ad, arg)}")
+                        self.arayuz.uyari(L("Model reddedilen islemi yeniden istedi, uyarildi: ",
+                                            "The model asked again for a rejected action; warned it: ") + cagri_ozeti(ad, arg))
                         self.mesajlar.append({"role": "tool", "tool_name": ad, "content": YENIDEN_ISTENDI})
                         continue
                     if imza not in reddedilen and 3 <= tekrar < TEKRAR_SINIRI:
-                        self.arayuz.uyari(f"Model ayni cagriyi tekrarliyor, uyarildi: {cagri_ozeti(ad, arg)}")
+                        self.arayuz.uyari(L("Model ayni cagriyi tekrarliyor, uyarildi: ",
+                                            "The model is repeating the same call; warned it: ") + cagri_ozeti(ad, arg))
                         self.mesajlar.append({"role": "tool", "tool_name": ad, "content": TEKRAR_NOTU})
                         continue
                     if imza in reddedilen or tekrar >= TEKRAR_SINIRI:
@@ -2171,7 +2331,10 @@ class Ajan:
                             else "ayni cagriyi ust uste tekrarladi"
                         self.mesajlar.append({"role": "tool", "tool_name": ad,
                                               "content": f"Durduruldu: {neden}."})
-                        self.arayuz.uyari(f"Model {neden}; tur durduruldu: {cagri_ozeti(ad, arg)}")
+                        neden_ekran = L(neden, "asked again for a rejected action" if imza in reddedilen
+                                        else "repeated the same call over and over")
+                        self.arayuz.uyari(L(f"Model {neden_ekran}; tur durduruldu: ",
+                                            f"The model {neden_ekran}; turn stopped: ") + cagri_ozeti(ad, arg))
                         return False
                     sonuc = self._arac_uygula(ad, arg)
                     if sonuc == REDDEDILDI:
@@ -2183,20 +2346,23 @@ class Ajan:
                         if hatalar[imza] == 3:
                             self.mesajlar.append({"role": "user", "content": HATA_TEKRAR_NOTU})
                         if hatalar[imza] >= TEKRAR_SINIRI:
-                            self.arayuz.uyari(f"Model ayni hatali cagriyi {TEKRAR_SINIRI} kez denedi; tur durduruldu: "
-                                              f"{cagri_ozeti(ad, arg)}")
+                            self.arayuz.uyari(L(f"Model ayni hatali cagriyi {TEKRAR_SINIRI} kez denedi; tur durduruldu: ",
+                                                f"The model tried the same failing call {TEKRAR_SINIRI} times; "
+                                                "turn stopped: ") + cagri_ozeti(ad, arg))
                             return False
                     elif ad in ("write_file", "edit_file") and sonuc != REDDEDILDI:
                         duzenlendi = True
-            self.arayuz.uyari(f"{self.maks_adim} adim sinirina ulasildi, durduruldu.")
+            self.arayuz.uyari(L(f"{self.maks_adim} adim sinirina ulasildi, durduruldu.",
+                                f"Reached the limit of {self.maks_adim} steps; stopped."))
             return False
         except ModelHatasi as hata:
             del self.mesajlar[baslangic:]
-            self.arayuz.hata(f"Model hatasi: {hata}")
+            self.arayuz.hata(L("Model hatasi: ", "Model error: ") + str(hata))
             return False
         except KeyboardInterrupt:
             del self.mesajlar[baslangic:]
-            self.arayuz.uyari("Durduruldu. Bu tur gecmisten silindi; yapilan dosya degisiklikleri duruyor.")
+            self.arayuz.uyari(L("Durduruldu. Bu tur gecmisten silindi; yapilan dosya degisiklikleri duruyor.",
+                                "Stopped. This turn was removed from the history; file changes already made are kept."))
             return False
 
 
@@ -2227,24 +2393,24 @@ def sunucu(ajan: Ajan, girdi=None) -> None:
                                               str(k.get("sonra", "")), str(k.get("yol", "")), str(k.get("dil", "")))
                     arayuz.yaz("secim_sonuc", id=k.get("id"), yeni=yeni)
                 except (AracHatasi, ModelHatasi) as hata:
-                    arayuz.yaz("secim_sonuc", id=k.get("id"), hata=str(hata))
+                    arayuz.yaz("secim_sonuc", id=k.get("id"), hata=ekran_metni(str(hata)))
                 except KeyboardInterrupt:
                     arayuz.yaz("secim_sonuc", id=k.get("id"), iptal=True)
                 except Exception as hata:
-                    arayuz.yaz("secim_sonuc", id=k.get("id"), hata=f"beklenmeyen hata: {hata}")
+                    arayuz.yaz("secim_sonuc", id=k.get("id"), hata=L("beklenmeyen hata: ", "unexpected error: ") + str(hata))
                 continue
             if isinstance(is_, tuple) and is_[0] == "geri_al":
                 try:
                     guvenlik, dosyalar = ajan.geri_al(is_[1])
                     arayuz.yaz("geri_alindi", nokta=is_[1], guvenlik=guvenlik, dosyalar=dosyalar)
                 except GeriAlmaHatasi as hata:
-                    arayuz.hata(f"Geri alinamadi: {hata}")
+                    arayuz.hata(L("Geri alinamadi: ", "Could not undo: ") + str(hata))
                     arayuz.yaz("geri_alinamadi", nokta=is_[1])
                 continue
             try:
                 basarili, nokta, dosyalar = ajan.tur_noktali(is_)
             except Exception as hata:  # panel bir hatada sessizce donmasin
-                arayuz.hata(f"Ajan hatasi: {hata}")
+                arayuz.hata(L("Ajan hatasi: ", "Agent error: ") + str(hata))
                 basarili, nokta, dosyalar = False, None, []
             arayuz.yaz("tur_bitti", basarili=basarili, nokta=nokta, dosyalar=dosyalar)
 
@@ -2255,7 +2421,7 @@ def sunucu(ajan: Ajan, girdi=None) -> None:
         try:
             komut = json.loads(satir)
         except json.JSONDecodeError:
-            arayuz.hata("Gecersiz komut alindi.")
+            arayuz.hata(L("Gecersiz komut alindi.", "Received an invalid command."))
             continue
         tur = komut.get("tur")
         if tur == "mesaj" and str(komut.get("metin", "")).strip():
@@ -2283,66 +2449,81 @@ YARDIM = """Komutlar:
   /geri    son turdan once kaydedilen duruma don (once dosya listesini gosterir)
   /yardim  bu listeyi goster
   /cik     cikis
-Calisan bir turu durdurmak icin Ctrl+C."""
+Calisan bir turu durdurmak icin Ctrl+C. Ingilizce adlar da calisir: /new /approve /undo /help /quit."""
+
+YARDIM_EN = """Commands:
+  /new      start a new chat
+  /approve  turn approval prompts on or off
+  /undo     go back to the state saved before the last turn (shows the files first)
+  /help     show this list
+  /quit     exit
+Press Ctrl+C to stop a running turn. Turkish names work too: /yeni /onay /geri /yardim /cik."""
 
 
 def _terminalde_geri_al(ajan: Ajan, nokta: str | None) -> str | None:
     """Listeyi gosterir, onay alir, geri alir; dogacak yeni son noktayi dondurur."""
     if not nokta:
-        print("Geri alinacak bir tur yok.")
+        print(L("Geri alinacak bir tur yok.", "There is no turn to undo."))
         return None
     try:
         dosyalar = ajan.noktalar.farklar(nokta)
         if not dosyalar:
-            print("Kayittan bu yana degisen dosya yok.")
+            print(L("Kayittan bu yana degisen dosya yok.", "No files changed since the checkpoint."))
             return None
         for f in dosyalar:
             print(f"  {f['durum']} {f['yol']}")
-        print(renkli("A: silinir, M: eski haline doner, D: geri gelir. Sonraki elle yaptigin degisiklikler de kapsanir.",
+        print(renkli(L("A: silinir, M: eski haline doner, D: geri gelir. Sonraki elle yaptigin degisiklikler de kapsanir.",
+                       "A: deleted, M: restored, D: brought back. Edits you made by hand since then are included."),
                      R.SARI))
-        if input(renkli("Geri alinsin mi? [e]vet / [h]ayir: ", R.SARI)).strip().lower() not in ("e", "evet"):
+        if input(renkli(L("Geri alinsin mi? [e]vet / [h]ayir: ", "Undo? [y]es / [n]o: "),
+                        R.SARI)).strip().lower() not in ("e", "evet", "y", "yes"):
             return nokta
         guvenlik, _ = ajan.geri_al(nokta)
     except GeriAlmaHatasi as hata:
-        print(renkli(f"Geri alinamadi: {hata}", R.KIRMIZI))
+        print(renkli(L("Geri alinamadi: ", "Could not undo: ") + ekran_metni(str(hata)), R.KIRMIZI))
         return nokta
-    print(f"Geri alindi. Yeniden uygulamak icin /geri ({guvenlik[:8]} kaydina doner).")
+    print(L(f"Geri alindi. Yeniden uygulamak icin /geri ({guvenlik[:8]} kaydina doner).",
+            f"Undone. To reapply, use /undo again (goes back to checkpoint {guvenlik[:8]})."))
     return guvenlik
 
 
 def sohbet(ajan: Ajan) -> None:
     son_nokta: str | None = None
-    print(renkli("Kod Ajani", R.KALIN, R.MAVI) + f"  model: {ajan.model}  klasor: {ajan.araclar.kok}")
-    print(renkli("/yardim komutlari gosterir.", R.SOLUK))
+    print(renkli("Airgap", R.KALIN, R.MAVI) + L(f"  model: {ajan.model}  klasor: {ajan.araclar.kok}",
+                                                 f"  model: {ajan.model}  folder: {ajan.araclar.kok}"))
+    print(renkli(L("/yardim komutlari gosterir.", "/help shows the commands."), R.SOLUK))
     if ajan.otomatik:
-        print(renkli("Otomatik mod acik: dosya degisiklikleri ve komutlar onaysiz calisir.", R.SARI))
+        print(renkli(L("Otomatik mod acik: dosya degisiklikleri ve komutlar onaysiz calisir.",
+                       "Auto mode is on: file changes and commands run without approval."), R.SARI))
     while True:
         try:
-            istek = input(renkli("\n> ", R.KALIN, R.YESIL)).strip()
+            istek = input(renkli("\n> ", R.KALIN, R.YESIL)).strip().lstrip("﻿")  # BOM: Windows'ta borudan gelen girdi
         except (EOFError, KeyboardInterrupt):
             print()
             return
         if not istek:
             continue
-        if istek in ("/cik", "/q", "/exit"):
+        if istek in ("/cik", "/q", "/exit", "/quit"):
             return
-        if istek == "/yardim":
-            print(YARDIM)
-        elif istek == "/yeni":
+        if istek in ("/yardim", "/help"):
+            print(L(YARDIM, YARDIM_EN))
+        elif istek in ("/yeni", "/new"):
             ajan.sifirla()
-            print("Sohbet sifirlandi.")
-        elif istek == "/onay":
+            print(L("Sohbet sifirlandi.", "Chat cleared."))
+        elif istek in ("/onay", "/approve"):
             ajan.otomatik = not ajan.otomatik
-            print("Onay sormak kapali." if ajan.otomatik else "Onay sormak acik.")
-        elif istek == "/geri":
+            print(L("Onay sormak kapali.", "Approval prompts are off.") if ajan.otomatik
+                  else L("Onay sormak acik.", "Approval prompts are on."))
+        elif istek in ("/geri", "/undo"):
             son_nokta = _terminalde_geri_al(ajan, son_nokta)
         elif istek.startswith("/"):
-            print(f"Bilinmeyen komut: {istek}\n{YARDIM}")
+            print(L("Bilinmeyen komut: ", "Unknown command: ") + istek + "\n" + L(YARDIM, YARDIM_EN))
         else:
             _, nokta, dosyalar = ajan.tur_noktali(istek)
             if nokta and dosyalar:
                 son_nokta = nokta
-                print(renkli(f"{len(dosyalar)} dosya degisti. Geri almak icin /geri", R.SOLUK))
+                print(renkli(L(f"{len(dosyalar)} dosya degisti. Geri almak icin /geri",
+                               f"{len(dosyalar)} file(s) changed. To undo: /undo"), R.SOLUK))
 
 
 def main() -> int:
@@ -2351,26 +2532,26 @@ def main() -> int:
     if os.name == "nt":
         os.system("")  # Windows konsolunda ANSI renklerini acar
 
-    ayrac = argparse.ArgumentParser(description="Yerel modelle calisan kod ajani")
-    ayrac.add_argument("--dizin", default=".", help="proje klasoru (varsayilan: bulunulan klasor)")
-    ayrac.add_argument("--model", default=VARSAYILAN_MODEL, help="Ollama model adi")
-    ayrac.add_argument("--gorev", help="tek gorev calistirip cik")
+    ayrac = argparse.ArgumentParser(description=L("Yerel modelle calisan kod ajani", "Airgap: a coding agent for local models"))
+    ayrac.add_argument("--dizin", default=".", help=L("proje klasoru (varsayilan: bulunulan klasor)", "project folder (default: current folder)"))
+    ayrac.add_argument("--model", default=VARSAYILAN_MODEL, help=L("Ollama model adi", "Ollama model name"))
+    ayrac.add_argument("--gorev", help=L("tek gorev calistirip cik", "run one task and exit"))
     ayrac.add_argument("--otomatik", action="store_true",
-                       help="dosya degisikliklerini ve komutlari onaysiz calistir")
-    ayrac.add_argument("--baglam", type=int, default=16384, help="baglam boyutu (num_ctx)")
-    ayrac.add_argument("--maks-adim", type=int, default=40, help="tur basina en fazla model cagrisi")
-    ayrac.add_argument("--dusunmesiz", action="store_true", help="modelin dusunme modunu kapat")
-    ayrac.add_argument("--gomme-modeli", default=VARSAYILAN_GOMME, help="proje aramasi icin Ollama modeli")
+                       help=L("dosya degisikliklerini ve komutlari onaysiz calistir", "apply file changes and run commands without approval"))
+    ayrac.add_argument("--baglam", type=int, default=16384, help=L("baglam boyutu (num_ctx)", "context size (num_ctx)"))
+    ayrac.add_argument("--maks-adim", type=int, default=40, help=L("tur basina en fazla model cagrisi", "maximum model calls per turn"))
+    ayrac.add_argument("--dusunmesiz", action="store_true", help=L("modelin dusunme modunu kapat", "turn off the model's thinking mode"))
+    ayrac.add_argument("--gomme-modeli", default=VARSAYILAN_GOMME, help=L("proje aramasi icin Ollama modeli", "Ollama model for project search"))
     ayrac.add_argument("--harita-butce", type=int, default=1000,
-                       help="proje haritasi icin belirtec butcesi; 0 kapatir")
+                       help=L("proje haritasi icin belirtec butcesi; 0 kapatir", "token budget for the repo map; 0 turns it off"))
     ayrac.add_argument("--korumali", nargs="?", const=VARSAYILAN_IMAJ, metavar="IMAJ",
-                       help="komutlari agi kapali Docker kapsayicisinda calistir (imaj belirtilebilir)")
-    ayrac.add_argument("--sunucu", action="store_true", help="eklenti modu: stdin/stdout uzerinden JSON konus")
+                       help=L("komutlari agi kapali Docker kapsayicisinda calistir (imaj belirtilebilir)", "run commands in a network-less Docker container (optionally name the image)"))
+    ayrac.add_argument("--sunucu", action="store_true", help=L("eklenti modu: stdin/stdout uzerinden JSON konus", "extension mode: speak JSON over stdin/stdout"))
     secenek = ayrac.parse_args()
 
     kok = Path(secenek.dizin)
     if not kok.is_dir():
-        print(f"Klasor bulunamadi: {kok}", file=sys.stderr)
+        print(L("Klasor bulunamadi: ", "Folder not found: ") + str(kok), file=sys.stderr)
         return 2
     ajan = Ajan(kok, secenek.model, secenek.otomatik, secenek.baglam, secenek.maks_adim,
                 not secenek.dusunmesiz, JsonArayuz() if secenek.sunucu else None, secenek.gomme_modeli, secenek.harita_butce, secenek.korumali)
