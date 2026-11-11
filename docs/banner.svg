@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 320" width="1200" height="320" role="img" aria-label="Airgap: your code never leaves the machine">
+  <title>Airgap: your code never leaves the machine</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#00FF41"/>
+      <stop offset="1" stop-color="#00B32D"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0 H0 V32" fill="none" stroke="#00FF41" stroke-width="1" opacity="0.06"/>
+    </pattern>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0D1117" stop-opacity="0"/>
+      <stop offset="1" stop-color="#0D1117" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="320" rx="18" fill="#0D1117"/>
+  <rect width="1200" height="320" rx="18" fill="url(#grid)"/>
+  <rect x="760" width="440" height="320" fill="url(#fade)"/>
+
+  <!-- shield with the cut cable -->
+  <g transform="translate(70 52) scale(1.68)">
+    <path d="M64 14 L104 28 V62 C104 88 87 106 64 116 C41 106 24 88 24 62 V28 Z"
+          fill="none" stroke="url(#g)" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M38 66 H56" stroke="#00FF41" stroke-width="6" stroke-linecap="round"/>
+    <path d="M72 66 H90" stroke="#00FF41" stroke-width="6" stroke-linecap="round"/>
+    <path d="M60 58 L68 74" stroke="#C9D1D9" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="330" y="150" font-family="'Fira Code','JetBrains Mono',Consolas,'Courier New',monospace"
+        font-size="96" font-weight="700" fill="#F0F6FC" letter-spacing="6">AIRGAP</text>
+  <text x="334" y="200" font-family="'Fira Code','JetBrains Mono',Consolas,'Courier New',monospace"
+        font-size="28" fill="#00FF41">your code never leaves the machine_</text>
+
+  <!-- terminal-style facts -->
+  <g font-family="'Fira Code','JetBrains Mono',Consolas,'Courier New',monospace" font-size="20" fill="#8B949E">
+    <text x="334" y="252">$ local LLM via ollama · approval-gated · docker sandbox · injection-aware</text>
+  </g>
+
+  <!-- status chips -->
+  <g font-family="'Fira Code',Consolas,monospace" font-size="16">
+    <rect x="334" y="270" width="112" height="28" rx="14" fill="none" stroke="#00FF41" opacity="0.7"/>
+    <text x="350" y="289" fill="#00FF41">● cloud: 0</text>
+    <rect x="458" y="270" width="150" height="28" rx="14" fill="none" stroke="#00FF41" opacity="0.7"/>
+    <text x="474" y="289" fill="#00FF41">● api keys: 0</text>
+    <rect x="620" y="270" width="152" height="28" rx="14" fill="none" stroke="#00FF41" opacity="0.7"/>
+    <text x="636" y="289" fill="#00FF41">● telemetry: 0</text>
+  </g>
+</svg>
