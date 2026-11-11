@@ -140,6 +140,11 @@ Found a way around the command analyzer or the sandbox? Please report it private
 
 [MIT](LICENSE) © Cybergah
 
+## Author
+
+Created by **Petrus**: developer, hacker, founder of [Cybergah](https://github.com/cybergah).
+[GitHub](https://github.com/delilzagros) · [X @AEVERTIS](https://x.com/AEVERTIS) · [Telegram](https://t.me/aevertis)
+
 <div align="center">
 <sub>Part of <a href="https://github.com/cybergah">Cybergah</a>, offline-first, privacy-respecting open-source tools.</sub>
 </div>
