@@ -97,7 +97,7 @@ We planted these bugs ourselves, so the numbers do not predict results on your o
 
 ## Quick start
 
-**Requirements:** Python 3.10+, git, [Ollama](https://ollama.com), and for the panel, VS Code. Tested on Windows.
+**Requirements:** Python 3.10+, git, [Ollama](https://ollama.com), and for the panel, VS Code. Unit tests run on Windows, Linux and macOS; end-to-end use with a real model has been tested on Windows ([reports from other systems welcome](CONTRIBUTING.md)).
 
 ```bash
 ollama pull gpt-oss:20b
@@ -143,7 +143,7 @@ Only what *you* see changes. Prompts, tool results and everything else the model
 
 ## Tests
 
-227 unit tests plus VS Code smoke and panel tests run on every push (Windows). Real-model benchmarks and the real VS Code window test run locally.
+227 unit tests plus VS Code smoke and panel tests run on every push on Windows, Linux and macOS. Real-model benchmarks and the real VS Code window test run locally.
 
 ```bash
 cd kod-ajani && python -B -m unittest discover -p "test_*.py"

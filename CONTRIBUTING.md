@@ -15,7 +15,7 @@ come before everything else:
 | 🛡️ **Command analyzer** | Find commands that slip past risk detection and add them as test cases. | `kod-ajani/komut_ornekleri.py`, `komut_sinav.py`, `test_guvenlik.py` |
 | 📏 **Benchmarks** | Add tasks with hidden tests, or measure other local models. | `kod-ajani/olcum_gorevleri.py`, `olcum.py` |
 | 🗺️ **Repo map** | Better Tree-sitter support for more languages. | `dosya_tanimlari` / `_ts_tanimlari` in `ajan.py` |
-| 🐧 **Linux and macOS** | The agent is tested on Windows; reports and fixes for other systems are welcome. | |
+| 🐧 **Linux and macOS** | Unit tests run on all three in CI, but real use with a model has only been tried on Windows. Reports and fixes are welcome. | |
 
 ## Setup
 

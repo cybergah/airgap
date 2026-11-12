@@ -103,7 +103,7 @@ Son ölçüm: küçük set 68/72 (%94), %87–%98 ([rapor](olcum-sonuclari/bitir
 
 ## Testler
 
-GitHub'a her gönderimde birim testleri ve duman testi otomatik çalışır (`.github/workflows/testler.yml`, Windows). Gerçek modelli ölçümler ve gerçek VS Code testi yalnız yerelde çalışır.
+GitHub'a her gönderimde birim testleri ve duman testi otomatik çalışır (`.github/workflows/testler.yml`; Windows, Linux ve macOS). Gerçek modelli ölçümler ve gerçek VS Code testi yalnız yerelde çalışır.
 
 ```bash
 cd kod-ajani && python -B -m unittest discover -p "test_*.py"
