@@ -1,4 +1,4 @@
-# Her gonderimde birim testleri ve eklenti duman testi Windows'ta calisir.
+# Her gonderimde birim testleri ve eklenti duman testi Windows, Linux ve macOS'ta calisir.
 # Gercek modelli olcumler (Ollama, GPU) ve gercek VS Code penceresi testi burada calismaz; yerelde calistirilir.
 name: testler
 
@@ -13,7 +13,11 @@ permissions:
 
 jobs:
   testler:
-    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
