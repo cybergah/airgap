@@ -1,6 +1,7 @@
 """Olcumde gorulen ajan hatalari: her biri once yeniden uretilir, sonra duzeltme dogrulanir."""
 import os
 import shutil
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -310,6 +311,238 @@ class SozdizimiTesti(unittest.TestCase):
         self.yaz("a.py", "x = 1\n")
         s = self.a.calistir("edit_file", {"path": "a.py", "old_text": "x = 1", "new_text": "x = 1"})
         self.assertIn("new_text degistirilmis kodu icermeli", s)
+
+
+class DusunmeSeviyesiTesti(ModelTesti):
+    def test_think_degeri(self):
+        self.ajan.dusun = True
+        self.assertIs(self.ajan._think(), True, "seviye yoksa modelin varsayilani")
+        for s in a.DUSUNME_SEVIYELERI:
+            self.ajan.dusunme_seviyesi = s
+            self.assertEqual(self.ajan._think(), s)
+        self.ajan.dusunme_seviyesi = "cok"
+        self.assertIs(self.ajan._think(), True, "gecersiz seviye yok sayilir")
+        self.ajan.dusun = False
+        self.ajan.dusunme_seviyesi = "low"
+        self.assertIs(self.ajan._think(), False, "dusunme desteklenmiyorsa hic gonderilmez")
+
+    def test_model_cagrisina_gider(self):
+        self.ajan.dusun, self.ajan.dusunme_seviyesi = True, "low"
+        gelen = {}
+
+        def akis(model, mesajlar, baglam, dusun=False, araclar=True):
+            gelen["think"] = dusun
+            yield {"message": {"content": "tamam"}, "done": True}
+        with patch.object(a, "model_akisi", akis):
+            self.ajan._modeli_cagir()
+        self.assertEqual(gelen["think"], "low")
+
+
+class UyarlananDusunmeTesti(ModelTesti):
+    def seviye(self, *mesajlar):
+        self.ajan.mesajlar = self.ajan.mesajlar[:1] + list(mesajlar)
+        return self.ajan._uyarlanan_seviye()
+
+    def test_karar_adimlari_orta_mekanik_adimlar_az(self):
+        self.ajan.dusun, self.ajan.dusunme_seviyesi = True, "uyarlanir"
+        arac = lambda ad, m: {"role": "tool", "tool_name": ad, "content": m}  # noqa: E731
+        self.assertEqual(self.seviye({"role": "user", "content": "duzelt"}), "medium", "turun basi")
+        self.assertEqual(self.seviye(arac("read_file", "1\tx = 1")), "low")
+        self.assertEqual(self.seviye(arac("edit_file", "a.py duzenlendi")), "low")
+        self.assertEqual(self.seviye(arac("run_command", "OK\n[cikis kodu: 0]")), "low", "gecen test")
+        self.assertEqual(self.seviye(arac("run_command", "FAIL\n[cikis kodu: 1]")), "medium", "basarisiz test")
+        self.assertEqual(self.seviye(arac("edit_file", "HATA: old_text bulunamadi")), "medium")
+        self.assertEqual(self.seviye(arac("edit_file", a.REDDEDILDI)), "medium")
+        self.assertEqual(self.seviye(arac("read_file", a.TEKRAR_NOTU)), "medium")
+        self.assertEqual(self.seviye(arac("read_file", "x"), {"role": "user", "content": a.BUTCE_NOTU}), "medium",
+                         "hatirlatma notu karar ister")
+        self.ajan.mesajlar = self.ajan.mesajlar[:1] + [arac("read_file", "x")]
+        self.assertEqual(self.ajan._think(), "low", "_think uyarlanani kullanir")
+
+
+class DusunmeSiniriTesti(ModelTesti):
+    def akis(self, *cevaplar):
+        """Her model cagrisi icin sirayla bir parca listesi doner; cagrilarin think degerini kaydeder."""
+        sira = iter(cevaplar)
+        self.thinkler, self.kapatildi = [], []
+
+        def akis(model, mesajlar, baglam, dusun=False, araclar=True):
+            self.thinkler.append(dusun)
+            try:
+                yield from next(sira, [{"message": {"content": "tamam"}, "done": True}])
+            finally:
+                self.kapatildi.append(True)
+        return patch.object(a, "model_akisi", akis)
+
+    def test_uzun_dusunme_kesilir_kisa_dusunerek_yeniden_denenir(self):
+        self.ajan.dusun = True
+        uzun = [{"message": {"thinking": "x" * 1000}} for _ in range(40)]  # 40.000 karakter
+        with self.akis(uzun, [{"message": {"content": "tamam"}, "done": True}]):
+            self.assertTrue(self.ajan.tur("bir sey yap"))
+        self.assertEqual(self.thinkler[:2], [True, "low"], "ikinci deneme kisa dusunmeli")
+        self.assertTrue(all(t is True for t in self.thinkler[2:]), "tek seferlik: sonraki adimlar yine normal")
+        self.assertTrue([m for m in self.ajan.mesajlar if m.get("content") == a.UZUN_DUSUNME_NOTU])
+        self.assertTrue(self.kapatildi, "akis kapatilmali ki Ollama uretmeyi biraksin")
+
+    @patch.dict(os.environ, {"AIRGAP_LANG": "tr"})  # checks the Turkish UI text
+    def test_art_arda_uzun_dusunme_turu_bitirir(self):
+        self.ajan.dusun = True
+        uzun = [{"message": {"thinking": "x" * 31_000}}]
+        with self.akis(uzun, uzun, uzun):
+            self.assertFalse(self.ajan.tur("bir sey yap"))
+        self.assertIn("cok uzun", self.ajan.arayuz.hatalar[-1])
+
+    def test_normal_dusunme_kesilmez(self):
+        self.ajan.dusun = True
+        with self.akis([{"message": {"thinking": "y" * 5000}}, {"message": {"content": "tamam"}, "done": True}]):
+            self.assertTrue(self.ajan.tur("x"))
+        self.assertTrue(all(t is True for t in self.thinkler), "kisa dusunmeye gecilmemeli")
+        self.assertFalse([m for m in self.ajan.mesajlar if m.get("content") == a.UZUN_DUSUNME_NOTU])
+
+    def test_bozuk_cagrida_akan_metin_geri_cekilir(self):
+        olaylar = []
+        self.ajan.arayuz.ara_not = lambda: olaylar.append("ara_not")
+        self.kurgula(a.ModelHatasi("error parsing tool call: raw='We wrote'"), yanit("bitti", read_file={"path": "a.py"}), yanit("bitti"))
+        self.assertTrue(self.ajan.tur("isle"))
+        self.assertIn("ara_not", olaylar)
+
+
+class CiftCevapTesti(ModelTesti):
+    """Gercek denemede: ajan hatirlatinca model cevabini tekrarladi, panelde iki balon oldu."""
+
+    def test_hatirlatmadan_onceki_cevap_geri_cekilir(self):
+        olaylar = []
+        self.ajan.arayuz.ara_not = lambda: olaylar.append("ara_not")
+        self.kurgula(yanit("_tutar"), yanit("_tutar"))
+        self.assertTrue(self.ajan.tur("ilk fonksiyon neydi"))
+        self.assertEqual(olaylar, ["ara_not"], "ilk cevap dusunce kutusuna alinmali, ikincisi kalmali")
+
+    def test_icerik_verildiyse_arac_hatirlatmasi_yok(self):
+        istek, _ = self.ajan.baglamli_istek("@a.py ne yapar", None)
+        self.kurgula(yanit("x'i 1 yapar"))
+        self.assertTrue(self.ajan.tur(istek))
+        self.assertFalse([m for m in self.ajan.mesajlar if "You called no tools" in (m.get("content") or "")])
+        istek, _ = self.ajan.baglamli_istek("bu ne", {"yol": "a.py", "secim": {"bas": 1, "son": 1, "metin": "x = 1"}})
+        self.kurgula(yanit("atama"))
+        self.assertTrue(self.ajan.tur(istek))
+        self.assertFalse([m for m in self.ajan.mesajlar if "You called no tools" in (m.get("content") or "")])
+
+    def test_yalniz_acik_dosya_adi_verildiyse_hatirlatma_surer(self):
+        istek, _ = self.ajan.baglamli_istek("bu dosyada hata var mi", {"yol": "a.py", "satir": 1})
+        self.kurgula(yanit("yok"), yanit("yok"))
+        self.assertTrue(self.ajan.tur(istek))
+        self.assertTrue([m for m in self.ajan.mesajlar if "You called no tools" in (m.get("content") or "")])
+
+    def test_tek_cevapta_geri_cekme_yok(self):
+        olaylar = []
+        self.ajan.arayuz.ara_not = lambda: olaylar.append("ara_not")
+        self.kurgula(yanit(read_file={"path": "a.py"}), yanit("x 1 dir"))
+        self.assertTrue(self.ajan.tur("x nedir"))
+        self.assertEqual(olaylar, [])
+
+
+class InceleneHatalarTesti(unittest.TestCase):
+    """Bagimsiz kod incelemesinde bulunan ve dogrulanan hatalar."""
+
+    def setUp(self):
+        self.g = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, self.g, ignore_errors=True)
+        self.a = a.Araclar(self.g)
+
+    def test_metin_olmayan_icerik_cokertmez(self):
+        for ad, arg in [("write_file", {"path": "p.json", "content": {"ad": 1}}),
+                        ("edit_file", {"path": "p.json", "old_text": ["x"], "new_text": "y"}),
+                        ("read_file", {"path": 5})]:
+            with self.subTest(ad=ad):
+                s = self.a.calistir(ad, arg)
+                self.assertTrue(s.startswith("HATA"), s)
+        self.assertIn("metin (string) olmali", self.a.calistir("write_file", {"path": "p.json", "content": {"ad": 1}}))
+        self.assertFalse((self.g / "p.json").exists())
+
+    def test_utf8_olmayan_dosya_bozulmaz(self):
+        ham = "şeker çay\nx\n".encode("cp1254")
+        (self.g / "eski.txt").write_bytes(ham)
+        s = self.a.calistir("edit_file", {"path": "eski.txt", "old_text": "x", "new_text": "y"})
+        self.assertIn("UTF-8 degil", s)
+        self.assertEqual((self.g / "eski.txt").read_bytes(), ham, "dosya hic degismemeli")
+
+    @unittest.skipIf(os.name == "nt" and not os.environ.get("CI"), "Windows'ta symlink icin yonetici izni gerekir")
+    def test_kisayol_proje_disini_veya_gizliyi_aratmaz(self):
+        dis = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, dis, ignore_errors=True)
+        (dis / "d.txt").write_text("PROJE_DISI_ISARET\n", encoding="utf-8")
+        (self.g / ".env").write_text("GIZLI_ISARET\n", encoding="utf-8")
+        (self.g / "ic.txt").write_text("IC_ISARET\n", encoding="utf-8")
+        try:
+            os.symlink(dis / "d.txt", self.g / "notlar.md")
+            os.symlink(self.g / ".env", self.g / "ayar.md")
+            os.symlink(self.g / "ic.txt", self.g / "kopya.md")
+        except OSError:
+            self.skipTest("symlink olusturulamadi")
+        self.assertEqual(self.a.calistir("search_text", {"pattern": "PROJE_DISI|GIZLI"}), "(sonuc yok)")
+        self.assertIn("kopya.md", self.a.calistir("search_text", {"pattern": "IC_ISARET"}), "proje ici kisayol aranir")
+
+    def test_kisayol_kontrolu_taklitle(self):
+        # Windows'ta symlink olusturulamasa da ayni yolu sinar.
+        (self.g / "notlar.md").write_text("x", encoding="utf-8")
+        (self.g / "ic.md").write_text("x", encoding="utf-8")
+        dis = Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, dis, ignore_errors=True)
+        asil_resolve = Path.resolve
+
+        def sahte_resolve(y, *x, **k):
+            if y.name == "notlar.md":
+                return dis / "d.txt"
+            if y.name == "ic.md":
+                return asil_resolve(self.g, *x, **k) / ".env"
+            return asil_resolve(y, *x, **k)
+        with patch.object(Path, "is_symlink", lambda y: y.name in ("notlar.md", "ic.md")), \
+                patch.object(Path, "resolve", sahte_resolve):
+            self.assertFalse(self.a.guvenli_dosya(self.g / "notlar.md"), "proje disi")
+            self.assertFalse(self.a.guvenli_dosya(self.g / "ic.md"), "gizli dosyaya giden")
+            self.assertTrue(self.a.guvenli_dosya(self.g / "baska.md"), "kisayol degil")
+
+    def test_geri_alma_kisayolun_hedefini_silmez(self):
+        os.environ.setdefault("KOD_AJANI_VERI", str(self.g / "veri"))
+        kok = self.g / "p"
+        (kok / "src").mkdir(parents=True)
+        (kok / "src" / "ana.py").write_text("x = 1\n", encoding="utf-8")
+        g = a.GeriAlma(kok)
+        sahte_hedef = kok / "src" / "ana.py"
+        # Kisayolun kendisi cozulmeden silinmeli; cozulmus yol silinseydi ana.py giderdi.
+        (kok / "link.py").write_text("kisayol yerine\n", encoding="utf-8")
+        asil = Path.resolve
+        with patch.object(Path, "resolve", lambda y, *x, **k: sahte_hedef if y.name == "link.py" else asil(y, *x, **k)):
+            g._eklenen_sil("link.py")
+        self.assertFalse((kok / "link.py").exists())
+        self.assertTrue(sahte_hedef.exists(), "kisayolun gosterdigi dosya silinmemeli")
+
+    def test_bitmis_komutun_numarasina_dokunulmaz(self):
+        surec = __import__("subprocess").Popen([sys.executable, "-c", "pass"], stdout=__import__("subprocess").PIPE)
+        surec.communicate()
+        self.a.surec = surec
+        with patch.object(a, "surec_agacini_durdur") as durdur:
+            self.a.durdur()
+        durdur.assert_not_called()
+
+    def test_zaman_asiminda_ikinci_bekleme_sinirli(self):
+        import subprocess as sp
+        cagrilar = []
+
+        class SahteSurec:
+            pid, returncode, stdout = 1, None, None
+
+            def communicate(self, timeout=None):
+                cagrilar.append(timeout)
+                raise sp.TimeoutExpired("x", timeout)
+
+            def poll(self):
+                return None
+        with patch.object(a.subprocess, "Popen", lambda *x, **k: SahteSurec()), \
+                patch.object(a, "surec_agacini_durdur"):
+            s = self.a.run_command("python uzun.py")
+        self.assertIn("durduruldu", s)
+        self.assertEqual(cagrilar, [a.KOMUT_ZAMAN_ASIMI, 10], "ikinci bekleme de sinirli olmali")
 
 
 if __name__ == "__main__":

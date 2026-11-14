@@ -60,6 +60,9 @@ way a security engineer would: **as untrusted input**.
 | **Repo map** | The most important definitions go to the model every turn (approach adapted from Aider): Python `ast`, Tree-sitter for JavaScript, TypeScript and C#, regex fallback for everything else |
 | **Selection edit** | Select code, press **Ctrl+Alt+K**, describe the change, review the diff, apply or reject |
 | **Live status** | Streaming answers, visible reasoning, and a status line while the model is busy ("Model writing · 12 s") |
+| **Editor context** | The open file, cursor line and selection go with your message, shown under it ("📎 a.py · lines 12–20 selected"). Type `@path/file.py` to attach up to 3 files. Secret and out-of-project files are never sent |
+| **Persistent chat** | Close VS Code and the panel and the agent's memory come back, stored only on this machine. "New chat" clears both |
+| **Thinking level** | How much reasoning models such as gpt-oss do (`kodAjani.dusunmeSeviyesi`, `--dusunme-seviyesi`). The default is recommended: "low" failed on large tasks in our benchmarks |
 
 ## Security model
 
@@ -119,7 +122,7 @@ One-shot mode: `--gorev "fix the failing tests" --otomatik`. Sandbox: `--korumal
 Download `kod-ajani-<version>.vsix` from the [latest release](https://github.com/cybergah/airgap/releases/latest) and install it:
 
 ```bash
-code --install-extension kod-ajani-0.11.0.vsix --force
+code --install-extension kod-ajani-0.13.1.vsix --force
 ```
 
 The extension ships with the agent inside; you only need Python and Ollama. To build it yourself: `python airgap/kod-ajani/paketle.py` (writes `airgap/dist/`).

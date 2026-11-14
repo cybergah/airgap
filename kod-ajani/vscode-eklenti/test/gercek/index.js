@@ -123,9 +123,12 @@ async function run() {
     { message: { tool_calls: [{ function: { name: "edit_file", arguments: { path: "a.py", old_text: "x = 1", new_text: "x = 2" } } }] }, done: true },
     { message: { content: "bitti" }, done: true },
   ];
+  const govdeler = [];
   const ollama = http.createServer((req, res) => {
-    req.resume();
+    let govde = "";
+    req.on("data", (p) => { govde += p; });
     req.on("end", () => {
+      govdeler.push(govde);
       if (req.url === "/api/show") return res.end(JSON.stringify({ capabilities: ["tools"] }));
       res.end(JSON.stringify(yanitlar.shift() || { message: { content: "bitti" }, done: true }) + "\n");
     });
@@ -197,8 +200,26 @@ async function run() {
       await secimiDene({ vscode, panel, belgeYolu: dosya, yanitEkle: (y) => yanitlar.push(y), adim });
     }
 
+    // Açık dosya ve seçim mesajla birlikte modele gider; panel neyin gittiğini gösterir.
+    const ed = await vscode.window.showTextDocument(await vscode.workspace.openTextDocument(vscode.Uri.file(dosya)));
+    ed.selection = new vscode.Selection(0, 0, 0, ed.document.lineAt(0).text.length);
+    const onceki = panel.gecmis.filter((o) => o.tur === "tur_bitti").length;
+    yanitlar.push({ message: { content: "tamam" }, done: true });
+    panel.webviewMesaji({ tur: "mesaj", metin: "bu satır ne yapıyor" });
+    await bekle(() => panel.gecmis.filter((o) => o.tur === "tur_bitti").length > onceki, "baglamli tur");
+    const not = panel.gecmis.find((o) => o.tur === "baglam_eklendi");
+    assert.ok(not && not.dosya === "a.py" && not.secim_bas === 1, JSON.stringify(not));
+    assert.ok(govdeler.some((g) => g.includes("Open file: a.py") && g.includes("Selected lines 1-1")), "modele bağlam gitmedi");
+    adim("bağlam: açık dosya ve seçim modele gitti, panel bildirdi");
+
+    const kayit = () => panel.context.workspaceState.get("kodAjani.gecmis", []);
+    await bekle(() => kayit().some((o) => o.tur === "kullanici" && o.metin === "bu satır ne yapıyor"), "sohbet kaydı", 5000);
+    assert.ok(!kayit().some((o) => o.tur === "ayrac"), "ayraç kayda girmemeli");
+    adim("kalıcı sohbet: tur sonunda panel geçmişi kaydedildi");
+
     panel.yeni();
     await bekle(() => panel.gecmis.length === 0 || panel.gecmis.every((o) => o.tur !== "degisiklik"), "yeni sohbet");
+    await bekle(() => kayit().length === 0, "yeni sohbet kaydı sildi", 5000);
     adim("yeni sohbet paneli temizledi");
 
     fs.writeFileSync(sonucDosyasi, JSON.stringify({ bitti: true, gecti: true, adimlar }, null, 1));

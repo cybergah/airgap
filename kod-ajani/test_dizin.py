@@ -59,6 +59,21 @@ class DizinTesti(unittest.TestCase):
         self.assertIn("a.py:1-1", sonuc)
         self.assertIn("1\tdef kupon(): pass", sonuc)
 
+    def test_ortak_onbellek_projeler_arasi_yeniden_gommez(self):
+        onbellek = str(self.gecici / "ortak.sqlite3")
+        self.yaz("a.py", "def kupon(): pass\n")
+        with patch.dict(os.environ, {"KOD_AJANI_VEKTOR_ONBELLEK": onbellek}):
+            self.assertEqual(self.dizin.guncelle()["yeni"], 1)
+            ikinci = self.gecici / "kopya"
+            shutil.copytree(self.kok, ikinci)
+            self.gorulen.clear()
+            diger = a.ProjeDizini(ikinci, lambda: ["a.py"], self.dizin.model)
+            self.assertEqual(diger.guncelle()["yeni"], 0, "ayni parca ortak onbellekten gelmeli")
+            self.assertEqual(self.gorulen, [])
+            self.assertEqual(diger.ara("kupon")[0]["yol"], "a.py")
+            baska_model = a.ProjeDizini(ikinci, lambda: ["a.py"], "baska")
+            self.assertEqual(baska_model.guncelle()["yeni"], 1, "baska modelin vektoru kullanilmaz")
+
     def test_yalniz_degisen_dosya_yeniden_islenir(self):
         self.yaz("a.py", "bir\n")
         self.yaz("b.py", "iki\n")

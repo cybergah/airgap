@@ -28,7 +28,7 @@ python kod-ajani/paketle.py
 ```
 
 ```bash
-code --install-extension dist/kod-ajani-0.11.0.vsix --force
+code --install-extension dist/kod-ajani-0.13.1.vsix --force
 ```
 
 Sonra bir klasör aç ve soldaki `</>` simgesine bas. Ayarlar: **Airgap** (model, Python komutu, bağlam).
@@ -41,6 +41,10 @@ Kod seçip **Ctrl+Alt+K**'ye basınca (veya sağ tık menüsünden) ne değişec
 
 - Ajan döngüsü: oku, düzenle, komut çalıştır, doğrula
 - Fark görünümü ve onay düğmeleri
+- Açık dosya, imleç satırı ve seçili kod mesajla birlikte ajana gider; panelde mesajın altında "📎 a.py · satır 12–20 seçili" gibi gösterilir. Gizli veya proje dışı dosyalar gönderilmez.
+- Mesajda `@yol/dosya.py` yazınca o dosyanın ilk 200 satırı mesaja eklenir (en fazla 3 dosya; e-posta adresleri sayılmaz).
+- Sohbet kalıcıdır: VS Code kapanıp açılınca panel ve ajanın hafızası geri gelir (yalnız bu bilgisayarda: panel VS Code'un proje kaydında, ajan `%LOCALAPPDATA%\kod-ajani\sohbetler` altında). "Yeni sohbet" ikisini de siler.
+- Düşünme seviyesi ayarı (`kodAjani.dusunmeSeviyesi`, terminalde `--dusunme-seviyesi`): gpt-oss gibi modellerde ne kadar düşünüleceği. Varsayılan önerilir; ölçümde "az" büyük işlerde başarısız oldu.
 - Modelin yanıtı ve düşünmesi panelde yazıldıkça akar. Ollama araç çağrısını (dosya içeriği dahil) tek parça hâlinde en sonda gönderdiği için model dosya yazarken 15–20 sn hiçbir şey akmayabilir; bu sırada durum satırı ne olduğunu ve geçen süreyi gösterir ("Model yazıyor · 12 sn", "Onayını bekliyor", "Komut çalışıyor · 3 sn").
 - Geri alma noktaları (`%LOCALAPPDATA%\kod-ajani`; projenin `.git` klasörüne dokunmaz)
 - Yerel anlamsal proje araması (`.gitignore` dosyaları dizine girmez)

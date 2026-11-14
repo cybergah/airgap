@@ -128,6 +128,14 @@ gonder({ tur: "icerik", metin: "Projede yalniz GOREV.md var." });
 gonder({ tur: "mesaj_bitti" });
 assert.strictEqual(balonlar().length, 1, "son cevap balonda kalir");
 
+// Mesajla giden baglam panelde gosterilir.
+const notlar = () => ogeler.akis.cocuklar.filter((o) => o.className === "baglam").map((o) => o.textContent);
+gonder({ tur: "baglam_eklendi", dosya: "a.py", satir: 3, secim_bas: 2, secim_son: 5, anilan: ["hesap.py"] });
+gonder({ tur: "baglam_eklendi", dosya: "a.py", satir: 3 });
+gonder({ tur: "baglam_eklendi", anilan: ["x.py", "y.py"] });
+gonder({ tur: "baglam_eklendi", dosya: "b.py", secim_bas: 4, secim_son: 4 });
+assert.deepStrictEqual(notlar(), ["📎 a.py · satır 2–5 seçili · @hesap.py", "📎 a.py · satır 3", "📎 @x.py · @y.py", "📎 b.py · satır 4 seçili"]);
+
 gonder({ tur: "tur_bitti", basarili: true });
 assert.strictEqual(durum.textContent, "gpt-oss:20b");
 assert.strictEqual(ogeler.gonder.disabled, false);
