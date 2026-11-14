@@ -7,6 +7,8 @@ const readline = require("readline");
 const vscode = require("vscode");
 
 const SEMA = "kod-ajani";
+const GECMIS_ANAHTARI = "kodAjani.gecmis";
+const BOS_DEPO = { get: (_a, v) => v, update: () => Promise.resolve() };
 
 /** Arayüz dili: kodAjani.dil ayarı. Varsayılan İngilizce; "tr" Türkçe. Modele gidenler etkilenmez. */
 function dil() {
@@ -46,19 +48,25 @@ class FarkIcerigi {
 
 /** ajan.py --sunucu sürecini yönetir; satır başına bir JSON konuşur. */
 class AjanSureci {
-  constructor(context, olayYaz, gunluk) {
+  constructor(context, olayYaz, gunluk, sohbetVar = () => false) {
     this.context = context;
     this.olayYaz = olayYaz;
     this.gunluk = gunluk;
+    this.sohbetVar = sohbetVar; // panelde kayitli sohbet varsa ajan da kendi hafizasini yukler
     this.surec = null;
   }
   ayarlar() {
     const a = vscode.workspace.getConfiguration("kodAjani");
+    // Proje (.vscode/settings.json) korumayi acabilir ama kapatamaz: indirilen bir depo kullanicinin
+    // actigi korumali calistirmayi sessizce kapatmasin. python/ajanYolu/korumaliImaj package.json'da "machine".
+    const k = (typeof a.inspect === "function" && a.inspect("korumaliCalistirma")) || { globalValue: a.get("korumaliCalistirma") };
+    const korumali = [k.globalValue, k.workspaceValue, k.workspaceFolderValue].includes(true);
     return {
       model: a.get("model"),
       gomme: a.get("gommeModeli"),
+      dusunme: a.get("dusunmeSeviyesi") || "",
       haritaButcesi: a.get("haritaButcesi") ?? 1000,
-      korumali: a.get("korumaliCalistirma") === true,
+      korumali,
       korumaliImaj: a.get("korumaliImaj") || "python:3.13-slim",
       python: a.get("python"),
       // Kurulu pakette ajan.py eklentinin içinde, geliştirmede bir üst klasördedir.
@@ -84,8 +92,10 @@ class AjanSureci {
     const argumanlar = ["-B", a.ajan, "--sunucu", "--model", a.model, "--dizin", klasor.uri.fsPath,
       "--baglam", String(a.baglam), "--maks-adim", String(a.maksAdim)];
     if (a.gomme) argumanlar.push("--gomme-modeli", a.gomme);
+    if (["low", "medium", "high", "uyarlanir"].includes(a.dusunme)) argumanlar.push("--dusunme-seviyesi", a.dusunme);
     argumanlar.push("--harita-butce", String(a.haritaButcesi));
     if (a.korumali) argumanlar.push("--korumali", a.korumaliImaj);
+    if (this.sohbetVar()) argumanlar.push("--sohbet-yukle");
     const surec = cp.spawn(a.python, argumanlar, {
       cwd: klasor.uri.fsPath,
       env: { ...process.env, PYTHONIOENCODING: "utf-8", PYTHONUTF8: "1", AIRGAP_LANG: dil() },
@@ -125,11 +135,40 @@ class AjanSureci {
   }
 }
 
+/**
+ * Açık dosya, imleç satırı ve seçim (varsa). Yalnız proje klasöründeki kayıtlı dosyalar; gizli dosya
+ * denetimini ajan yapar ve gerçekten kullandığını "baglam_eklendi" olayıyla bildirir.
+ */
+function editorBaglami() {
+  try { // bağlam yardımcıdır: alınamazsa mesaj bağlamsız gider, kaybolmaz
+    const editor = vscode.window.activeTextEditor || (vscode.window.visibleTextEditors || [])[0];
+    const klasor = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0];
+    if (!editor || !klasor || editor.document.uri.scheme !== "file") return null;
+    const goreli = path.relative(klasor.uri.fsPath, editor.document.uri.fsPath);
+    if (!goreli || goreli.startsWith("..") || path.isAbsolute(goreli)) return null;
+    const baglam = { yol: goreli.split(path.sep).join("/"), satir: editor.selection.active.line + 1 };
+    if (!editor.selection.isEmpty) {
+      baglam.secim = {
+        bas: editor.selection.start.line + 1,
+        son: editor.selection.end.line + 1,
+        metin: editor.document.getText(editor.selection).slice(0, 20000),
+      };
+    }
+    return baglam;
+  } catch {
+    return null;
+  }
+}
+
 class SohbetPaneli {
   constructor(context) {
     this.context = context;
     this.view = null;
-    this.gecmis = [];
+    // Kalıcı sohbet: panel olayları proje başına VS Code'un workspaceState'inde (yalnız bu bilgisayarda).
+    const kayitli = (context.workspaceState || BOS_DEPO).get(GECMIS_ANAHTARI, []);
+    this.gecmis = Array.isArray(kayitli) && kayitli.length
+      ? [...kayitli, { tur: "tur_bitti", basarili: false }, { tur: "ayrac", metin: L("Önceki oturum · ajan bu sohbeti hatırlıyor", "Previous session · the agent remembers this chat") }]
+      : [];
     this.fark = new FarkIcerigi();
     this.sonFark = null;
     this.mesgul = false;
@@ -137,7 +176,8 @@ class SohbetPaneli {
     this.secimSayac = 0;
     this.secimSuruyor = false;
     this.gunluk = vscode.window.createOutputChannel("Airgap");
-    this.ajan = new AjanSureci(context, (olay) => this.olay(olay), this.gunluk);
+    this.ajan = new AjanSureci(context, (olay) => this.olay(olay), this.gunluk,
+      () => this.gecmis.some((o) => o.tur === "kullanici"));
     context.subscriptions.push(
       vscode.workspace.registerTextDocumentContentProvider(SEMA, this.fark),
       this.gunluk,
@@ -145,8 +185,8 @@ class SohbetPaneli {
       vscode.workspace.onDidChangeConfiguration((d) => {
         if (d.affectsConfiguration("kodAjani")) {
           this.ajan.kapat();
-          this.webviewYaz({ tur: "uyari", metin: L("Ayarlar değişti; ajan bir sonraki mesajda yeni ayarlarla başlar, sohbet sıfırlandı.",
-            "Settings changed: the agent restarts with the new settings on your next message, and the chat was reset.") });
+          this.webviewYaz({ tur: "uyari", metin: L("Ayarlar değişti; ajan bir sonraki mesajda yeni ayarlarla yeniden başlar, sohbet korunur.",
+            "Settings changed: the agent restarts with the new settings on your next message; the chat is kept.") });
           this.webviewYaz({ tur: "tur_bitti", basarili: false });
           if (d.affectsConfiguration("kodAjani.dil") && this.view) this.view.webview.html = this.html();
         }
@@ -167,7 +207,12 @@ class SohbetPaneli {
       if (bekleyen) bekleyen(olay);
       return;
     }
-    if (olay.tur === "tur_bitti") this.mesgul = false;
+    if (olay.tur === "tur_bitti") {
+      this.mesgul = false;
+      this.webviewYaz(olay);
+      this.gecmisKaydet();
+      return;
+    }
     if (olay.tur === "surec_bitti") {
       this.mesgul = false;
       for (const bekleyen of this.secimler.values()) bekleyen({ hata: olay.metin });
@@ -200,7 +245,7 @@ class SohbetPaneli {
       case "mesaj":
         this.webviewYaz({ tur: "kullanici", metin: m.metin });
         this.mesgul = true;
-        if (!this.ajan.gonder({ tur: "mesaj", metin: m.metin })) {
+        if (!this.ajan.gonder({ tur: "mesaj", metin: m.metin, baglam: editorBaglami() })) {
           this.mesgul = false;
           this.webviewYaz({ tur: "tur_bitti", basarili: false });
         }
@@ -302,9 +347,16 @@ class SohbetPaneli {
     if (secim === devam) this.ajan.gonder({ tur: "geri_al", nokta: m.nokta });
   }
 
+  gecmisKaydet() {
+    // Ayraçlar ve tamamlanmamış onaylar her açılışta yeniden eklenir; büyük geçmişin yalnız sonu tutulur.
+    const saklanan = this.gecmis.filter((o) => o.tur !== "ayrac").slice(-1500);
+    Promise.resolve((this.context.workspaceState || BOS_DEPO).update(GECMIS_ANAHTARI, saklanan)).catch((h) => this.gunluk.appendLine(String(h)));
+  }
+
   yeni() {
     this.gecmis = [];
     this.sonFark = null;
+    Promise.resolve((this.context.workspaceState || BOS_DEPO).update(GECMIS_ANAHTARI, [])).catch((h) => this.gunluk.appendLine(String(h)));
     if (this.ajan.surec) this.ajan.gonder({ tur: "dur" }), this.ajan.gonder({ tur: "yeni" });
     if (this.view) this.view.webview.postMessage({ tur: "temizle" });
   }

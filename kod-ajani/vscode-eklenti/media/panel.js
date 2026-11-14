@@ -207,6 +207,25 @@
         icerik.textContent += olay.metin;
         kaydir();
         break;
+      case "ayrac":
+        akisKapat();
+        ekle(ogeOlustur("div", "ayrac", olay.metin || ""));
+        break;
+      case "baglam_eklendi": {
+        // Mesajla birlikte modele giden editor bilgisi: kullanici neyin gonderildigini gorsun.
+        const parcalar = [];
+        if (olay.dosya) {
+          let p = olay.dosya;
+          if (olay.secim_bas) p += olay.secim_bas === olay.secim_son
+            ? L(` · satır ${olay.secim_bas} seçili`, ` · line ${olay.secim_bas} selected`)
+            : L(` · satır ${olay.secim_bas}–${olay.secim_son} seçili`, ` · lines ${olay.secim_bas}–${olay.secim_son} selected`);
+          else if (olay.satir) p += L(` · satır ${olay.satir}`, ` · line ${olay.satir}`);
+          parcalar.push(p);
+        }
+        (olay.anilan || []).forEach((d) => parcalar.push(`@${d}`));
+        if (parcalar.length) ekle(ogeOlustur("div", "baglam", "📎 " + parcalar.join(" · ")));
+        break;
+      }
       case "ara_not":
         // Arac cagrisindan onceki not (cogu zaman Ingilizce ic ses): sohbet balonu degil, kapali "Düşünüyor".
         if (icerik) {

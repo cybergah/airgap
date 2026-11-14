@@ -145,7 +145,7 @@ class DonguTesti(unittest.TestCase):
         with tempfile.TemporaryDirectory() as kok:
             ajan = self._ajan(kok)
             sorular = []
-            ajan._onay = lambda soru: sorular.append(soru) or False
+            ajan._onay = lambda soru, tur="yazma": sorular.append(soru) or False
             self.assertFalse(ajan.tur("calistir"))
             self.assertEqual(len(sorular), 1)
             self.assertEqual(ajan.mesajlar[-1]["role"], "tool")
@@ -153,7 +153,7 @@ class DonguTesti(unittest.TestCase):
     def test_reddedilen_islem_icin_bir_uyari_hakki_vardir(self):
         with tempfile.TemporaryDirectory() as kok:
             ajan = self._ajan(kok)
-            ajan._onay = lambda soru: False
+            ajan._onay = lambda soru, tur="yazma": False
             self.assertFalse(ajan.tur("calistir"))
             arac = [m["content"] for m in ajan.mesajlar if m["role"] == "tool"]
             self.assertEqual(arac, [a.REDDEDILDI, a.YENIDEN_ISTENDI, arac[-1]])
@@ -192,14 +192,14 @@ class DonguTesti(unittest.TestCase):
 
             ajan._modeli_cagir = model
             onaylar = iter([False, True])
-            ajan._onay = lambda soru: next(onaylar)
+            ajan._onay = lambda soru, tur="yazma": next(onaylar)
             ajan.araclar.calistir = lambda ad, arg: "tamam"
             self.assertTrue(ajan.tur("calistir"))
 
     def test_ayni_cagri_tekrarlaninca_durur(self):
         with tempfile.TemporaryDirectory() as kok:
             ajan = self._ajan(kok)
-            ajan._onay = lambda soru: True
+            ajan._onay = lambda soru, tur="yazma": True
             calisan = []
             ajan.araclar.calistir = lambda ad, arg: calisan.append(ad) or "tamam"
             self.assertFalse(ajan.tur("calistir"))

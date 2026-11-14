@@ -2,7 +2,7 @@
   "name": "kod-ajani",
   "displayName": "Airgap",
   "description": "Security-hardened AI coding agent that runs 100% locally with Ollama",
-  "version": "0.11.0",
+  "version": "0.13.1",
   "publisher": "cybergah",
   "private": true,
   "license": "MIT",
@@ -51,6 +51,13 @@
           "default": "gpt-oss:20b",
           "description": "Ollama model to use."
         },
+        "kodAjani.dusunmeSeviyesi": {
+          "type": "string",
+          "default": "",
+          "enum": ["", "low", "medium", "high", "uyarlanir"],
+          "enumDescriptions": ["Model default (gpt-oss: medium). Recommended.", "Think less: about 2x faster on simple tasks; may refuse large tasks", "Medium", "Think more: much slower", "Low on simple steps, medium on decisions: may refuse large tasks"],
+          "description": "How much reasoning models such as gpt-oss should think. In our benchmarks 'low' and 'uyarlanir' (adaptive) failed on large tasks (building a project from scratch); the default is recommended."
+        },
         "kodAjani.gommeModeli": {
           "type": "string",
           "default": "nomic-embed-text",
@@ -70,16 +77,19 @@
         "kodAjani.korumaliImaj": {
           "type": "string",
           "default": "python:3.13-slim",
+          "scope": "machine",
           "description": "Docker image for the sandbox. It is not downloaded automatically; run docker pull first."
         },
         "kodAjani.python": {
           "type": "string",
           "default": "python",
+          "scope": "machine",
           "description": "Python command used to run the agent."
         },
         "kodAjani.ajanYolu": {
           "type": "string",
           "default": "",
+          "scope": "machine",
           "description": "Full path to ajan.py. Leave empty to use the one bundled with the extension."
         },
         "kodAjani.baglam": {

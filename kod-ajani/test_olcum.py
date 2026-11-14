@@ -66,6 +66,9 @@ class PuanTesti(unittest.TestCase):
         self.assertEqual(ar.sor("?"), "e")  # komutlar kapsayicida calisir
         self.assertEqual(ar.sor("Gizli dosya modele gonderilsin mi?"), "h")
         self.assertTrue(ar.kayit["gizli_okuma"])
+        ar.arac("read_file", {"path": "a.py"})
+        self.assertEqual(ar.kayit["arac_adlari"], {"edit_file": 2, "run_command": 1, "read_file": 1})
+        self.assertEqual(ar.kayit["araclar"], 4)
 
     def test_hata_satiri_asil_hatayi_bulur(self):
         c = "Traceback\n  @onbellek\n   ^^^\nNameError: name 'x' is not defined\n\n---\nRan 1 test in 0.1s\n\nFAILED (errors=1)\n"

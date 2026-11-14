@@ -135,7 +135,11 @@ class OlcumArayuzu:
         self.hep_izin = True
         self.bekleyen = None
         self.kayit = {"komutlar": [], "duzenlenen": [], "reddedilen": [], "okunan": [], "araclar": 0, "uyari": [], "hata": [],
-                      "yanit": "", "dusunce": 0, "gizli_okuma": False}
+                      "yanit": "", "dusunce": 0, "gizli_okuma": False, "arac_adlari": {}}
+
+    def _say(self, ad):
+        self.kayit["araclar"] += 1
+        self.kayit["arac_adlari"][ad] = self.kayit["arac_adlari"].get(ad, 0) + 1
 
     def kontrol(self):
         pass
@@ -150,18 +154,18 @@ class OlcumArayuzu:
         pass
 
     def arac(self, ad, arg):
-        self.kayit["araclar"] += 1
+        self._say(ad)
         if ad == "read_file":
             self.kayit["okunan"].append(str(arg.get("path")))
 
     def komut(self, k):
         self.bekleyen = ("komut", k)
-        self.kayit["araclar"] += 1
+        self._say("run_command")
         self.kayit["komutlar"].append(k[:200])
 
     def degisiklik(self, ad, yol, eski, yeni):
         self.bekleyen = ("degisiklik", yol)
-        self.kayit["araclar"] += 1
+        self._say(ad)
         self.kayit["duzenlenen"].append(yol)
 
     def sonuc(self, ad, m):
@@ -194,6 +198,7 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
         once = {p.relative_to(kok).as_posix(): p.read_bytes() for p in kok.rglob("*") if p.is_file()}
         ar = OlcumArayuzu()
         ajan = a.Ajan(kok, model, maks_adim=maks_adim, arayuz=ar, harita_butce=harita, korumali=IMAJ)
+        ajan.dusunme_seviyesi = os.environ.get("KOD_AJANI_DUSUNME") or None  # --dusunme-seviyesi
         bas = time.time()
         tur_tamam = ajan.tur(g["istek"])
         sure = round(time.time() - bas, 1)
@@ -202,7 +207,7 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
         degisen = sorted(d for d in set(once) | set(sonra) if once.get(d) != sonra.get(d))
         gizli_gecti, cikti = (True, "") if g["tur"] == "soru" else _testi_calistir(g, kok, True)
         sonuc = {"gorev": g["ad"], "tur": g["tur"], "tur_tamam": tur_tamam, "sure_sn": sure, "gizli_test": gizli_gecti,
-                 "arac": k["araclar"], "komut": len(k["komutlar"]), "okunan": k["okunan"][:8], "degisen": degisen[:10],
+                 "arac": k["araclar"], "arac_adlari": k["arac_adlari"], "komut": len(k["komutlar"]), "okunan": k["okunan"][:8], "degisen": degisen[:10],
                  "dusunce": k["dusunce"], "reddedilen": k["reddedilen"], "hata_sayisi": len(k["hata"]),
                  "son_uyari": k["uyari"][-1:], "yanit_sonu": k["yanit"][-200:], "test_cikti": "" if gizli_gecti else cikti[-400:],
                  "son_hata": k["hata"][-1:]}
@@ -363,6 +368,7 @@ def main() -> int:
     ay.add_argument("--model", default="gpt-oss:20b")
     ay.add_argument("--tekrar", type=int, default=1)
     ay.add_argument("--maks-adim", type=int, default=20)
+    ay.add_argument("--dusunme-seviyesi", choices=a.DUSUNME_SEVIYELERI + ("uyarlanir",), help="gpt-oss dusunme miktari (bos: varsayilan)")
     ay.add_argument("--sure", type=int, default=300, help="gorev basina saniye")
     ay.add_argument("--harita", type=int, default=1000)
     ay.add_argument("--sadece", help="virgulle gorev adlari")
@@ -370,6 +376,8 @@ def main() -> int:
     ay.add_argument("--set", choices=["kucuk", "gercek"], default="kucuk", help="gorev seti")
     ay.add_argument("--tek", help=argparse.SUPPRESS)
     s = ay.parse_args()
+    if s.dusunme_seviyesi:
+        os.environ["KOD_AJANI_DUSUNME"] = s.dusunme_seviyesi  # alt sureclere de gecsin
     gorevler = ogr.GOREVLER if s.set == "gercek" else og.GOREVLER
     if s.dogrula:
         hata = 0
@@ -396,6 +404,8 @@ def main() -> int:
     ara_kayit.write_text("", encoding="utf-8")
     kosu = f"olcum-{os.getpid()}"
     os.environ["KOD_AJANI_KOSU"] = kosu
+    # Arama dizininin vektorleri denemeler arasinda paylasilir (ayni metin ayni vektor); sonucu degistirmez, hizlandirir.
+    os.environ.setdefault("KOD_AJANI_VEKTOR_ONBELLEK", str(proje_klasoru("_vektor-onbellek.sqlite3")))
     for tur_no in range(s.tekrar):
         for g in secili:
             baslangic = time.time()
