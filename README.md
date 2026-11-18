@@ -186,10 +186,27 @@ cd kod-ajani && python -B -m unittest discover -p "test_*.py"
 node kod-ajani/vscode-eklenti/test/duman.js
 ```
 
+## Roadmap
+
+- **English codebase:** comments first, then CLI flags, then identifiers ([#9](https://github.com/cybergah/airgap/issues/9)).
+- **More languages in the repo map:** Go, Rust and Java through Tree-sitter ([#1](https://github.com/cybergah/airgap/issues/1), [#2](https://github.com/cybergah/airgap/issues/2), [#3](https://github.com/cybergah/airgap/issues/3)).
+- **Linux and macOS** checked end to end with a real model ([#6](https://github.com/cybergah/airgap/issues/6)).
+- **A signed Windows build**, so SmartScreen stops warning.
+- **Harder benchmarks:** more tasks with hidden tests, and more real projects ([#5](https://github.com/cybergah/airgap/issues/5)).
+
 ## Contributing
 
-Bug reports, translations, new benchmark tasks and security findings are all welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md).
-Found a way around the command analyzer or the sandbox? Please report it privately, following the [security policy](https://github.com/cybergah/.github/blob/main/SECURITY.md).
+Bug reports, translations, new benchmark tasks and security findings are all welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md),
+or pick an issue labelled [**good first issue**](https://github.com/cybergah/airgap/labels/good%20first%20issue): most need no
+knowledge of how the agent works. Comment on an issue to claim it.
+
+**Beat the command analyzer.** Find a risky command that Airgap does not flag ([#4](https://github.com/cybergah/airgap/issues/4)):
+it becomes a test case, and your name goes in the list below. Serious sandbox escapes: please report them privately first,
+following the [security policy](https://github.com/cybergah/.github/blob/main/SECURITY.md).
+
+| Found by | Command | Fixed in |
+|---|---|---|
+| *your name here* | | |
 
 ## License
 
