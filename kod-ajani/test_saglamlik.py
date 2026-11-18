@@ -163,6 +163,7 @@ class TekrarVeDogrulamaTesti(ModelTesti):
         (self.kok / "test_a.py").write_text("x\n", encoding="utf-8")
         self.ajan.araclar.kum = object()
         sonuclar = iter(["FAIL\n[cikis kodu: 1]", "OK\n[cikis kodu: 0]"])
+        self.ajan._sessiz_komut = lambda komut: "OK\n[cikis kodu: 0]"  # duzenlemeden once testler geciyordu
         self.ajan._calistir_ve_bildir = lambda ad, arg: next(sonuclar) if ad == "run_command" else "duzenlendi"
         self.duzenleme_akisi(yanit("bitti"), yanit("gercekten bitti"))
         self.assertTrue(self.ajan.tur("isle"))
@@ -173,6 +174,7 @@ class TekrarVeDogrulamaTesti(ModelTesti):
         (self.kok / "test_a.py").write_text("x\n", encoding="utf-8")
         self.ajan.araclar.kum = object()
         self.ajan._calistir_ve_bildir = lambda ad, arg: "FAIL\n[cikis kodu: 1]" if ad == "run_command" else "duzenlendi"
+        self.ajan._sessiz_komut = lambda komut: "OK\n[cikis kodu: 0]"
         self.duzenleme_akisi(yanit("bitti"), yanit("bitti"), yanit("bitti"), yanit("bitti"))
         self.assertTrue(self.ajan.tur("isle"))
         self.assertEqual(len([m for m in self.ajan.mesajlar if "[Automatic check]" in (m.get("content") or "")]), 2)

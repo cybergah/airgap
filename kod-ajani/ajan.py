@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import builtins
 import difflib
 import hashlib
 import json
@@ -20,8 +21,10 @@ import queue
 import re
 import sqlite3
 import subprocess
+import symtable
 import sys
 import threading
+import time
 import uuid
 import urllib.error
 import urllib.request
@@ -137,6 +140,7 @@ _MESAJ_EN = [(re.compile(k), y) for k, y in [
     (r"gomme modeli beklenen sayida vektor dondurmedi", "the embedding model returned the wrong number of vectors"),
     (r"git bulunamadi", "git not found"),
     (r"git calistirilamadi: ", "git could not be run: "),
+    (r"git (\S*) cikis kodu (-?\d+): ", r"git \1 exit code \2: "),
     (r"proje disinda bir yol: ", "a path outside the project: "),
 ]]
 # Basarili arac sonuclarinin yalniz ajanin ekledigi parcalari: dosya icerigine ve komut ciktisina dokunulmaz.
@@ -505,7 +509,15 @@ class Araclar:
         fazla = len(liste) - 500
         return "\n".join(liste[:500]) + (f"\n... ve {fazla} dosya daha" if fazla > 0 else "")
 
-    def read_file(self, path: str, offset: int = 1, limit: int | None = None) -> str:
+    def read_file(self, path: str, offset: int = 1, limit: int | None = None, line_start: int | None = None,
+                  line_end: int | None = None, start_line: int | None = None, end_line: int | None = None) -> str:
+        # gpt-oss neredeyse her turda once line_start/line_end ile deniyor; hata verip bir adim harcatmak yerine kabul.
+        bas_ = line_start or start_line
+        son_ = line_end or end_line
+        if bas_ or son_:
+            offset = int(bas_ or offset or 1)
+            if son_:
+                limit = max(int(son_) - offset + 1, 1)
         hedef = self.yol(path)
         if not hedef.is_file():
             raise AracHatasi(f"dosya bulunamadi: {path}")
@@ -820,15 +832,24 @@ def dusunceyi_temizle(icerik: str) -> str:
     return re.sub(r"<think>.*?(</think>|$)", "", icerik, flags=re.S).strip()
 
 
+# Deneme: KOD_AJANI_DUSUNCE=0 iken eski davranis (dusunce gecmise yazilmaz).
+DUSUNCE_SAKLA = os.environ.get("KOD_AJANI_DUSUNCE", "1") != "0"
+
+
 def gecmisi_sigdir(mesajlar: list[dict], baglam: int) -> None:
     """Baglam dolunca en eski arac ciktilarini kisaltir; son mesajlara dokunmaz."""
     butce = baglam * 3  # kabaca karakter/belirtec orani
 
     def boyut(m):
-        return len(m.get("content") or "") + sum(len(json.dumps(c.get("function", {}).get("arguments") or {}, ensure_ascii=False))
+        return len(m.get("content") or "") + len(m.get("thinking") or "") + sum(len(json.dumps(c.get("function", {}).get("arguments") or {}, ensure_ascii=False))
                                                  for c in m.get("tool_calls") or [])
 
     toplam = sum(boyut(m) for m in mesajlar)
+    for mesaj in mesajlar:  # once eski dusunceler: en az degerli ve en buyuk parca
+        if toplam <= butce:
+            return
+        if mesaj.get("thinking") and mesaj is not mesajlar[-1]:
+            toplam -= len(mesaj.pop("thinking"))
     for mesaj in mesajlar[:-6]:
         if toplam <= butce:
             return
@@ -1335,7 +1356,11 @@ class GeriAlma:
         except (subprocess.TimeoutExpired, OSError) as hata:
             raise GeriAlmaHatasi(f"git calistirilamadi: {hata}") from hata
         if sonuc.returncode != 0:
-            raise GeriAlmaHatasi(sonuc.stderr.decode("utf-8", errors="replace").strip()[:500])
+            neden = sonuc.stderr.decode("utf-8", errors="replace").strip()[:500]
+            if not neden:  # hata cikisi bos: en azindan kod ve standart cikti gorunsun
+                neden = f"git {arg[0] if arg else ''} cikis kodu {sonuc.returncode}: " \
+                        f"{sonuc.stdout.decode('utf-8', errors='replace').strip()[:300]}"
+            raise GeriAlmaHatasi(neden)
         return sonuc.stdout.decode("utf-8", errors="surrogateescape")
 
     def _hazirla(self) -> None:
@@ -2079,6 +2104,308 @@ class JsonArayuz:
 
 # ---------------------------------------------------------------- ajan
 
+# ---------------------------------------------------------------- statik denetim
+# Model "bitti" deyince, calistirmadan yakalanabilen yeni hatalari arar: tanimsiz ad, proje modulunde olmayan ad,
+# proje fonksiyonuna yanlis sayida arguman. Olcum kayitlarinda (deneme-gorevleri/istikrar-analizi.md) hic komut
+# calistirmadan biten denemelerin %59'u basarisizdi ve hatalarin cogu bu turdendi. Emin olunamayan her durumda susar.
+
+TEST_SURE_SINIRI = 60  # saniye; daha uzun suren test takimi otomatik calistirilmaz
+# Ajanin otomatik test kosusu icin, test araclari (pytest) kurulu ayri kapsayici imaji. Bos: modelin kapsayicisi, unittest.
+TEST_IMAJI = os.environ.get("KOD_AJANI_TEST_IMAJ", "")
+
+
+def basarisiz_testler(cikti: str) -> set[str]:
+    """Test ciktisindaki basarisiz testlerin adlari (pytest -rfE ve unittest)."""
+    adlar = {ad.strip() for ad in re.findall(r"^(?:FAILED|ERROR) (.+?)(?: - .*)?$", cikti, re.M)}
+    adlar |= {f"{sinif}.{ad}" for ad, sinif in re.findall(r"^(?:FAIL|ERROR): (\S+) \(([^)\s]+)\)", cikti, re.M)}
+    return adlar
+
+
+def _cikis_kodu(sonuc: str) -> int | None:
+    esles = re.search(r"\[cikis kodu: (-?\d+)\]\s*$", sonuc)
+    return int(esles.group(1)) if esles else None
+
+
+STATIK_DOSYA_SINIRI = 400
+STATIK_DOSYA_BAYT = 600_000
+STATIK_DOGRULAMA = 2
+STATIK_ACIK = os.environ.get("KOD_AJANI_STATIK", "1") != "0"
+_PY_YERLESIK = set(dir(builtins)) | {
+    "__file__", "__name__", "__doc__", "__spec__", "__loader__", "__package__", "__path__", "__builtins__",
+    "__debug__", "__annotations__", "__class__", "__dict__", "__module__", "__qualname__", "__cached__",
+    "__warningregistry__", "__all__",
+    # calisma zamaninda eklenen (gettext) ve surum kontroluyle korunan eski Python 2 adlari
+    "_", "unicode", "basestring", "long", "xrange", "raw_input", "unichr", "reduce", "file", "execfile", "cmp",
+    "buffer", "WindowsError", "reveal_type"}
+_BELIRSIZ_KULLANIM = re.compile(r"\b(?:globals|locals|vars|exec|eval|setattr|__import__)\s*\(|\b__getattr__\b|\bsys\.modules\b"
+                              r"|\bglobal_enum\b|\._convert_\(")
+STATIK_NOTU = ("[Automatic check] You said you were done, but a static check found problems that were not there before "
+               "your edits:\n{sorunlar}\nFix them now (other files may still use an old name or an old signature; "
+               "search and read them again), then finish. If one is a false alarm, say so in your summary.")
+
+
+class _PyModul:
+    """Bir Python dosyasinin statik ozeti; ayristirilamazsa ValueError/SyntaxError firlatir."""
+
+    def __init__(self, goreli: str, metin: str):
+        self.goreli = goreli
+        self.agac = ast.parse(metin)
+        self.tablo = symtable.symtable(metin, goreli, "exec")
+        yildiz = any(isinstance(d, ast.ImportFrom) and any(a.name == "*" for a in d.names) for d in ast.walk(self.agac))
+        # Adlar calisma zamaninda uretiliyorsa (yildizli import, globals(), __getattr__) hicbir sey soylenmez.
+        self.belirsiz = yildiz or bool(_BELIRSIZ_KULLANIM.search(metin))
+        self.tanimli: set[str] = set()
+        self._topla(self.tablo, True)
+        # Baska bir sey olarak yeniden baglanan adlar (parametre, dongu degiskeni, atama): takma ad sayilmaz.
+        self.baglanan: Counter = Counter()
+        for d in ast.walk(self.agac):
+            if isinstance(d, ast.Name) and isinstance(d.ctx, (ast.Store, ast.Del)):
+                self.baglanan[d.id] += 1
+            elif isinstance(d, ast.arg):
+                self.baglanan[d.arg] += 1
+            elif isinstance(d, ast.ExceptHandler) and d.name:
+                self.baglanan[d.name] += 1
+            elif isinstance(d, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                self.baglanan[d.name] += 1
+            elif isinstance(d, (ast.Import, ast.ImportFrom)):
+                for a in d.names:
+                    self.baglanan[a.asname or a.name.split(".")[0]] += 1
+
+    def _topla(self, tablo, modul: bool) -> None:
+        for s in tablo.get_symbols():
+            if modul and (s.is_assigned() or s.is_imported() or s.is_namespace()):
+                self.tanimli.add(s.get_name())
+            elif not modul and s.is_declared_global() and (s.is_assigned() or s.is_imported() or s.is_namespace()):
+                self.tanimli.add(s.get_name())
+        for alt in tablo.get_children():
+            self._topla(alt, False)
+
+    def tanim(self, ad: str):
+        """Modulun en ust duzeyinde tek bir kez tanimlanan fonksiyon ya da sinif; degilse None."""
+        if self.baglanan[ad] != 1:
+            return None
+        for d in self.agac.body:
+            if isinstance(d, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and d.name == ad:
+                return d
+        return None
+
+
+class _PyProje:
+    def __init__(self, kok: Path, dosyalar: list[str]):
+        self.kok = kok
+        self.dosyalar = set(dosyalar)
+        self._moduller: dict[str, _PyModul | None] = {}
+
+    def modul(self, goreli: str) -> _PyModul | None:
+        if goreli not in self._moduller:
+            self._moduller[goreli] = None
+            try:
+                yol = self.kok / goreli
+                if yol.stat().st_size <= STATIK_DOSYA_BAYT:
+                    self._moduller[goreli] = _PyModul(goreli, yol.read_bytes().decode("utf-8"))
+            except (OSError, ValueError, SyntaxError, RecursionError, MemoryError):
+                pass
+        return self._moduller[goreli]
+
+    def _dosya(self, taban: str, parcalar: list[str]) -> str | None:
+        yol = "/".join(p for p in [taban, *parcalar] if p)
+        for aday in (yol + ".py", yol + "/__init__.py"):
+            if aday in self.dosyalar:
+                return aday
+        return None
+
+    def coz(self, kaynak: str, modul_adi: str | None, seviye: int = 0) -> str | None:
+        """Import edilen modulun proje icindeki dosyasi; proje disiysa (kutuphane) None."""
+        parcalar = modul_adi.split(".") if modul_adi else []
+        klasor = kaynak.rsplit("/", 1)[0] if "/" in kaynak else ""
+        if seviye:
+            for _ in range(seviye - 1):
+                if not klasor:
+                    return None
+                klasor = klasor.rsplit("/", 1)[0] if "/" in klasor else ""
+            return self._dosya(klasor, parcalar) if parcalar else (klasor + "/__init__.py" if klasor + "/__init__.py" in self.dosyalar else None)
+        if not parcalar:
+            return None
+        if parcalar[0] in sys.stdlib_module_names:
+            return None  # "import abc" yandaki abc.py degil, Python'un kendi moduludur
+        # Mutlak import yalniz proje kokunde, src/ altinda ve betigin kendi klasorunde (paket degilse) aranir.
+        kokler = ["", "src"]
+        if klasor and klasor not in kokler and klasor + "/__init__.py" not in self.dosyalar:
+            kokler.append(klasor)
+        for taban in kokler:
+            bulunan = self._dosya(taban, parcalar)
+            if bulunan:
+                return bulunan
+        return None
+
+    def ad_var(self, dosya: str, ad: str) -> bool:
+        """Modulde bu ad var mi? Emin olunamiyorsa True."""
+        m = self.modul(dosya)
+        if m is None or m.belirsiz or ad in m.tanimli or ad.startswith("__"):
+            return True
+        if dosya.endswith("/__init__.py"):
+            paket = dosya[:-len("/__init__.py")]
+            if self._dosya(paket, [ad]) is not None:
+                return True
+            try:  # derlenmis alt modul (_hizli.pyd, _hizli.cpython-313.so) ya da .py olmayan alt paket
+                return any(y.name == ad or y.name.startswith(ad + ".") for y in (self.kok / paket).iterdir())
+            except OSError:
+                return True
+        return False
+
+
+def _arguman_sorunu(tanim, cagri: ast.Call) -> str | None:
+    """Cagri bu tanima uymuyorsa nedenini doner. Emin olunamayan (susleyici, *args, miras) durumlarda None."""
+    if tanim.decorator_list or any(isinstance(a, ast.Starred) for a in cagri.args) or any(k.arg is None for k in cagri.keywords):
+        return None
+    sinif = isinstance(tanim, ast.ClassDef)
+    if sinif:
+        if tanim.keywords:
+            return None
+        govde = {d.name: d for d in tanim.body if isinstance(d, (ast.FunctionDef, ast.AsyncFunctionDef))}
+        if "__new__" in govde:
+            return None
+        if "__init__" not in govde:
+            if tanim.bases:
+                return None
+            return f"{tanim.name}() takes no arguments" if cagri.args or cagri.keywords else None
+        islev = govde["__init__"]
+        if islev.decorator_list:
+            return None
+    else:
+        islev = tanim
+    a = islev.args
+    konumlu = [p.arg for p in a.posonlyargs + a.args][1 if sinif else 0:]
+    varsayilan = len(a.defaults)
+    zorunlu = konumlu[:len(konumlu) - varsayilan] if varsayilan <= len(konumlu) else []
+    verilen = len(cagri.args)
+    anahtarlar = {k.arg for k in cagri.keywords}
+    ad = tanim.name
+    if a.vararg is None and verilen > len(konumlu):
+        return f"{ad}() takes {len(konumlu)} positional argument(s) but {verilen} were given"
+    eksik = [p for p in zorunlu[verilen:] if p not in anahtarlar]
+    eksik += [p.arg for p, v in zip(a.kwonlyargs, a.kw_defaults) if v is None and p.arg not in anahtarlar]
+    if eksik:
+        return f"{ad}() is called without required argument(s): {', '.join(eksik)}"
+    if a.kwarg is None:
+        bilinmeyen = sorted(anahtarlar - set(konumlu) - {p.arg for p in a.kwonlyargs})
+        if bilinmeyen:
+            return f"{ad}() got unexpected keyword argument(s): {', '.join(bilinmeyen)}"
+    return None
+
+
+def _modul_sorunlari(proje: _PyProje, m: _PyModul) -> list[tuple[int, str]]:
+    sorunlar: list[tuple[int, str]] = []
+    istege_bagli = {id(alt) for d in ast.walk(m.agac) if isinstance(d, ast.Try) and d.handlers for alt in ast.walk(d)}
+    takma_modul: dict[str, str] = {}   # ad -> proje modul dosyasi
+    takma_tanim: dict[str, tuple[_PyModul, str]] = {}  # ad -> (modul, oradaki ad)
+    for d in ast.walk(m.agac):
+        if isinstance(d, ast.Import):
+            for a in d.names:
+                if "." in a.name and not a.asname:
+                    continue
+                dosya = proje.coz(m.goreli, a.name)
+                if dosya and m.baglanan[a.asname or a.name] == 1:
+                    takma_modul[a.asname or a.name] = dosya
+        elif isinstance(d, ast.ImportFrom):
+            kaynak = proje.coz(m.goreli, d.module, d.level)
+            if not kaynak:
+                for a in d.names:  # __init__.py'siz paket: "from paket import modul"
+                    alt = proje.coz(m.goreli, f"{d.module}.{a.name}", d.level) if d.module and a.name != "*" else None
+                    if alt and m.baglanan[a.asname or a.name] == 1:
+                        takma_modul[a.asname or a.name] = alt
+                continue
+            for a in d.names:
+                if a.name == "*":
+                    continue
+                yerel = a.asname or a.name
+                alt = proje.coz(m.goreli, f"{d.module}.{a.name}" if d.module else a.name, d.level)
+                km = proje.modul(kaynak)
+                if alt and (km is None or a.name not in km.tanimli):
+                    if m.baglanan[yerel] == 1:
+                        takma_modul[yerel] = alt
+                    continue
+                if not proje.ad_var(kaynak, a.name):
+                    if id(d) not in istege_bagli:
+                        sorunlar.append((d.lineno, f"cannot import name '{a.name}' from '{'.' * d.level}{d.module or ''}' "
+                                                   f"({kaynak} does not define it)"))
+                elif km is not None and m.baglanan[yerel] == 1:
+                    takma_tanim[yerel] = (km, a.name)
+    # tanimsiz adlar
+    if not m.belirsiz:
+        eksik: set[str] = set()
+
+        def gez(tablo, modul: bool) -> None:
+            if str(tablo.get_type()).rsplit(".", 1)[-1].lower() in ("annotation", "type_alias", "type_parameters",
+                                                                   "type_variable", "type alias", "type parameters"):
+                return  # tip aciklamalari calisma zamaninda degerlendirilmeyebilir
+            for s in tablo.get_symbols():
+                ad = s.get_name()
+                if not s.is_referenced() or ad in _PY_YERLESIK or ad in m.tanimli:
+                    continue
+                if modul and not (s.is_assigned() or s.is_imported() or s.is_namespace()):
+                    eksik.add(ad)
+                elif not modul and s.is_global() and not (s.is_assigned() or s.is_parameter() or s.is_imported()
+                                                          or s.is_namespace()):
+                    eksik.add(ad)  # is_parameter vb.: CPython "top" adli fonksiyonu modul sanip yerelleri global sayiyor
+            for alt in tablo.get_children():
+                gez(alt, False)
+
+        gez(m.tablo, True)
+        if eksik:
+            ilk: dict[str, int] = {}
+            for d in ast.walk(m.agac):
+                # try/except icindeki kullanim bilerek denenmis olabilir (get_ipython, istege bagli modul)
+                if isinstance(d, ast.Name) and d.id in eksik and isinstance(d.ctx, ast.Load) and id(d) not in istege_bagli:
+                    ilk[d.id] = min(ilk.get(d.id, d.lineno), d.lineno)
+            sorunlar += [(satir, f"name '{ad}' is not defined") for ad, satir in ilk.items()]
+    # proje modulunun olmayan ozniteligi ve arguman sayisi
+    for d in ast.walk(m.agac):
+        if isinstance(d, ast.Attribute) and isinstance(d.value, ast.Name) and d.value.id in takma_modul \
+                and isinstance(d.ctx, ast.Load) and not proje.ad_var(takma_modul[d.value.id], d.attr):
+            sorunlar.append((d.lineno, f"module '{d.value.id}' ({takma_modul[d.value.id]}) has no attribute '{d.attr}'"))
+        if not isinstance(d, ast.Call):
+            continue
+        tanim = None
+        if isinstance(d.func, ast.Name):
+            if d.func.id in takma_tanim:
+                km, ad = takma_tanim[d.func.id]
+                tanim = None if km.belirsiz else km.tanim(ad)
+            elif not m.belirsiz:
+                tanim = m.tanim(d.func.id)
+        elif isinstance(d.func, ast.Attribute) and isinstance(d.func.value, ast.Name) and d.func.value.id in takma_modul:
+            km = proje.modul(takma_modul[d.func.value.id])
+            tanim = km.tanim(d.func.attr) if km is not None and not km.belirsiz else None
+        if tanim is not None:
+            neden = _arguman_sorunu(tanim, d)
+            if neden:
+                sorunlar.append((d.lineno, neden))
+    return sorunlar
+
+
+def statik_sorunlar(kok: Path, dosyalar: list[str]) -> dict[str, str] | None:
+    """Projedeki Python dosyalarinin statik sorunlari: {satirsiz anahtar: gosterilecek metin}.
+
+    Anahtar satir numarasi icermez; boylece duzenlemeyle kayan eski sorunlar "yeni" sayilmaz. Proje cok buyukse None.
+    """
+    py = sorted(d for d in dosyalar if d.endswith(".py"))
+    if not py or len(py) > STATIK_DOSYA_SINIRI:
+        return None
+    proje = _PyProje(kok, py)
+    bulunan: dict[str, str] = {}
+    for goreli in py:
+        m = proje.modul(goreli)
+        if m is None:
+            continue
+        try:
+            sorunlar = _modul_sorunlari(proje, m)
+        except (RecursionError, AttributeError, TypeError, ValueError):
+            continue  # denetimdeki bir eksik ajanı durdurmamali
+        for satir, mesaj in sorted(sorunlar):
+            bulunan.setdefault(f"{goreli}|{mesaj}", f"{goreli}:{satir}: {mesaj}")
+    return bulunan
+
+
 class Ajan:
     def __init__(self, kok: Path, model: str, otomatik: bool = False,
                  baglam: int = 16384, maks_adim: int = 40, dusunme: bool = True, arayuz=None,
@@ -2132,28 +2459,133 @@ class Ajan:
             dosyalar = self.noktalar.izlenen()
         except GeriAlmaHatasi:
             return None
-        if any(re.search(r"(?:^|/)test[^/]*\.py$", y) for y in dosyalar):
-            return "python -B -m unittest"
-        return None
+        testler = [y for y in dosyalar if re.search(r"(?:^|/)test[^/]*\.py$", y)]
+        if not testler:
+            return None
+        pytest_olur = self.araclar.kum and TEST_IMAJI and not getattr(self, "_pytest_yok", False)
+        if pytest_olur and self._pytest_projesi(dosyalar, testler):
+            # Kapsayicida proje kurulu degildir: src/ duzeni icin yol verilir. Toplama hatasi tum kosuyu kesmesin.
+            yol = "PYTHONPATH=src " if any(y.startswith("src/") and y.endswith(".py") for y in dosyalar) else ""
+            return f"{yol}python -B -m pytest -q -rfE -p no:cacheprovider --continue-on-collection-errors"
+        return "python -B -m unittest"
+
+    def _pytest_projesi(self, dosyalar: list[str], testler: list[str]) -> bool:
+        adlar = {y.rsplit("/", 1)[-1] for y in dosyalar}
+        if "conftest.py" in adlar or "pytest.ini" in adlar:
+            return True
+        for ad, isaret in (("pyproject.toml", "[tool.pytest"), ("setup.cfg", "[tool:pytest]"), ("tox.ini", "[pytest]")):
+            try:
+                if ad in dosyalar and isaret in (self.araclar.kok / ad).read_text(encoding="utf-8", errors="replace"):
+                    return True
+            except OSError:
+                pass
+        for y in testler[:20]:
+            try:
+                if re.search(r"^\s*(?:import pytest|from pytest import)", (self.araclar.kok / y).read_text(
+                        encoding="utf-8", errors="replace"), re.M):
+                    return True
+            except OSError:
+                pass
+        return False
+
+    def _test_ortaminda(self, islev):
+        """Ajanin kendi test kosusunu, ayarliysa test araclari kurulu ayri kapsayicida yapar.
+
+        Modelin komutlari bu kapsayiciyi kullanmaz: denemede pytest'i gorunce onu kendisi calistirip
+        ("proje kurulu degil") ortam sorunlarini kovaladi ve adim hakkini bitirdi.
+        """
+        asil = self.araclar.kum
+        if asil and TEST_IMAJI:
+            if getattr(self, "_test_kumu", None) is None:
+                self._test_kumu = KorumaliOrtam(TEST_IMAJI)
+            self.araclar.kum = self._test_kumu
+        try:
+            return islev()
+        finally:
+            self.araclar.kum = asil
+
+    def _sessiz_komut(self, komut: str) -> str:
+        """Ajanin kendi on kontrolu icin komut; kullaniciya cikti gosterilmez."""
+        return self._test_ortaminda(lambda: self.araclar.calistir("run_command", {"command": komut}))
+
+    def _test_ilk_durum(self) -> None:
+        """Turdaki ilk yazmadan once testleri bir kez calistirir: hangileri zaten basarisiz?
+
+        Kapsayicida eksik araclar yuzunden bazi testler ajan hicbir sey yapmadan da basarisiz olur (click'te 27);
+        bunlar modele "sen bozdun" diye soylenmemeli. Test takimi cok yavassa otomatik test bu turda kapatilir.
+        """
+        if getattr(self, "_test_taban", None) is not None:
+            return
+        self._test_taban = False
+        komut = self._test_komutu()
+        if not komut or not (self.araclar.kum or self.izinler.izinli_mi(komut)):
+            return
+        bas = time.monotonic()
+        sonuc = self._sessiz_komut(komut)
+        if "No module named pytest" in sonuc and "pytest" in komut:
+            self._pytest_yok = True
+            self._test_taban = None
+            return self._test_ilk_durum()
+        if time.monotonic() - bas > TEST_SURE_SINIRI or "saniyede bitmedigi icin durduruldu" in sonuc:
+            return
+        self._test_taban = (komut, basarisiz_testler(sonuc), _cikis_kodu(sonuc))
+
+    def _statik_tara(self) -> dict[str, str] | None:
+        if not STATIK_ACIK:
+            return None
+        try:
+            return statik_sorunlar(self.araclar.kok, self._aranabilir_dosyalar())
+        except (GeriAlmaHatasi, OSError):
+            return None
+
+    def _statik_ilk_durum(self) -> None:
+        """Turdaki ilk yazmadan once projedeki sorunlari kaydeder; sonradan yalniz yenileri bildirilir."""
+        if getattr(self, "_statik_once", None) is None:
+            self._statik_once = self._statik_tara() or {}
+
+    def _statik_dogrula(self) -> bool:
+        """Model bittigini soyleyince duzenlemelerin biraktigi yeni statik hatalari modele geri verir."""
+        once = getattr(self, "_statik_once", None)
+        simdi = self._statik_tara() if once is not None else None
+        if not simdi:
+            return False
+        yeni = [metin for anahtar, metin in simdi.items() if anahtar not in once]
+        if not yeni:
+            return False
+        self.arayuz.uyari(L(f"Otomatik denetim {len(yeni)} sorun buldu, model düzeltmeye devam ediyor: {yeni[0]}",
+                            f"The automatic check found {len(yeni)} problem(s); the model keeps fixing: {yeni[0]}"))
+        fazla = f"\n- ... and {len(yeni) - 10} more" if len(yeni) > 10 else ""
+        self.mesajlar.append({"role": "user", "content": STATIK_NOTU.format(
+            sorunlar="\n".join("- " + y for y in yeni[:10]) + fazla)})
+        return True
 
     def _otomatik_dogrula(self) -> bool:
-        """Model bittigini soyleyince testleri calistirir; basarisizsa modele geri verir.
+        """Model bittigini soyleyince testleri calistirir; duzenlemelerin bozdugu testleri modele geri verir.
 
         Sormadan yalniz korumali ortamda veya kullanicinin izin verdigi komutta calisir.
         """
-        komut = self._test_komutu()
-        if not komut or not (self.araclar.kum or self.izinler.izinli_mi(komut)):
+        taban = getattr(self, "_test_taban", None)
+        if not taban:
             return False
+        komut, once, once_kod = taban
         self.arayuz.komut(komut)
-        sonuc = self._calistir_ve_bildir("run_command", {"command": komut})
-        if "No module named" in sonuc:  # ornegin pytest yok: bu kodun degil ortamin sorunu
+        sonuc = self._test_ortaminda(lambda: self._calistir_ve_bildir("run_command", {"command": komut}))
+        if "No module named" in sonuc and not basarisiz_testler(sonuc):  # bu kodun degil ortamin sorunu
             return False
-        if not re.search(r"\[cikis kodu: 1\]\s*$", sonuc):
+        kod = _cikis_kodu(sonuc)
+        yeni = sorted(basarisiz_testler(sonuc) - once)
+        if not yeni and not (once_kod == 0 and kod not in (0, None, 5)):  # 5: hic test bulunamadi
             return False
         self.arayuz.uyari(L("Otomatik test başarısız oldu, model düzeltmeye devam ediyor.",
                             "The automatic test failed; the model keeps fixing."))
+        if yeni:
+            fazla = f"\n- ... and {len(yeni) - 15} more" if len(yeni) > 15 else ""
+            ne = ("these tests passed before your edits and fail now:\n" + "\n".join("- " + t for t in yeni[:15]) + fazla
+                  + "\nYour change broke them (you may have changed something that was already correct).")
+        else:
+            ne = f"`{komut}` passed before your edits and fails now."
         self.mesajlar.append({"role": "user", "content": (
-            f"[Automatic check] You said you were done, but `{komut}` fails. Fix the code, not the tests. "
+            f"[Automatic check] You said you were done, but {ne} Fix the code, not the tests. "
             f"Output:\n{kisalt(sonuc, 3000)}")})
         return True
 
@@ -2165,7 +2597,9 @@ class Ajan:
         return self.noktalar.depo.parent.parent / "sohbetler" / f"{self.noktalar.depo.name}.json"
 
     def sohbet_kaydet(self) -> None:
-        veri = json.dumps({"surum": 1, "mesajlar": self.mesajlar[1:]}, ensure_ascii=False)
+        # Eski turlarin dusuncesi modele bir daha verilmez (sablon yalniz son istekten sonrakini kullanir): kaydedilmez.
+        kayit = [{k: v for k, v in m.items() if k != "thinking"} for m in self.mesajlar[1:]]
+        veri = json.dumps({"surum": 1, "mesajlar": kayit}, ensure_ascii=False)
         if len(veri) > SOHBET_DOSYA_SINIRI:  # cok uzun sohbetin yalniz sonu
             gecmisi_sigdir(self.mesajlar, SOHBET_DOSYA_SINIRI // 3)
             veri = json.dumps({"surum": 1, "mesajlar": self.mesajlar[1:]}, ensure_ascii=False)
@@ -2325,6 +2759,9 @@ class Ajan:
                 soru = L("Degisiklik uygulansin mi?", "Apply this change?")
             if not self._onay(soru, "komut" if ad == "run_command" else "yazma"):
                 return REDDEDILDI
+            if ad != "run_command":
+                self._statik_ilk_durum()
+                self._test_ilk_durum()
         elif ad == "read_file" and self._gizli_okuma(arg):
             self.arayuz.uyari(L("Dikkat: model gizli bilgi tutabilecek bir dosyayı okumak istiyor: ",
                                 "Warning: the model wants to read a file that may hold secrets: ") + str(arg.get('path')))
@@ -2466,12 +2903,14 @@ class Ajan:
             self.dusun = self.dusunme and "thinking" in model_yetenekleri(self.model)
         akis = model_akisi(self.model, self.mesajlar, self.baglam, self._think())
         dusunce_uzunlugu = 0
+        dusunceler: list[str] = []
         for parca in akis:
             self.arayuz.kontrol()
             mesaj = parca.get("message", {})
             if mesaj.get("thinking"):
                 dusunce_acik = True
                 self.arayuz.dusunce(mesaj["thinking"])
+                dusunceler.append(mesaj["thinking"])
                 dusunce_uzunlugu += len(mesaj["thinking"])
                 if dusunce_uzunlugu > DUSUNME_SINIRI and not icerik and not arac_cagrilari:
                     # Olculdu: "high" seviyede tek cevap 205 sn dusunup cevapsiz kaldi. Baglanti kapaninca
@@ -2497,7 +2936,13 @@ class Ajan:
         icerik = dusunceyi_temizle(icerik)
         if not arac_cagrilari:
             arac_cagrilari = metinden_arac_cagrilari(icerik)
-        return {"role": "assistant", "content": icerik, "tool_calls": arac_cagrilari}
+        sonuc = {"role": "assistant", "content": icerik, "tool_calls": arac_cagrilari}
+        if arac_cagrilari and dusunceler and DUSUNCE_SAKLA:
+            # gpt-oss araclar arasinda kendi dusuncesini geri gormeli (OpenAI harmony kilavuzu); yoksa planini
+            # unutup ayni aramayi tekrar ediyordu (olcumde isim_degistir_tum). Ollama sablonu bunu yalniz son
+            # kullanici mesajindan sonraki adimlarda modele verir; son cevabin dusuncesi saklanmaz.
+            sonuc["thinking"] = "".join(dusunceler)
+        return sonuc
 
     def tur(self, istek: str) -> bool:
         """Bir kullanici istegini bitene kadar calistirir; basariliysa True doner."""
@@ -2510,7 +2955,9 @@ class Ajan:
         hatirlatildi = BAGLAM_ICERIK_ISARETI in istek or (EDITOR_SECIM_ISARETI in istek and "\nSelected " in istek)
         reddedilen: dict[tuple[str, str], int] = {}
         hatalar: dict[tuple[str, str], int] = {}
-        bozuk_cagri = bos_yanit = dogrulama = yarim = uzun_dusunme = 0
+        bozuk_cagri = bos_yanit = dogrulama = yarim = uzun_dusunme = statik = 0
+        self._statik_once = None
+        self._test_taban = None
         kod_hatirlatildi = False
         duzenlendi = False
         try:
@@ -2580,6 +3027,10 @@ class Ajan:
                             "You called no tools, so anything you said about files or results is unverified. "
                             "If this request involves the project, call a tool now through the function-calling "
                             "interface. If it needs no project access, repeat your answer.")})
+                        continue
+                    if duzenlendi and statik < STATIK_DOGRULAMA and self._statik_dogrula():
+                        statik += 1
+                        self._cevabi_geri_cek()  # kod bozuk: "bitti" ozeti erkendi
                         continue
                     if duzenlendi and dogrulama < OTOMATIK_DOGRULAMA and self._otomatik_dogrula():
                         dogrulama += 1
