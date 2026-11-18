@@ -1,0 +1,264 @@
+{
+ "etiket": "statik1-gercek-5",
+ "tarih": "2026-11-14 21:27",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 35.4,
+  "toplam_sure": 166,
+  "turler": {
+   "gercek_hata": [
+    1,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 1
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 101.6,
+   "gizli_test": true,
+   "arac": 26,
+   "arac_adlari": {
+    "search_code": 4,
+    "open_file": 9,
+    "read_file": 9,
+    "edit_file": 3,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "tests/test_types/test_IntRange.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 20560,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "modelin yazdigi: 'lt_min: bool = min is not None and (\\n                    operator.lt if self.min_open else operator.le\\n                )(rv, min)'"
+   ],
+   "yanit_sonu": "** `convert` metodundaki sınır kontrolü düzeltilmiş.\n- **Yapılmadı:** Testleri çalıştırmadım (yapılacak adım).  \n- **Doğrulanmadı:** Çalışma ortamında testlerin geçip geçmediği henüz kontrol edilmedi.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n        lt_min: bool = min is not None and (\n        gt_max: bool = max is not None and (\n            if min is not None an"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 28,
+    "okunan_toplam": 190167,
+    "okunan_en_fazla": 10390,
+    "okuma_sn": 3.6,
+    "uretim_sn": 91.7,
+    "tam_okuma": 27,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2257,
+     2313,
+     3083,
+     3136,
+     3219,
+     4007,
+     4835,
+     4888,
+     5525,
+     5578,
+     6295,
+     6350,
+     6817,
+     7075,
+     7184,
+     7345,
+     8130,
+     8239,
+     8392,
+     8445,
+     8751,
+     8804,
+     9094,
+     9659,
+     10004,
+     10057,
+     10295,
+     10390
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 29.4,
+   "gizli_test": false,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 16,
+    "read_file": 13
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py"
+   ],
+   "degisen": [],
+   "dusunce": 935,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "on overrides get_help_record after class definition. Search for \"Option.get_help_record\".It seems Option.get_help_record is defined earlier but not shown due to truncated view. Let's open around 3500.",
+   "test_cikti": " File \"/work/_gizli_test.py\", line 15, in test_gizli\n    self.assertIn('-v, --verbose', r.output)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-v, --verbose' not found in 'Usage: k [OPTIONS]\\n\\nOptions:\\n  --verbose, -v\\n  --help         Show this message and exit.\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.009s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 281303,
+    "okunan_en_fazla": 13831,
+    "okuma_sn": 9.3,
+    "uretim_sn": 15.9,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2244,
+     2299,
+     2650,
+     3001,
+     3925,
+     4653,
+     4722,
+     4804,
+     7035,
+     7286,
+     7355,
+     8120,
+     8184,
+     8253,
+     10616,
+     10746,
+     10815,
+     13068,
+     13147,
+     13209,
+     13442,
+     13511,
+     13637,
+     13704,
+     13769,
+     13831,
+     13120,
+     13261,
+     13340,
+     13556
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 35.4,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 3,
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 7,
+    "list_files": 2
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/_textwrap.py",
+    "src/click/_textwrap.py",
+    "src/click/__init__.py",
+    "src/click/utils.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py",
+    "src/click/_textwrap.py"
+   ],
+   "dusunce": 3376,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ed visible width, respecting ANSI escape sequences and including a suffix. Added the function to the public API via `src/click/__init__.py`. This provides the requested `click.truncate` functionality.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "src/click/_textwrap.py"
+   ],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 142135,
+    "okunan_en_fazla": 11006,
+    "okuma_sn": 2.9,
+    "uretim_sn": 25.4,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2252,
+     2306,
+     2634,
+     2703,
+     4273,
+     4370,
+     5858,
+     7203,
+     8878,
+     9564,
+     9632,
+     9681,
+     9737,
+     10209,
+     10287,
+     10370,
+     10498,
+     10674,
+     11006
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

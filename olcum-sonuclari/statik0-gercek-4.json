@@ -1,0 +1,252 @@
+{
+ "etiket": "statik0-gercek-4",
+ "tarih": "2026-11-14 21:17",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 36.0,
+  "toplam_sure": 98,
+  "turler": {
+   "gercek_hata": [
+    2,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 42.9,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 3,
+    "open_file": 6,
+    "read_file": 7,
+    "edit_file": 1,
+    "run_command": 12,
+    "search_text": 1
+   },
+   "komut": 12,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "tests/test_types/test_IntRange.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 4978,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "module. Maybe tests rely on pytest. We can run via python -m unittest? But tests use pytest markers. We can just run the specific test by importing click and running convert. Let's run a quick script.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 182562,
+    "okunan_en_fazla": 8502,
+    "okuma_sn": 2.7,
+    "uretim_sn": 30.1,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2255,
+     2311,
+     3121,
+     3174,
+     3257,
+     3849,
+     4677,
+     4730,
+     5367,
+     5420,
+     5759,
+     5812,
+     6020,
+     6128,
+     6190,
+     6255,
+     6337,
+     6808,
+     7048,
+     7344,
+     7584,
+     7694,
+     7802,
+     7910,
+     8015,
+     8126,
+     8231,
+     8387,
+     8449,
+     8502
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 18.8,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 6,
+    "read_file": 5,
+    "edit_file": 1,
+    "run_command": 3,
+    "list_files": 2
+   },
+   "komut": 3,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 1557,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "rtan) olarak değiştirildi. Böylece kısa seçenekler uzun seçeneklerden önce listeleniyor, yani `-v, --verbose` şeklinde gösteriliyor. Bu değişiklikle yardım çıktısındaki seçenek sırası düzelmiş oluyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 129541,
+    "okunan_en_fazla": 9894,
+    "okuma_sn": 2.5,
+    "uretim_sn": 11.8,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2299,
+     3191,
+     3267,
+     6728,
+     6831,
+     6882,
+     6942,
+     7045,
+     7114,
+     7548,
+     7970,
+     8057,
+     8354,
+     8429,
+     8478,
+     8534,
+     9735,
+     9894
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 36.0,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "search_code": 1,
+    "read_file": 7,
+    "search_text": 5,
+    "edit_file": 1,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "src/click/_textwrap.py",
+    "src/click/_textwrap.py",
+    "tests/test_utils/test_make_default_short_help.py",
+    "tests/test_utils/test_make_default_short_help.py",
+    "src/click/utils.py",
+    "src/click/utils.py",
+    "src/click/__init__.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py"
+   ],
+   "dusunce": 6555,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "i belirtilen genişlikte keser; genişlik suffix’i de içerir. Genişlik suffix uzunluğundan küçükse suffix’in kesilmiş hali döndürülür. Bu değişiklikle `click.truncate` dışarıdan erişilebilir hale geldi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 150230,
+    "okunan_en_fazla": 11368,
+    "okuma_sn": 2.8,
+    "uretim_sn": 27.5,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2253,
+     3008,
+     3077,
+     4618,
+     6106,
+     6429,
+     6500,
+     7239,
+     7367,
+     7434,
+     9105,
+     10446,
+     10502,
+     10692,
+     10925,
+     10974,
+     11026,
+     11161,
+     11368
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

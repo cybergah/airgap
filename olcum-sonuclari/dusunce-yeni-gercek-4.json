@@ -1,0 +1,229 @@
+{
+ "etiket": "dusunce-yeni-gercek-4",
+ "tarih": "2026-11-14 21:59",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 31.7,
+  "toplam_sure": 108,
+  "turler": {
+   "gercek_hata": [
+    2,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 3,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 30.0,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_code": 4,
+    "read_file": 4,
+    "search_text": 1,
+    "edit_file": 1,
+    "run_command": 6,
+    "list_files": 2
+   },
+   "komut": 6,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 2666,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ikle `IntRange(min=1, max=5)` için `1` değeri kabul ediliyor ve `min_open=True` olduğunda `1` değeri reddediliyor.  \nDeğişiklik testleri geçerli kılacak şekilde en küçük düzeltme olarak uygulanmıştır.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 125347,
+    "okunan_en_fazla": 8912,
+    "okuma_sn": 3.7,
+    "uretim_sn": 19.5,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2255,
+     2327,
+     3149,
+     3955,
+     4798,
+     5461,
+     5901,
+     6745,
+     6815,
+     7512,
+     8048,
+     8237,
+     8311,
+     8401,
+     8494,
+     8631,
+     8742,
+     8912,
+     8653
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 31.7,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_code": 3,
+    "search_text": 2,
+    "read_file": 2,
+    "edit_file": 1,
+    "run_command": 8,
+    "list_files": 2
+   },
+   "komut": 8,
+   "okunan": [
+    "src/click/formatting.py",
+    "src/click/core.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 3904,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "dı.  \n\nBu değişiklikle `--help` çıktısında kısa seçenekler (`-v`) uzun seçeneklerden (`--verbose`) önce listeleniyor. Kod, `join_options` fonksiyonunu sadece küçük bir satır değişikliğiyle güncelledi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 109492,
+    "okunan_en_fazla": 10576,
+    "okuma_sn": 2.4,
+    "uretim_sn": 20.0,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2385,
+     3384,
+     4220,
+     4393,
+     4765,
+     4968,
+     5695,
+     5920,
+     5978,
+     6067,
+     6221,
+     6325,
+     6812,
+     9522,
+     9781,
+     10237,
+     10576
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 45.8,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/__init__.py",
+    "src/click/__init__.py",
+    "src/click/__init__.py",
+    "src/click/__init__.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py"
+   ],
+   "dusunce": 8671,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "modelin yazdigi: '\\n'"
+   ],
+   "yanit_sonu": ".  \n- Genişlik `suffix` uzunluğundan küçükse, sadece `suffix`'in ilk `width` karakteri döndürülür.  \n\nFonksiyon `click.truncate` olarak dışarıdan erişilebilir ve örnek kullanım testleriyle doğrulandı.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text 144 kez geciyor; daha fazla cevre metin ekle"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 16,
+    "okunan_toplam": 98658,
+    "okunan_en_fazla": 8358,
+    "okuma_sn": 1.7,
+    "uretim_sn": 36.3,
+    "tam_okuma": 15,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2252,
+     2370,
+     3236,
+     4639,
+     5325,
+     5597,
+     6100,
+     6363,
+     7250,
+     7469,
+     7625,
+     7778,
+     8026,
+     8092,
+     8178,
+     8358
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

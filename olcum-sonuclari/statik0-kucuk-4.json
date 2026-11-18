@@ -1,0 +1,221 @@
+{
+ "etiket": "statik0-kucuk-4",
+ "tarih": "2026-11-14 21:16",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 13.0,
+  "toplam_sure": 45,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 23.0,
+   "gizli_test": true,
+   "arac": 16,
+   "arac_adlari": {
+    "read_file": 5,
+    "search_code": 2,
+    "search_text": 3,
+    "edit_file": 1,
+    "run_command": 3,
+    "list_files": 1,
+    "write_file": 1
+   },
+   "komut": 3,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 2209,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "modelin yazdigi: \"SAYAC = {'n': 0}\\n\\n\\n@onbellek\\n\\ndef pahali(x):\\n    SAYAC['n'] += 1\\n    return x * 2\""
+   ],
+   "yanit_sonu": "ama**\n\n- Kodun sözdizimsel olarak doğru olduğundan emin olmak için dosya yeniden yazıldı.  \n- Test çalıştırma adımı atlandı; eğer bir test çakışması varsa, kodun çalışması için tekrar denemek gerekir.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\nSAYAC = {'n': 0}\n    SAYAC['n'] += 1"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 36219,
+    "okunan_en_fazla": 3119,
+    "okuma_sn": 1.5,
+    "uretim_sn": 18.4,
+    "tam_okuma": 7,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1069,
+     1135,
+     1210,
+     1297,
+     1336,
+     1380,
+     1444,
+     1596,
+     1629,
+     1744,
+     1789,
+     1941,
+     2248,
+     2331,
+     2594,
+     2677,
+     2743,
+     2937,
+     3119
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 13.0,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 3,
+    "read_file": 4,
+    "edit_file": 3
+   },
+   "komut": 0,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 824,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "3. **kullanici/ozet.py** – özet metni `ad <eposta> telefon` formatında güncellendi.\n\nBu güncellemelerle kullanıcı kayıtlarında telefon alanı zorunlu hale geldi ve doğrulama ile özet metni güncellendi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 35859,
+    "okunan_en_fazla": 3687,
+    "okuma_sn": 1.1,
+    "uretim_sn": 10.8,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1465,
+     1957,
+     2457,
+     2493,
+     2560,
+     2634,
+     2729,
+     2793,
+     3028,
+     3146,
+     3377,
+     3533,
+     3687
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 8.9,
+   "gizli_test": false,
+   "arac": 8,
+   "arac_adlari": {
+    "search_code": 4,
+    "read_file": 4
+   },
+   "komut": 0,
+   "okunan": [
+    "para/vergi.py",
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [],
+   "dusunce": 1552,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model ayni cagriyi ust uste tekrarladi; tur durduruldu: search_code({\"query\": \"hesapla_kdv\"})"
+   ],
+   "yanit_sonu": "",
+   "test_cikti": " \"/usr/local/lib/python3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from para.vergi import kdv_ekle\nImportError: cannot import name 'kdv_ekle' from 'para.vergi' (/work/para/vergi.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 11,
+    "okunan_toplam": 25570,
+    "okunan_en_fazla": 3289,
+    "okuma_sn": 1.0,
+    "uretim_sn": 7.0,
+    "tam_okuma": 8,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1415,
+     1473,
+     1945,
+     2011,
+     2064,
+     2130,
+     2203,
+     2675,
+     3147,
+     3218,
+     3289
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

@@ -1,0 +1,251 @@
+{
+ "etiket": "statik0-gercek-3",
+ "tarih": "2026-11-14 21:13",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 27.9,
+  "toplam_sure": 120,
+  "turler": {
+   "gercek_hata": [
+    2,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 64.4,
+   "gizli_test": true,
+   "arac": 26,
+   "arac_adlari": {
+    "search_text": 5,
+    "read_file": 6,
+    "edit_file": 3,
+    "run_command": 10,
+    "list_files": 2
+   },
+   "komut": 10,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 10987,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "But maybe tests use pytest markers? But still should run. Let's run python -m unittest tests/test_types/test_IntRange.py.We are not in virtual env. Need to import from src/click. Let's set PYTHONPATH.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n        lt_min: bool = min is not None and (\n        gt_max: bool = max is not None and (\n            if min is not None an"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 28,
+    "okunan_toplam": 180388,
+    "okunan_en_fazla": 9450,
+    "okuma_sn": 2.9,
+    "uretim_sn": 49.0,
+    "tam_okuma": 27,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2257,
+     2319,
+     2386,
+     3166,
+     3288,
+     3355,
+     4613,
+     5402,
+     5599,
+     5771,
+     5860,
+     6032,
+     6081,
+     6244,
+     6300,
+     7501,
+     7831,
+     7918,
+     8093,
+     8295,
+     8480,
+     8671,
+     8870,
+     8967,
+     9006,
+     9272,
+     9361,
+     9450
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 27.4,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 2,
+    "read_file": 6,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/formatting.py",
+    "src/click/formatting.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 2060,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model bozuk bir arac cagrisi yazdi, yeniden deneniyor."
+   ],
+   "yanit_sonu": "`) sıralayarak kısa seçenekleri (örn. `-v`) önce, uzun seçenekleri (örn. `--verbose`) sonra gösteriyor.  \n\nBu değişiklikle `--help` çıktısında kısa seçenekler önce, uzun seçenekler sonra listeleniyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 74730,
+    "okunan_en_fazla": 5688,
+    "okuma_sn": 1.8,
+    "uretim_sn": 17.4,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2301,
+     3113,
+     3265,
+     3334,
+     3894,
+     3969,
+     4018,
+     4080,
+     4197,
+     4406,
+     4475,
+     4794,
+     4912,
+     5248,
+     5362,
+     5431,
+     5688
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 27.9,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "search_code": 1,
+    "list_files": 4,
+    "read_file": 3,
+    "search_text": 1,
+    "edit_file": 2,
+    "run_command": 8
+   },
+   "komut": 8,
+   "okunan": [
+    "src/click/__init__.py",
+    "src/click/__init__.py",
+    "src/click/utils.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py",
+    "src/click/utils.py"
+   ],
+   "dusunce": 1596,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Dikkat: bu komut satır içi kodda silme, ağ veya program çalıştırma var."
+   ],
+   "yanit_sonu": "ppending a suffix when truncated, and added it to the public API via `src/click/__init__.py`. Verified functionality by importing `click` from the project and testing the function with various inputs.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 103687,
+    "okunan_en_fazla": 7635,
+    "okuma_sn": 2.1,
+    "uretim_sn": 19.0,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2252,
+     2312,
+     2370,
+     2556,
+     2625,
+     3966,
+     4007,
+     5890,
+     6435,
+     6503,
+     6552,
+     6630,
+     7102,
+     7164,
+     7301,
+     7395,
+     7464,
+     7528,
+     7635
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

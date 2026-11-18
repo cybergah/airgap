@@ -1,0 +1,233 @@
+{
+ "etiket": "dusunce-yeni-gercek-3",
+ "tarih": "2026-11-14 21:53",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 44.3,
+  "toplam_sure": 162,
+  "turler": {
+   "gercek_hata": [
+    2,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 3,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 44.3,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 4,
+    "search_text": 1,
+    "edit_file": 2,
+    "run_command": 9
+   },
+   "komut": 9,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 3036,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Dikkat: bu komut paket kurar veya yayınlar."
+   ],
+   "yanit_sonu": " ile 1 değeri kabul edilirken, `min_open=True` olduğunda 1 değeri reddedilir.  \nTest `click.IntRange(1,5, min_open=True).convert('1', None, None)` artık `BadParameter` hatası verir, beklenen davranış.",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (unexpected indent, satir 677), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n675\t                        operator.lt if not self.min_open else ope"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 108158,
+    "okunan_en_fazla": 8086,
+    "okuma_sn": 3.4,
+    "uretim_sn": 24.1,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2257,
+     2329,
+     3151,
+     3957,
+     4026,
+     4712,
+     5313,
+     5704,
+     6048,
+     6207,
+     6401,
+     6473,
+     6560,
+     6708,
+     7299,
+     7472,
+     7935,
+     8086,
+     7520
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 20.6,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "search_code": 3,
+    "search_text": 3,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 5,
+    "list_files": 2
+   },
+   "komut": 5,
+   "okunan": [
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 2037,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "`) önce getirmek için sıralamayı artan uzunlukta yapıyor (`rv.sort(key=lambda x: x[0])`).\n\nBu değişiklikle, `--help` çıktısında seçenekler kısa ön ek önce, uzun ön ek sonra sıralanır: `-v, --verbose`.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 106030,
+    "okunan_en_fazla": 9911,
+    "okuma_sn": 2.2,
+    "uretim_sn": 12.2,
+    "tam_okuma": 14,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2244,
+     2355,
+     3258,
+     3974,
+     7262,
+     7371,
+     7730,
+     7930,
+     7988,
+     8067,
+     9280,
+     9373,
+     9559,
+     9728,
+     9911
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 97.5,
+   "gizli_test": true,
+   "arac": 16,
+   "arac_adlari": {
+    "search_code": 3,
+    "read_file": 5,
+    "search_text": 1,
+    "edit_file": 2,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "src/click/_textwrap.py",
+    "src/click/utils.py",
+    "src/click/__init__.py",
+    "src/click/utils.py",
+    "src/click/__init__.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py",
+    "src/click/utils.py"
+   ],
+   "dusunce": 22098,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Model bos yanit verdi, devam etmesi isteniyor."
+   ],
+   "yanit_sonu": "ick; print(click.truncate('hello world',5))\"` çıktısı `he...` oldu.\n- Diğer örnekler beklenen çıktıları verdi (`hello`, `...`, `!!`).\n\nBu değişiklikle `click.truncate` fonksiyonu artık kullanılabilir.",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (invalid syntax, satir 62), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n60\t\n61\t\n62\t+def truncate(text: str, width: int, suffix: str = \"...\") -> s"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 155796,
+    "okunan_en_fazla": 12222,
+    "okuma_sn": 4.8,
+    "uretim_sn": 85.6,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2251,
+     2392,
+     3259,
+     4843,
+     5629,
+     7332,
+     7626,
+     8986,
+     9734,
+     10395,
+     11357,
+     11620,
+     11709,
+     11777,
+     11866,
+     12033,
+     12222,
+     10765
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

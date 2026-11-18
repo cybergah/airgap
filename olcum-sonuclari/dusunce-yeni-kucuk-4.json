@@ -1,0 +1,216 @@
+{
+ "etiket": "dusunce-yeni-kucuk-4",
+ "tarih": "2026-11-14 21:57",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 16.3,
+  "toplam_sure": 47,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 3,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 17.0,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "read_file": 4,
+    "search_code": 1,
+    "edit_file": 3,
+    "run_command": 2
+   },
+   "komut": 2,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 2360,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "modelin yazdigi: '\\n'"
+   ],
+   "yanit_sonu": "unter increments only once per unique argument.\n\nVerified by running `pahali` twice with the same argument (counter increments only once) and with different arguments (counter increments accordingly).",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text 16 kez geciyor; daha fazla cevre metin ekle"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 25606,
+    "okunan_en_fazla": 2825,
+    "okuma_sn": 1.1,
+    "uretim_sn": 13.6,
+    "tam_okuma": 7,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1070,
+     1197,
+     1301,
+     1530,
+     1696,
+     1872,
+     2003,
+     2190,
+     2362,
+     2515,
+     2689,
+     2825,
+     2356
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 16.3,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 6,
+    "list_files": 2,
+    "edit_file": 3
+   },
+   "komut": 0,
+   "okunan": [],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 1803,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "lanici.ozet.ozet` fonksiyonu `'Ali <ali@example.com> 1234567890'` döndürür.  \n- Telefon rakamdan oluşmuyorsa `ValueError('telefon')` fırlatılır.  \n\nTüm değişiklikler istenen gereksinimleri karşılıyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 34265,
+    "okunan_en_fazla": 3282,
+    "okuma_sn": 1.3,
+    "uretim_sn": 14.1,
+    "tam_okuma": 12,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1465,
+     2027,
+     2180,
+     2266,
+     2390,
+     2654,
+     2822,
+     2943,
+     3037,
+     3117,
+     3188,
+     3282,
+     2894
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 14.0,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "search_code": 3,
+    "search_text": 3,
+    "list_files": 1,
+    "read_file": 4,
+    "edit_file": 4
+   },
+   "komut": 0,
+   "okunan": [
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py",
+    "para/__init__.py"
+   ],
+   "degisen": [
+    "para/fatura.py",
+    "para/rapor.py",
+    "para/vergi.py"
+   ],
+   "dusunce": 1290,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": ". `para/rapor.py` dosyasında `vergi.hesapla_kdv(t)` çağrısı `vergi.kdv_ekle(t)` olarak güncellendi.\n\nBu güncellemelerle artık eski fonksiyon adı kullanılmıyor ve tüm referanslar yeni adıyla eşleşiyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 16,
+    "okunan_toplam": 44037,
+    "okunan_en_fazla": 3380,
+    "okuma_sn": 1.5,
+    "uretim_sn": 11.4,
+    "tam_okuma": 13,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1416,
+     1510,
+     1998,
+     2517,
+     2648,
+     2730,
+     2812,
+     2923,
+     2994,
+     3078,
+     3170,
+     3241,
+     3089,
+     3234,
+     3297,
+     3380
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

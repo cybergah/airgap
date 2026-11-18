@@ -1,0 +1,232 @@
+{
+ "etiket": "dusunce-yeni-gercek-2",
+ "tarih": "2026-11-14 21:46",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 46.1,
+  "toplam_sure": 134,
+  "turler": {
+   "gercek_hata": [
+    2,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 3,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 46.1,
+   "gizli_test": true,
+   "arac": 17,
+   "arac_adlari": {
+    "search_text": 3,
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 6,
+    "list_files": 2
+   },
+   "komut": 6,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "tests/test_types/test_IntRange.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 7026,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Dikkat: bu komut paket kurar veya yayınlar."
+   ],
+   "yanit_sonu": "or.le if self.min_open else operator.lt` olarak güncellendi.  \n\nBu değişiklikle `IntRange(min=1, max=5)` ile 1 değeri artık kabul edilecek ve `min_open=True` durumunda da doğru davranış sağlanacaktır.",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (unexpected indent, satir 677), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n675\t                        operator.le if self.min_open else operato"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 98229,
+    "okunan_en_fazla": 10355,
+    "okuma_sn": 2.5,
+    "uretim_sn": 27.7,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2255,
+     2331,
+     2957,
+     3033,
+     3719,
+     4285,
+     4558,
+     4976,
+     5072,
+     5201,
+     5260,
+     5349,
+     5438,
+     5925,
+     8598,
+     9189,
+     9728,
+     10355
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 49.9,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 7,
+    "read_file": 5,
+    "edit_file": 1,
+    "run_command": 13,
+    "list_files": 2
+   },
+   "komut": 13,
+   "okunan": [
+    "src/click/formatting.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "tests/test_abort_interrupt.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 3007,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ı.  \n- Değişikliğin tüm test kapsamını geçip geçmediği otomatik olarak test edilmedi; yalnızca manuel bir kontrol yapıldı.  \n\nBu değişiklik, yardım çıktısında seçeneklerin istenen sıralamasını sağlar.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 256518,
+    "okunan_en_fazla": 13293,
+    "okuma_sn": 10.0,
+    "uretim_sn": 27.0,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2385,
+     3214,
+     3282,
+     5060,
+     5143,
+     5226,
+     5787,
+     7204,
+     7929,
+     8045,
+     8404,
+     8578,
+     8636,
+     8725,
+     8797,
+     9279,
+     9350,
+     9097,
+     9195,
+     9287,
+     12022,
+     12220,
+     12287,
+     12801,
+     13126,
+     13293,
+     11825,
+     11974,
+     12104
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 38.0,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 8
+   },
+   "komut": 8,
+   "okunan": [
+    "src/click/__init__.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py"
+   ],
+   "dusunce": 4247,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": ")))       # 'hello'\nprint(repr(click.truncate('hello', 3)))        # '...'\nprint(repr(click.truncate('hello', 3, '-')))   # 'he-'\n```\n\nFonksiyon `click.truncate` olarak dışarıdan erişilebilir durumda.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 51831,
+    "okunan_en_fazla": 6389,
+    "okuma_sn": 1.5,
+    "uretim_sn": 30.2,
+    "tam_okuma": 9,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2253,
+     3682,
+     5224,
+     5466,
+     5539,
+     5624,
+     5713,
+     5875,
+     6066,
+     6389
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

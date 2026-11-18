@@ -1,0 +1,258 @@
+{
+ "etiket": "dusunce-eski-gercek-2",
+ "tarih": "2026-11-14 21:43",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 32.1,
+  "toplam_sure": 118,
+  "turler": {
+   "gercek_hata": [
+    1,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 32.1,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_text": 4,
+    "read_file": 4,
+    "edit_file": 1,
+    "run_command": 7,
+    "list_files": 2
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 2399,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "reddedilir.\n\n**Doğrulama**  \n- `IntRange(min=1, max=5)` için `1` ve `5` değerleri kabul edildi.  \n- `0` değeri hata verdi, sınır dışı olarak işaretlendi.  \n\nBu değişiklikle sorunun çözülmesi sağlandı.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 98965,
+    "okunan_en_fazla": 7633,
+    "okuma_sn": 2.1,
+    "uretim_sn": 23.8,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2257,
+     2319,
+     2933,
+     2988,
+     3831,
+     4561,
+     4724,
+     5141,
+     5241,
+     5362,
+     5797,
+     5857,
+     6011,
+     6113,
+     6585,
+     6843,
+     7305,
+     7464,
+     7633
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 23.6,
+   "gizli_test": false,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 4,
+    "search_text": 21,
+    "read_file": 5
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/decorators.py"
+   ],
+   "degisen": [],
+   "dusunce": 2173,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "he Option class likely overrides get_help_record. Search for \"class Option\" near 3044. Let's open around 3044-3100.Search for get_help_record in Option.Scrolling further for get_help_record in Option.",
+   "test_cikti": " File \"/work/_gizli_test.py\", line 15, in test_gizli\n    self.assertIn('-v, --verbose', r.output)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-v, --verbose' not found in 'Usage: k [OPTIONS]\\n\\nOptions:\\n  --verbose, -v\\n  --help         Show this message and exit.\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.010s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 201167,
+    "okunan_en_fazla": 10352,
+    "okuma_sn": 3.2,
+    "uretim_sn": 16.3,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2242,
+     2298,
+     3285,
+     4247,
+     5121,
+     5166,
+     5399,
+     5468,
+     5656,
+     5761,
+     5994,
+     6063,
+     6448,
+     6514,
+     6580,
+     6637,
+     6701,
+     6755,
+     6871,
+     7580,
+     7637,
+     7702,
+     8611,
+     8689,
+     8922,
+     9492,
+     9572,
+     9676,
+     9728,
+     10352
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 62.7,
+   "gizli_test": true,
+   "arac": 24,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 7,
+    "read_file": 13,
+    "edit_file": 2,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "src/click/__init__.py",
+    "src/click/__init__.py",
+    "tests/test_utils/test_make_default_short_help.py",
+    "src/click/_textwrap.py",
+    "src/click/utils.py",
+    "src/click/utils.py",
+    "src/click/utils.py",
+    "src/click/utils.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py",
+    "src/click/utils.py"
+   ],
+   "dusunce": 5150,
+   "reddedilen": [],
+   "hata_sayisi": 3,
+   "son_uyari": [
+    "modelin yazdigi: '    return textwrap.shorten(text, max_length, placeholder=\"...\", break_on_hyphens=False)\\n'"
+   ],
+   "yanit_sonu": " sözdizimsel olarak hatasız ve modül hiyerarşisine uygun bir ekleme yaptım.  \n- Fonksiyonun davranışını kapsamlı testlerle doğrulamadım; sadece kodun derlenebilirliğini ve API'ye eklenmesini sağladım.",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (invalid syntax, satir 121), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n119\t    return text[: width - len(suffix)] + suffix\n120\t\n121\t*** End of "
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 28,
+    "okunan_toplam": 238005,
+    "okunan_en_fazla": 13503,
+    "okuma_sn": 6.2,
+    "uretim_sn": 51.1,
+    "tam_okuma": 27,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2253,
+     2307,
+     2635,
+     3982,
+     4027,
+     4251,
+     4577,
+     4648,
+     5393,
+     5433,
+     6980,
+     7049,
+     8726,
+     8782,
+     9719,
+     10107,
+     10528,
+     10998,
+     11285,
+     11763,
+     12074,
+     12518,
+     12872,
+     13061,
+     13160,
+     13503,
+     12394,
+     12980
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

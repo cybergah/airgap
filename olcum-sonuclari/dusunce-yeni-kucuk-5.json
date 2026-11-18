@@ -1,0 +1,223 @@
+{
+ "etiket": "dusunce-yeni-kucuk-5",
+ "tarih": "2026-11-14 22:02",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 19.0,
+  "toplam_sure": 65,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": false,
+   "sure_sn": 33.9,
+   "gizli_test": true,
+   "arac": 17,
+   "arac_adlari": {
+    "search_code": 3,
+    "read_file": 5,
+    "edit_file": 4,
+    "run_command": 4,
+    "write_file": 1
+   },
+   "komut": 4,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 5260,
+   "reddedilen": [],
+   "hata_sayisi": 3,
+   "son_uyari": [
+    "20 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (unexpected unindent, satir 15), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n13\t    return wrapper\n14\t    @onbellek\n15\tdef pahali(x):\n16\t    SAYA"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 45110,
+    "okunan_en_fazla": 3568,
+    "okuma_sn": 2.0,
+    "uretim_sn": 28.2,
+    "tam_okuma": 12,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1070,
+     1167,
+     1265,
+     1355,
+     1462,
+     1623,
+     1782,
+     1867,
+     2076,
+     2307,
+     2480,
+     2616,
+     2339,
+     2491,
+     2901,
+     3094,
+     3472,
+     2989,
+     3186,
+     3568
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 19.0,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 3,
+    "read_file": 2,
+    "edit_file": 4,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "kullanici/ozet.py",
+    "kullanici/dogrula.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 1839,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": " number to enforce mandatory field.\n\nVerified by creating a user with a valid phone number and confirming the summary output, and by testing that missing or non‑digit phone numbers raise `ValueError`.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 38919,
+    "okunan_en_fazla": 4068,
+    "okuma_sn": 1.5,
+    "uretim_sn": 14.7,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1466,
+     1984,
+     2111,
+     2234,
+     2825,
+     2986,
+     3154,
+     3275,
+     3423,
+     3690,
+     3797,
+     3906,
+     4068
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 11.7,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 1,
+    "read_file": 2,
+    "search_text": 2,
+    "run_command": 3,
+    "edit_file": 4
+   },
+   "komut": 3,
+   "okunan": [
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [
+    "para/fatura.py",
+    "para/rapor.py",
+    "para/vergi.py"
+   ],
+   "dusunce": 769,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "rts and calls in `para/fatura.py` and `para/rapor.py` to use the new function name.  \n- Verified by running a quick script that imports the updated function and confirms it returns the expected value.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 30516,
+    "okunan_en_fazla": 2829,
+    "okuma_sn": 1.1,
+    "uretim_sn": 8.0,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1415,
+     1923,
+     2020,
+     2109,
+     2225,
+     2366,
+     2431,
+     2493,
+     2579,
+     2658,
+     2734,
+     2829,
+     2734
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

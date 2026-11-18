@@ -129,7 +129,7 @@ python kod-ajani/olcum.py --etiket yeni --karsilastir taban --tekrar 3
 
 `--set gercek` ise click, more-itertools ve cachetools'a yerleştirilen hatalarla ölçer (kaynaklar `%LOCALAPPDATA%\kod-ajani\olcum-projeler` altında olmalı).
 
-Son ölçüm: küçük set 68/72 (%94), %87–%98 ([rapor](olcum-sonuclari/bitirme.md)); gerçek projeler 24/33 (%73), %56–%85 ([rapor](olcum-sonuclari/gercek-bitirme.md)). Hataları kendimiz yerleştirdiğimiz için bu oranlar kullanıcının gerçek projelerindeki başarıyı göstermez.
+Son ölçüm (0.14, 0.13.1 ile sırayla, 3 tur): küçük set 67/72'den **70/72**'ye (%97, %90–%99); gerçek projeler 25/33'ten **28/33**'e (%85, %69–%93); en kararsız 6 görev × 5'te 19/30'dan 29/30'a. Artış modelin düşüncesini araç çağrıları arasında saklamaktan geliyor; statik denetim tek başına işe yaramadı. Bedeli: gerçek projelerde iş yaklaşık dörtte bir daha uzun sürüyor ([rapor](olcum-sonuclari/0.14-tam-kontrol.md)). Hataları kendimiz yerleştirdiğimiz için bu oranlar kullanıcının gerçek projelerindeki başarıyı göstermez.
 
 ## Testler
 

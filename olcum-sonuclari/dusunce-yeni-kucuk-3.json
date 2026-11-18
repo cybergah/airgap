@@ -1,0 +1,213 @@
+{
+ "etiket": "dusunce-yeni-kucuk-3",
+ "tarih": "2026-11-14 21:50",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 13.9,
+  "toplam_sure": 45,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 3,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 17.9,
+   "gizli_test": true,
+   "arac": 9,
+   "arac_adlari": {
+    "read_file": 3,
+    "search_code": 1,
+    "edit_file": 3,
+    "run_command": 2
+   },
+   "komut": 2,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 2585,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "modelin yazdigi: \"SAYAC = {'n': 0}\\n\""
+   ],
+   "yanit_sonu": "nmaz)\nprint(araclar.SAYAC['n']) # 1\nPY\n```\n\nÇıktı:\n```\n6\n1\n6\n1\n```\n\nBu, dekoratörün aynı argümanlarla tekrar çağrıldığında fonksiyonu yeniden çalıştırmadığını ve saklanan sonucu döndürdüğünü gösterir.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n    SAYAC['n'] += 1"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 11,
+    "okunan_toplam": 21820,
+    "okunan_en_fazla": 2971,
+    "okuma_sn": 0.8,
+    "uretim_sn": 15.1,
+    "tam_okuma": 5,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1070,
+     1197,
+     1300,
+     1509,
+     1672,
+     1888,
+     2255,
+     2434,
+     2673,
+     2851,
+     2971
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 13.4,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 4,
+    "list_files": 1,
+    "read_file": 3,
+    "edit_file": 3
+   },
+   "komut": 0,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 1266,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "` fonksiyonu artık kullanıcı özetinde telefon bilgisini de gösteriyor: `ad <eposta> telefon`.\n\nBu güncellemelerle kullanıcı kayıtlarına telefon alanı eklenmiş, doğrulama ve özet metni güncellenmiştir.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 31785,
+    "okunan_en_fazla": 3165,
+    "okuma_sn": 1.2,
+    "uretim_sn": 11.2,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1465,
+     1978,
+     2068,
+     2114,
+     2234,
+     2333,
+     2441,
+     2517,
+     2620,
+     2873,
+     3044,
+     3165,
+     2933
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 13.9,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 4,
+    "read_file": 3,
+    "edit_file": 4,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [
+    "para/fatura.py",
+    "para/rapor.py",
+    "para/vergi.py"
+   ],
+   "dusunce": 1160,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "3. `para/rapor.py` – `vergi.hesapla_kdv` çağrısı `vergi.kdv_ekle` ile değiştirildi.\n\nTestler çalıştırıldı ve `kdv_ekle(100)` çıktısı 120.0 olarak doğrulandı. Değişiklikler proje genelinde güncellendi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 37907,
+    "okunan_en_fazla": 3713,
+    "okuma_sn": 1.5,
+    "uretim_sn": 10.5,
+    "tam_okuma": 10,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1415,
+     1509,
+     1998,
+     2517,
+     3024,
+     3106,
+     3208,
+     3298,
+     3463,
+     3542,
+     3618,
+     3713,
+     3496
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

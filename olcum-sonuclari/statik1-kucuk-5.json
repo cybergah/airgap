@@ -1,0 +1,225 @@
+{
+ "etiket": "statik1-kucuk-5",
+ "tarih": "2026-11-14 21:24",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 13.5,
+  "toplam_sure": 45,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": false,
+   "sure_sn": 18.3,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_code": 5,
+    "read_file": 5,
+    "search_text": 2,
+    "run_command": 2,
+    "list_files": 1,
+    "edit_file": 2,
+    "write_file": 1
+   },
+   "komut": 2,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 2124,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "20 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "st. Maybe using unittest. Let's list files.SAYAC defined earlier but now moved? Actually we didn't define SAYAC. We need to keep it. Add global variable. Let's edit file to add SAYAC before decorator.",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (unexpected indent, satir 3), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n1\tSAYAC = {'n': 0}\n2\t\n3\t    cache = {}\n4\t    def wrapper(*args, **kwarg"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 36884,
+    "okunan_en_fazla": 2972,
+    "okuma_sn": 1.6,
+    "uretim_sn": 13.9,
+    "tam_okuma": 7,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1069,
+     1125,
+     1211,
+     1277,
+     1352,
+     1439,
+     1478,
+     1553,
+     1640,
+     1725,
+     1812,
+     1888,
+     1938,
+     2002,
+     2136,
+     2285,
+     2463,
+     2685,
+     2834,
+     2972
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 13.5,
+   "gizli_test": true,
+   "arac": 11,
+   "arac_adlari": {
+    "search_code": 1,
+    "read_file": 4,
+    "search_text": 2,
+    "edit_file": 3,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 866,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "lıyor.  \n- `kullanici/ozet.py`’da özet metni telefon bilgisini de içerecek biçimde değiştirildi.  \n\nTest çalıştırıldı ve `Ali <ali@example.com> 123456` çıktısı alındı. Kod beklenildiği gibi çalışıyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 12,
+    "okunan_toplam": 28041,
+    "okunan_en_fazla": 3002,
+    "okuma_sn": 1.0,
+    "uretim_sn": 10.7,
+    "tam_okuma": 10,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1466,
+     1958,
+     2025,
+     2099,
+     2194,
+     2258,
+     2314,
+     2416,
+     2629,
+     2785,
+     2895,
+     3002
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 13.5,
+   "gizli_test": false,
+   "arac": 9,
+   "arac_adlari": {
+    "search_code": 3,
+    "read_file": 4,
+    "search_text": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "para/vergi.py",
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [],
+   "dusunce": 2847,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model ayni cagriyi ust uste tekrarladi; tur durduruldu: search_text({\"path\": \"\", \"pattern\": \"hesapla_kdv\"})"
+   ],
+   "yanit_sonu": "",
+   "test_cikti": " \"/usr/local/lib/python3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from para.vergi import kdv_ekle\nImportError: cannot import name 'kdv_ekle' from 'para.vergi' (/work/para/vergi.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 34012,
+    "okunan_en_fazla": 3521,
+    "okuma_sn": 1.1,
+    "uretim_sn": 11.3,
+    "tam_okuma": 10,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1414,
+     1886,
+     1952,
+     2009,
+     2079,
+     2156,
+     2628,
+     3100,
+     3171,
+     3273,
+     3375,
+     3448,
+     3521
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

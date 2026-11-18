@@ -1,0 +1,242 @@
+{
+ "etiket": "statik0-gercek-2",
+ "tarih": "2026-11-14 21:07",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 25.7,
+  "toplam_sure": 80,
+  "turler": {
+   "gercek_hata": [
+    1,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 34.2,
+   "gizli_test": true,
+   "arac": 17,
+   "arac_adlari": {
+    "search_code": 5,
+    "read_file": 5,
+    "edit_file": 3,
+    "search_text": 1,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 4825,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "modelin yazdigi: 'lt_min: bool = min is not None and (\\n    operator.lt if not self.min_open else operator.le\\n)(rv, min)\\ngt_max: bool = max is not None and (\\n    operator.gt if not self.max_open el"
+   ],
+   "yanit_sonu": "1, max=5)` ile 1 değeri artık reddedilir, `min_open=True` ise 1 kabul edilir.  \n(Çalışma ortamında test çerçevesi bulunmadığından doğrudan test çalıştırılmadı, ancak mantıksal düzeltme uygulanmıştır.)",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text ve new_text ayni; bu duzenleme hicbir seyi degistirmez. new_text degistirilmis kodu icermeli. Degisiklik gerekmiyorsa baska bir adima gec."
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 127972,
+    "okunan_en_fazla": 9629,
+    "okuma_sn": 2.4,
+    "uretim_sn": 26.8,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2256,
+     2312,
+     3122,
+     3189,
+     3704,
+     4532,
+     5268,
+     6112,
+     7126,
+     8299,
+     8465,
+     8683,
+     8793,
+     9010,
+     9219,
+     9326,
+     9433,
+     9494,
+     9629
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 20.3,
+   "gizli_test": false,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 17,
+    "open_file": 4,
+    "read_file": 8
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py"
+   ],
+   "degisen": [],
+   "dusunce": 1194,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "implementation. Search for \"def get_help_record(self\" in core.py.The regex may need escaping. Use raw string? Let's just search for \"get_help_record(\" .Maybe the file is large; easier: open near 3600.",
+   "test_cikti": " File \"/work/_gizli_test.py\", line 15, in test_gizli\n    self.assertIn('-v, --verbose', r.output)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-v, --verbose' not found in 'Usage: k [OPTIONS]\\n\\nOptions:\\n  --verbose, -v\\n  --help         Show this message and exit.\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.007s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 168061,
+    "okunan_en_fazla": 8982,
+    "okuma_sn": 2.8,
+    "uretim_sn": 13.7,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2300,
+     2651,
+     2904,
+     3118,
+     3252,
+     3307,
+     3376,
+     3929,
+     4518,
+     4609,
+     4664,
+     5591,
+     5836,
+     5891,
+     6492,
+     6577,
+     6641,
+     6696,
+     6754,
+     6818,
+     6883,
+     6975,
+     7063,
+     7601,
+     7719,
+     7774,
+     8417,
+     8480,
+     8982
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 25.7,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_text": 2,
+    "read_file": 2,
+    "edit_file": 1,
+    "run_command": 6,
+    "search_code": 1
+   },
+   "komut": 6,
+   "okunan": [
+    "src/click/__init__.py",
+    "src/click/__init__.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py"
+   ],
+   "dusunce": 2154,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model bozuk bir arac cagrisi yazdi, yeniden deneniyor."
+   ],
+   "yanit_sonu": "iştir.\n\n**Doğrulama**\n- `python -m` ile `src` klasörünü PYTHONPATH’e ekleyip `click.truncate` fonksiyonunu test ettim. Çıktılar beklenen şekilde truncation ve suffix ekleme işlemlerini gerçekleştirdi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 12,
+    "okunan_toplam": 50084,
+    "okunan_en_fazla": 5705,
+    "okuma_sn": 1.2,
+    "uretim_sn": 13.6,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2253,
+     2313,
+     2382,
+     3794,
+     4034,
+     4083,
+     4273,
+     5082,
+     5222,
+     5391,
+     5552,
+     5705
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

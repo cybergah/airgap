@@ -1,0 +1,213 @@
+{
+ "etiket": "statik0-kucuk-3",
+ "tarih": "2026-11-14 21:10",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 12.3,
+  "toplam_sure": 38,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 14.4,
+   "gizli_test": true,
+   "arac": 11,
+   "arac_adlari": {
+    "read_file": 4,
+    "search_code": 2,
+    "edit_file": 2,
+    "list_files": 1,
+    "run_command": 1,
+    "write_file": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 1582,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "modelin yazdigi: 'def onbellek(func):'"
+   ],
+   "yanit_sonu": "n and applied it. Updated the file structure to ensure `SAYAC` is defined before use. The decorator now prevents re-execution of `pahali` with identical arguments, returning the cached result instead.",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (unexpected indent, satir 2), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n1\tSAYAC = {'n': 0}\n2\t    cache = {}\n3\t    def wrapper(*args, **kwargs):"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 21148,
+    "okunan_en_fazla": 2517,
+    "okuma_sn": 1.0,
+    "uretim_sn": 11.5,
+    "tam_okuma": 3,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1071,
+     1137,
+     1208,
+     1295,
+     1359,
+     1438,
+     1471,
+     1566,
+     1790,
+     1935,
+     2113,
+     2248,
+     2517
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 12.3,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 5,
+    "read_file": 4,
+    "edit_file": 3
+   },
+   "komut": 0,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 1182,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "and raise `ValueError('telefon')` if invalid.\n- Updated `kullanici/ozet` to include phone in the summary string.\n\nAll changes were made with minimal edits and verified by inspecting the updated files.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 35830,
+    "okunan_en_fazla": 4532,
+    "okuma_sn": 1.3,
+    "uretim_sn": 9.8,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1465,
+     1521,
+     2013,
+     2080,
+     2146,
+     2233,
+     2289,
+     2904,
+     3464,
+     3587,
+     3743,
+     3853,
+     4532
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 11.0,
+   "gizli_test": false,
+   "arac": 8,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 4,
+    "search_text": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "para/fatura.py",
+    "para/fatura.py",
+    "para/rapor.py",
+    "para/vergi.py"
+   ],
+   "degisen": [],
+   "dusunce": 2321,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model ayni cagriyi ust uste tekrarladi; tur durduruldu: search_text({\"path\": \"\", \"pattern\": \"hesapla_kdv\"})"
+   ],
+   "yanit_sonu": "",
+   "test_cikti": " \"/usr/local/lib/python3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from para.vergi import kdv_ekle\nImportError: cannot import name 'kdv_ekle' from 'para.vergi' (/work/para/vergi.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 11,
+    "okunan_toplam": 25624,
+    "okunan_en_fazla": 2980,
+    "okuma_sn": 0.9,
+    "uretim_sn": 9.3,
+    "tam_okuma": 8,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1416,
+     1888,
+     1954,
+     2024,
+     2101,
+     2158,
+     2630,
+     2732,
+     2834,
+     2907,
+     2980
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

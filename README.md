@@ -91,12 +91,16 @@ Airgap assumes the model can be wrong, confused, or manipulated by the files it 
 
 `olcum.py` runs 24 tasks against the real model; success is judged by **tests the model never sees**, and the model's code runs in the sandbox.
 
-| Set | Model | Result | 95% CI |
-|---|---|---|---|
-| 24 tasks × 3 runs (bug fixes, features, multi-file edits, questions, trap tasks) | `gpt-oss:20b` | **68/72 (94%)** | 87–98% |
-| Bugs planted in real projects (click, more-itertools, cachetools) | `gpt-oss:20b` | **24/33 (73%)** | 56–85% |
+| Set | Model | 0.13.1 | 0.14 | 95% CI (0.14) |
+|---|---|---|---|---|
+| 24 tasks × 3 runs (bug fixes, features, multi-file edits, questions, trap tasks) | `gpt-oss:20b` | 67/72 | **70/72 (97%)** | 90–99% |
+| Bugs planted in real projects (click, more-itertools, cachetools) | `gpt-oss:20b` | 25/33 | **28/33 (85%)** | 69–93% |
+| The 6 flakiest tasks × 5 | `gpt-oss:20b` | 19/30 | **29/30** | |
 
-Full reports: [small set](olcum-sonuclari/bitirme.md), [real projects](olcum-sonuclari/gercek-bitirme.md). Comparisons with other models (Devstral, Qwen2.5-Coder) are in [`olcum-sonuclari/`](olcum-sonuclari/).
+Old and new were run alternately, 3 rounds. The gain comes from keeping the model's reasoning between tool calls;
+the static check alone did not help. Full report with the costs (real-project tasks take about a quarter longer):
+[`0.14-tam-kontrol.md`](olcum-sonuclari/0.14-tam-kontrol.md). Comparisons with other models (Devstral, Qwen2.5-Coder)
+are in [`olcum-sonuclari/`](olcum-sonuclari/).
 We planted these bugs ourselves, so the numbers do not predict results on your own code.
 
 ## Quick start
@@ -175,7 +179,7 @@ Only what *you* see changes. Prompts, tool results and everything else the model
 
 ## Tests
 
-227 unit tests plus VS Code smoke and panel tests run on every push on Windows, Linux and macOS. Real-model benchmarks and the real VS Code window test run locally.
+340 unit tests plus VS Code smoke and panel tests run on every push on Windows, Linux and macOS. Real-model benchmarks and the real VS Code window test run locally.
 
 ```bash
 cd kod-ajani && python -B -m unittest discover -p "test_*.py"

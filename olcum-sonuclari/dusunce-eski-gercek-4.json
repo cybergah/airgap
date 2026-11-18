@@ -1,0 +1,260 @@
+{
+ "etiket": "dusunce-eski-gercek-4",
+ "tarih": "2026-11-14 21:56",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 3,
+  "oran": 1.0,
+  "guven_alt": 0.438,
+  "guven_ust": 1.0,
+  "ortanca_sure": 30.0,
+  "toplam_sure": 119,
+  "turler": {
+   "gercek_hata": [
+    2,
+    2
+   ],
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 1
+ },
+ "sonuclar": [
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 30.0,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "search_text": 3,
+    "read_file": 8,
+    "edit_file": 2,
+    "run_command": 4,
+    "list_files": 2
+   },
+   "komut": 4,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "pyproject.toml"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 2206,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "liyor.  \n- 0 ve 6 gibi sınır dışı değerler hâlâ reddediliyor.  \n- `min_open=True` ile 1 değeri kabul ediliyor, `min_open=False` ile reddediliyor.  \n\nBu değişiklikle sınır değerleri doğru yorumlanıyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 99371,
+    "okunan_en_fazla": 9598,
+    "okuma_sn": 2.5,
+    "uretim_sn": 23.3,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2256,
+     2316,
+     2734,
+     2787,
+     3328,
+     3811,
+     4243,
+     4666,
+     5267,
+     5726,
+     6053,
+     6176,
+     6350,
+     6399,
+     6461,
+     6609,
+     6695,
+     7896,
+     9598
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 29.8,
+   "gizli_test": true,
+   "arac": 26,
+   "arac_adlari": {
+    "search_code": 5,
+    "search_text": 9,
+    "read_file": 6,
+    "edit_file": 2,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 3649,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "yacak şekilde sıralama kriterini `x[0]` olarak güncelledi.\n\n**Sonuç**\n\n- Yardım çıktısında seçenekler artık kısa ön ek önce, uzun ön ek sonra (`-v, --verbose`) görünür.  \n- Diğer işlevler etkilenmedi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 26,
+    "okunan_toplam": 218508,
+    "okunan_en_fazla": 11839,
+    "okuma_sn": 3.3,
+    "uretim_sn": 20.3,
+    "tam_okuma": 25,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2302,
+     3135,
+     3835,
+     4535,
+     5394,
+     6988,
+     7221,
+     7558,
+     7624,
+     8497,
+     8730,
+     9498,
+     9559,
+     9625,
+     9858,
+     9924,
+     10042,
+     10985,
+     11082,
+     11441,
+     11541,
+     11618,
+     11683,
+     11751,
+     11839
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 58.9,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 5,
+    "search_text": 18,
+    "edit_file": 2,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "src/click/_textwrap.py",
+    "tests/test_utils/test_make_default_short_help.py",
+    "src/click/utils.py",
+    "src/click/__init__.py",
+    "tests/test_commands.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py",
+    "src/click/_textwrap.py"
+   ],
+   "dusunce": 12222,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "hould be available externally as click.truncate. Implementation likely similar to _truncate_visible but with suffix.\n\nWe need to add function to src/click/__init__.py? Let's inspect click/__init__.py.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "src/click/_textwrap.py"
+   ],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 250332,
+    "okunan_en_fazla": 13044,
+    "okuma_sn": 3.7,
+    "uretim_sn": 49.0,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2252,
+     2306,
+     3157,
+     4704,
+     4758,
+     5086,
+     5157,
+     5251,
+     5996,
+     6065,
+     7742,
+     7798,
+     7893,
+     7972,
+     8067,
+     8123,
+     8247,
+     9594,
+     9784,
+     9850,
+     11398,
+     11454,
+     11551,
+     11591,
+     11648,
+     12332,
+     12402,
+     12493,
+     12617,
+     13044
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

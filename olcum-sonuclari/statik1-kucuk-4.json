@@ -1,0 +1,228 @@
+{
+ "etiket": "statik1-kucuk-4",
+ "tarih": "2026-11-14 21:18",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 16.7,
+  "toplam_sure": 45,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 16.7,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "read_file": 5,
+    "edit_file": 2,
+    "search_code": 1,
+    "search_text": 1,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 1621,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "modelin yazdigi: '\\n'"
+   ],
+   "yanit_sonu": "cu döndürür.  \n`pahali` fonksiyonuna bu dekoratör uygulandı ve test çalıştırılarak doğrulandı: aynı argümanla ikinci çağrıda fonksiyon yeniden çalıştırılmadı, `SAYAC['n']` yalnızca bir kez arttırıldı.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text 7 kez geciyor; daha fazla cevre metin ekle"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 21971,
+    "okunan_en_fazla": 2492,
+    "okuma_sn": 1.1,
+    "uretim_sn": 13.7,
+    "tam_okuma": 4,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1070,
+     1136,
+     1207,
+     1271,
+     1366,
+     1608,
+     1653,
+     1732,
+     1929,
+     2008,
+     2148,
+     2351,
+     2492
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 19.4,
+   "gizli_test": false,
+   "arac": 18,
+   "arac_adlari": {
+    "search_code": 4,
+    "search_text": 5,
+    "read_file": 4,
+    "edit_file": 5
+   },
+   "komut": 0,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py"
+   ],
+   "dusunce": 2746,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "20 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "Steps**\n\n- Add phone validation in `kullanici/dogrula.py` (digits only, required).\n- Update `kullanici/ozet.py` to include phone in the summary string.\n\nThese changes will be applied in the next step.",
+   "test_cikti": "li_test.py\", line 10, in test_gizli\n    self.assertEqual(ozet(k), 'Ali <a@b> 555')\n                     ~~~~^^^\n  File \"/work/kullanici/ozet.py\", line 2, in ozet\n    return f'{k.ad} <{k.eposta}>'\n                      ^^^^^^^^\nAttributeError: 'Kullanici' object has no attribute 'eposta'\n\n----------------------------------------------------------------------\nRan 1 test in 0.004s\n\nFAILED (errors=1)\n",
+   "son_hata": [
+    "x old_text ve new_text ayni; bu duzenleme hicbir seyi degistirmez. new_text degistirilmis kodu icermeli. Degisiklik gerekmiyorsa baska bir adima gec."
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 71827,
+    "okunan_en_fazla": 5137,
+    "okuma_sn": 1.7,
+    "uretim_sn": 15.8,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1465,
+     1957,
+     2572,
+     2652,
+     2719,
+     2793,
+     2888,
+     2952,
+     3567,
+     3710,
+     3790,
+     3866,
+     3973,
+     4217,
+     4291,
+     4377,
+     4877,
+     4975,
+     5049,
+     5137
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 9.3,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "read_file": 4,
+    "search_text": 4,
+    "edit_file": 4
+   },
+   "komut": 0,
+   "okunan": [
+    "para/vergi.py",
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [
+    "para/fatura.py",
+    "para/rapor.py",
+    "para/vergi.py"
+   ],
+   "dusunce": 946,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ed all imports and calls:  \n  - `para/fatura.py` now imports `kdv_ekle` and uses it.  \n  - `para/rapor.py` now calls `vergi.kdv_ekle`.  \n\nThe function name change is consistent throughout the project.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 24113,
+    "okunan_en_fazla": 2315,
+    "okuma_sn": 0.9,
+    "uretim_sn": 7.5,
+    "tam_okuma": 5,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1416,
+     1482,
+     1531,
+     1633,
+     1695,
+     1764,
+     1866,
+     1929,
+     2018,
+     2085,
+     2148,
+     2231,
+     2315
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

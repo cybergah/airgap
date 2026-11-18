@@ -1,0 +1,225 @@
+{
+ "etiket": "statik1-kucuk-3",
+ "tarih": "2026-11-14 21:13",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 16.7,
+  "toplam_sure": 45,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 16.7,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "read_file": 3,
+    "search_code": 4,
+    "edit_file": 2,
+    "search_text": 1,
+    "run_command": 2
+   },
+   "komut": 2,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 1893,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Model bos yanit verdi, devam etmesi isteniyor."
+   ],
+   "yanit_sonu": "den)\n  print(araclar.SAYAC)      # {'n': 1}\n  ```\n- Çıktı, ikinci çağrıda fonksiyonun tekrar çalışmadığını ve `SAYAC['n']` değerinin yalnızca bir kez arttığını gösterdi.  \n- Testler başarıyla geçiyor.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n@onbellek\ndef pahali(x):"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 25033,
+    "okunan_en_fazla": 2379,
+    "okuma_sn": 1.0,
+    "uretim_sn": 13.0,
+    "tam_okuma": 4,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1070,
+     1136,
+     1207,
+     1294,
+     1358,
+     1451,
+     1496,
+     1588,
+     1740,
+     1834,
+     1987,
+     2066,
+     2145,
+     2282,
+     2379
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 18.1,
+   "gizli_test": false,
+   "arac": 20,
+   "arac_adlari": {
+    "search_code": 6,
+    "read_file": 7,
+    "search_text": 7
+   },
+   "komut": 0,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [],
+   "dusunce": 3398,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "20 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "dd phone field to Kullanici model, validation in olustur, and ozet to include phone. Also phone mandatory. Let's inspect tests to see expectations. Search for usage of Kullanici.Search for ozet usage.",
+   "test_cikti": "gizli_test.T.test_gizli)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/_gizli_test.py\", line 8, in test_gizli\n    k = olustur('Ali', 'a@b', '555')\nTypeError: olustur() takes 2 positional arguments but 3 were given\n\n----------------------------------------------------------------------\nRan 1 test in 0.003s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 76753,
+    "okunan_en_fazla": 5439,
+    "okuma_sn": 1.8,
+    "uretim_sn": 14.3,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1466,
+     1958,
+     2458,
+     2525,
+     2599,
+     2694,
+     2758,
+     3258,
+     3758,
+     3804,
+     4304,
+     4384,
+     4440,
+     4988,
+     5046,
+     5102,
+     5146,
+     5278,
+     5348,
+     5439
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 9.9,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 3,
+    "read_file": 2,
+    "edit_file": 4,
+    "search_text": 2,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "para/vergi.py",
+    "para/vergi.py"
+   ],
+   "degisen": [
+    "para/fatura.py",
+    "para/rapor.py",
+    "para/vergi.py"
+   ],
+   "dusunce": 548,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "/fatura.py` now imports `kdv_ekle` and uses it.  \n  - `para/rapor.py` now calls `vergi.kdv_ekle`.  \n- Verified the new function works by running a quick test that prints `120.0` for an input of `100`.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 13,
+    "okunan_toplam": 31213,
+    "okunan_en_fazla": 3056,
+    "okuma_sn": 1.0,
+    "uretim_sn": 6.8,
+    "tam_okuma": 10,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1415,
+     1473,
+     1945,
+     2011,
+     2060,
+     2532,
+     2595,
+     2686,
+     2753,
+     2816,
+     2899,
+     2972,
+     3056
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

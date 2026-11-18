@@ -1,0 +1,216 @@
+{
+ "etiket": "statik0-kucuk-5",
+ "tarih": "2026-11-14 21:21",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 14.6,
+  "toplam_sure": 41,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 14.6,
+   "gizli_test": true,
+   "arac": 8,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 3,
+    "edit_file": 1,
+    "write_file": 1,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 1508,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "modelin yazdigi: 'def onbellek(func):\\n    cache = {}\\n    def wrapper(*args, **kwargs):\\n        key = (args, tuple(sorted(kwargs.items())))\\n        if key in cache:\\n            return cache[key]\\n"
+   ],
+   "yanit_sonu": "\nprint(araclar.pahali(3))   # 6\nprint(araclar.pahali(3))   # 6 (cached)\nprint(araclar.SAYAC)       # {'n': 1} (fonksiyon yalnızca bir kez çalıştı)\n```\nBu çıktı, dekoratörün doğru çalıştığını gösterir.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text ve new_text ayni; bu duzenleme hicbir seyi degistirmez. new_text degistirilmis kodu icermeli. Degisiklik gerekmiyorsa baska bir adima gec."
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 15192,
+    "okunan_en_fazla": 2224,
+    "okuma_sn": 0.7,
+    "uretim_sn": 12.3,
+    "tam_okuma": 2,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1068,
+     1124,
+     1210,
+     1276,
+     1351,
+     1415,
+     1657,
+     1740,
+     2127,
+     2224
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 15.1,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 1,
+    "read_file": 6,
+    "edit_file": 3
+   },
+   "komut": 0,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 1225,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "modelin yazdigi: '    def __init__(self, ad, eposta, telefon):\\n        self.ad = ad\\n        self.eposta = eposta\\n        self.telefon = telefon'"
+   ],
+   "yanit_sonu": "  \n   - Özet metni `telefon` bilgisini de içeriyor: `ad <eposta> telefon`.\n\nBu güncellemelerle kullanıcı kayıtları artık telefon alanı içeriyor, doğrulama yapılıyor ve özet metni güncellenmiş durumda.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text ve new_text ayni; bu duzenleme hicbir seyi degistirmez. new_text degistirilmis kodu icermeli. Degisiklik gerekmiyorsa baska bir adima gec."
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 36445,
+    "okunan_en_fazla": 3296,
+    "okuma_sn": 1.2,
+    "uretim_sn": 12.8,
+    "tam_okuma": 13,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1466,
+     1522,
+     2014,
+     2070,
+     2167,
+     2233,
+     2320,
+     2376,
+     2489,
+     2641,
+     2736,
+     2899,
+     3030,
+     3186,
+     3296
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 11.0,
+   "gizli_test": false,
+   "arac": 7,
+   "arac_adlari": {
+    "search_code": 1,
+    "read_file": 4,
+    "search_text": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "para/vergi.py",
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [],
+   "dusunce": 2153,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model ayni cagriyi ust uste tekrarladi; tur durduruldu: search_text({\"path\": \"\", \"pattern\": \"hesapla_kdv\"})"
+   ],
+   "yanit_sonu": "",
+   "test_cikti": " \"/usr/local/lib/python3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from para.vergi import kdv_ekle\nImportError: cannot import name 'kdv_ekle' from 'para.vergi' (/work/para/vergi.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 21073,
+    "okunan_en_fazla": 2508,
+    "okuma_sn": 0.8,
+    "uretim_sn": 9.4,
+    "tam_okuma": 7,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1416,
+     1888,
+     1954,
+     2011,
+     2081,
+     2158,
+     2260,
+     2362,
+     2435,
+     2508
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

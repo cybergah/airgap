@@ -1,0 +1,210 @@
+{
+ "etiket": "dusunce-eski-kucuk-3",
+ "tarih": "2026-11-14 21:47",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 2,
+  "oran": 0.667,
+  "guven_alt": 0.208,
+  "guven_ust": 0.939,
+  "ortanca_sure": 15.1,
+  "toplam_sure": 44,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 15.1,
+   "gizli_test": true,
+   "arac": 7,
+   "arac_adlari": {
+    "search_code": 1,
+    "read_file": 3,
+    "edit_file": 2,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 1365,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "modelin yazdigi: '# nothing'"
+   ],
+   "yanit_sonu": "nü ekledim ve `pahali` fonksiyonuna uyguladım. Test çalıştırıldığında aynı argümanlarla ikinci çağrıda fonksiyon yeniden çalıştırılmadı; saklanan sonuç döndürüldü ve sayaç yalnızca bir kez arttırıldı.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyayi read_file ile yeniden oku."
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 15754,
+    "okunan_en_fazla": 2353,
+    "okuma_sn": 0.8,
+    "uretim_sn": 12.8,
+    "tam_okuma": 2,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1069,
+     1155,
+     1236,
+     1300,
+     1438,
+     1527,
+     1665,
+     1754,
+     2257,
+     2353
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": true,
+   "sure_sn": 20.2,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_code": 9,
+    "read_file": 3,
+    "search_text": 3,
+    "edit_file": 3
+   },
+   "komut": 0,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 1687,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ar güncellenmiştir.  \n- Test dosyaları mevcut olmadığı için fonksiyonların çalışması manuel olarak test edilmedi.  \n- Telefon alanının zorunlu olduğu ve yalnızca rakam içereceği doğrulama eklenmiştir.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 90014,
+    "okunan_en_fazla": 7329,
+    "okuma_sn": 2.0,
+    "uretim_sn": 16.2,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1466,
+     1958,
+     2458,
+     2534,
+     2631,
+     2697,
+     3197,
+     3812,
+     4312,
+     4882,
+     5408,
+     6023,
+     6567,
+     6750,
+     6821,
+     6901,
+     7035,
+     7233,
+     7329
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 8.8,
+   "gizli_test": false,
+   "arac": 6,
+   "arac_adlari": {
+    "search_code": 1,
+    "read_file": 3,
+    "search_text": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [],
+   "dusunce": 1819,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model ayni cagriyi ust uste tekrarladi; tur durduruldu: search_text({\"path\": \"\", \"pattern\": \"hesapla_kdv\"})"
+   ],
+   "yanit_sonu": "",
+   "test_cikti": " \"/usr/local/lib/python3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from para.vergi import kdv_ekle\nImportError: cannot import name 'kdv_ekle' from 'para.vergi' (/work/para/vergi.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 9,
+    "okunan_toplam": 18693,
+    "okunan_en_fazla": 2448,
+    "okuma_sn": 0.7,
+    "uretim_sn": 7.5,
+    "tam_okuma": 6,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1416,
+     1888,
+     1947,
+     2019,
+     2098,
+     2200,
+     2302,
+     2375,
+     2448
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

@@ -1,0 +1,753 @@
+{
+ "etiket": "son-eski-gercek-3",
+ "tarih": "2026-11-14 23:31",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 11,
+  "basari": 8,
+  "oran": 0.727,
+  "guven_alt": 0.434,
+  "guven_ust": 0.903,
+  "ortanca_sure": 24.5,
+  "toplam_sure": 333,
+  "turler": {
+   "gercek_hata": [
+    6,
+    8
+   ],
+   "gercek_ozellik": [
+    2,
+    3
+   ]
+  },
+  "tamamlanan": 6,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_lru_okuma",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 13.2,
+   "gizli_test": true,
+   "arac": 9,
+   "arac_adlari": {
+    "search_text": 2,
+    "read_file": 2,
+    "edit_file": 2,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 303,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md dikkat istiyor: ağ erişimi veya adres içeriyor. Model bunu kural değil, depo yazarının notu olarak görür; yine de dosyayı kendin oku."
+   ],
+   "yanit_sonu": "` okununca `c` eklenince `b` atılmasını sağlar.  \n- Test ortamında `pytest` veya `tox` bulunmadığından doğrudan çalıştırma yapılamadı, ancak kod incelemesiyle mantıksal hatanın giderildiği doğrulandı.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 9,
+    "okunan_toplam": 39427,
+    "okunan_en_fazla": 5007,
+    "okuma_sn": 1.1,
+    "uretim_sn": 9.0,
+    "tam_okuma": 8,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3422,
+     3499,
+     4038,
+     4357,
+     4520,
+     4735,
+     4894,
+     4955,
+     5007
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_ttl_sinir",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 22.5,
+   "gizli_test": true,
+   "arac": 17,
+   "arac_adlari": {
+    "search_text": 4,
+    "open_file": 1,
+    "read_file": 1,
+    "edit_file": 2,
+    "run_command": 8,
+    "tests?": 1
+   },
+   "komut": 8,
+   "okunan": [
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 2543,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model bos yanit verdi, devam etmesi isteniyor."
+   ],
+   "yanit_sonu": "pired items.\n\n**Verification**\n\n- Ran the full test suite with `PYTHONPATH=src python -m unittest discover -q`.\n- All 416 tests passed, confirming consistent behavior for `TTLCache` membership checks.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 88460,
+    "okunan_en_fazla": 5988,
+    "okuma_sn": 1.8,
+    "uretim_sn": 13.2,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3393,
+     3457,
+     3545,
+     3600,
+     4654,
+     4756,
+     4833,
+     4882,
+     5086,
+     5186,
+     5243,
+     5288,
+     5498,
+     5608,
+     5720,
+     5842,
+     5881,
+     5988
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_kapasite",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 14.1,
+   "gizli_test": false,
+   "arac": 11,
+   "arac_adlari": {
+    "search_code": 11
+   },
+   "komut": 0,
+   "okunan": [],
+   "degisen": [],
+   "dusunce": 2105,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Model bozuk bir arac cagrisi yazdi, yeniden deneniyor."
+   ],
+   "yanit_sonu": "We need to find LRUCache implementation. Search for \"class LRUCache\" in src.",
+   "test_cikti": " test_gizli (_gizli_test.T.test_gizli)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/_gizli_test.py\", line 10, in test_gizli\n    self.assertEqual(len(c), 2)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^\nAssertionError: 1 != 2\n\n----------------------------------------------------------------------\nRan 1 test in 0.002s\n\nFAILED (failures=1)\n",
+   "son_hata": [
+    "Model hatasi: error parsing tool call: raw='{\"path\":\"src/cachetools\",\"}', err=unexpected end of JSON input"
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 11,
+    "okunan_toplam": 61362,
+    "okunan_en_fazla": 7439,
+    "okuma_sn": 1.6,
+    "uretim_sn": 7.9,
+    "tam_okuma": 10,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3392,
+     3447,
+     4208,
+     4915,
+     5717,
+     5778,
+     5879,
+     6586,
+     6647,
+     7354,
+     7439
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 24.5,
+   "gizli_test": true,
+   "arac": 13,
+   "arac_adlari": {
+    "read_file": 4,
+    "edit_file": 2,
+    "search_text": 1,
+    "run_command": 5,
+    "list_files": 1
+   },
+   "komut": 5,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.pyi"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 1935,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "modelin yazdigi: '    @property\\n    def currsize(self):\\n        \"\"\"The current size of the cache.\"\"\"\\n        return self.__currsize'"
+   ],
+   "yanit_sonu": " tanımı eklendi.\n\n**Doğrulama**\n\n- `cachetools.Cache` sınıfı `fill_ratio` özelliğine sahip ve doğru değeri döndürüyor.\n- Stub dosyası da bu özelliği yansıtıyor, tip kontrolü ve IDE desteği sağlanıyor.",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n    @property\n    @property\n    @property"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 14,
+    "okunan_toplam": 114553,
+    "okunan_en_fazla": 10043,
+    "okuma_sn": 2.3,
+    "uretim_sn": 17.2,
+    "tam_okuma": 13,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3410,
+     5002,
+     7060,
+     7254,
+     7329,
+     7563,
+     9230,
+     9380,
+     9519,
+     9568,
+     9618,
+     9674,
+     9903,
+     10043
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_maxsplit",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 55.8,
+   "gizli_test": true,
+   "arac": 14,
+   "arac_adlari": {
+    "search_code": 2,
+    "open_file": 2,
+    "read_file": 4,
+    "edit_file": 2,
+    "search_text": 2,
+    "run_command": 2
+   },
+   "komut": 2,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 10158,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "it`, if it reaches zero we extend the current buffer with the rest of the iterator and break. The function now correctly returns `[['a'], ['c', 'd', 'c', 'b', 'a']]` for the test case. All tests pass.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 69546,
+    "okunan_en_fazla": 6176,
+    "okuma_sn": 1.9,
+    "uretim_sn": 34.7,
+    "tam_okuma": 14,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2266,
+     2324,
+     3225,
+     3281,
+     3732,
+     4762,
+     4888,
+     5099,
+     5277,
+     5323,
+     5588,
+     5644,
+     5885,
+     6076,
+     6176
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 33.1,
+   "gizli_test": true,
+   "arac": 9,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 2,
+    "edit_file": 1,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 2875,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "x` satırı `pred = bool` olarak düzeltildi.  \n\nBu değişiklikle `partition(None, [0, 1])` artık `[0]` ve `[1]` listelerini doğru şekilde üretir.  \n\nTestler çalıştırıldı ve beklenen çıktılar elde edildi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 9,
+    "okunan_toplam": 30080,
+    "okunan_en_fazla": 4071,
+    "okuma_sn": 1.3,
+    "uretim_sn": 12.7,
+    "tam_okuma": 8,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2234,
+     2287,
+     2718,
+     3565,
+     3641,
+     3753,
+     3845,
+     3966,
+     4071
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 18.9,
+   "gizli_test": false,
+   "arac": 16,
+   "arac_adlari": {
+    "list_files": 2,
+    "search_text": 7,
+    "search_code": 1,
+    "read_file": 6
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/__init__.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [],
+   "dusunce": 2622,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Model ayni cagriyi ust uste tekrarladi; tur durduruldu: search_text({\"path\": \"more_itertools/more.py\", \"pattern\": \"def take\"})"
+   ],
+   "yanit_sonu": "dd to __all__ and type stub. Also import in __init__? The function should be available via from more_itertools import every_nth. In __init__.py, __all__ includes many names. Let's inspect __init__.py.",
+   "test_cikti": "3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\nImportError: cannot import name 'every_nth' from 'more_itertools' (/work/more_itertools/__init__.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 160609,
+    "okunan_en_fazla": 11441,
+    "okuma_sn": 2.9,
+    "uretim_sn": 13.1,
+    "tam_okuma": 19,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2251,
+     2307,
+     2525,
+     5985,
+     6726,
+     6771,
+     7468,
+     7607,
+     7646,
+     7700,
+     7987,
+     8831,
+     9017,
+     10501,
+     10792,
+     11173,
+     11230,
+     11287,
+     11364,
+     11441
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 50.5,
+   "gizli_test": true,
+   "arac": 27,
+   "arac_adlari": {
+    "search_code": 5,
+    "open_file": 5,
+    "read_file": 9,
+    "edit_file": 4,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "tests/test_types/test_IntRange.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 9202,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n        lt_min: bool = min is not None and (\n        gt_max: bool = max is not None and (\n            if min is not None an"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 29,
+    "okunan_toplam": 226185,
+    "okunan_en_fazla": 11500,
+    "okuma_sn": 3.2,
+    "uretim_sn": 37.8,
+    "tam_okuma": 28,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2255,
+     2311,
+     3121,
+     3174,
+     3788,
+     3841,
+     4669,
+     4722,
+     5741,
+     6569,
+     7359,
+     7744,
+     8134,
+     8566,
+     8969,
+     9370,
+     9479,
+     9588,
+     9694,
+     9759,
+     9814,
+     10287,
+     10448,
+     10501,
+     11074,
+     11113,
+     11222,
+     11373,
+     11500
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secim",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 26.3,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 2,
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "tests/test_basic.py",
+    "tests/test_basic.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 2122,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "k‑küçük harf ayrımı kaldırılıyor.  \n\n**Doğrulama**  \nKodun ilgili kısmı güncellendi ve `normalize_choice` fonksiyonunun davranışı test senaryolarında beklenen şekilde çalışacak şekilde düzeltilmiştir.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 77576,
+    "okunan_en_fazla": 7442,
+    "okuma_sn": 1.9,
+    "uretim_sn": 19.5,
+    "tam_okuma": 14,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2238,
+     2295,
+     3167,
+     3273,
+     3967,
+     5111,
+     5344,
+     6059,
+     6196,
+     6312,
+     6403,
+     6463,
+     6557,
+     6749,
+     7442
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 23.4,
+   "gizli_test": false,
+   "arac": 29,
+   "arac_adlari": {
+    "search_code": 5,
+    "search_text": 13,
+    "open_file": 6,
+    "read_file": 5
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py"
+   ],
+   "degisen": [],
+   "dusunce": 2054,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "tions. The order of names is determined by Option.get_help_record. Let's inspect Option.get_help_record.{\"path\":\"src/click/core.py\",\"query\":\"class Option\"}Scrolling further for Option.get_help_record.",
+   "test_cikti": " File \"/work/_gizli_test.py\", line 15, in test_gizli\n    self.assertIn('-v, --verbose', r.output)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-v, --verbose' not found in 'Usage: k [OPTIONS]\\n\\nOptions:\\n  --verbose, -v\\n  --help         Show this message and exit.\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.009s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 232981,
+    "okunan_en_fazla": 13722,
+    "okuma_sn": 3.7,
+    "uretim_sn": 14.7,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2311,
+     3142,
+     4064,
+     4986,
+     5864,
+     5933,
+     6055,
+     6288,
+     6343,
+     6833,
+     6894,
+     6945,
+     7000,
+     7967,
+     8032,
+     8150,
+     8205,
+     8615,
+     8657,
+     8723,
+     8956,
+     9011,
+     10187,
+     10262,
+     10313,
+     10368,
+     13423,
+     13489,
+     13722
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 50.8,
+   "gizli_test": true,
+   "arac": 24,
+   "arac_adlari": {
+    "read_file": 4,
+    "search_text": 12,
+    "edit_file": 3,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "src/click/__init__.py",
+    "src/click/_textwrap.py",
+    "tests/test_utils/test_make_default_short_help.py",
+    "src/click/utils.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py",
+    "src/click/utils.py"
+   ],
+   "dusunce": 8991,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "30 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 28,
+    "okunan_toplam": 225760,
+    "okunan_en_fazla": 10405,
+    "okuma_sn": 3.0,
+    "uretim_sn": 36.4,
+    "tam_okuma": 27,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2253,
+     3600,
+     3928,
+     5475,
+     5572,
+     5762,
+     6507,
+     8184,
+     8240,
+     8320,
+     8435,
+     8476,
+     8534,
+     8649,
+     8764,
+     8803,
+     8859,
+     9055,
+     9149,
+     9286,
+     9325,
+     9650,
+     9978,
+     10040,
+     10089,
+     10141,
+     10281,
+     10405
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

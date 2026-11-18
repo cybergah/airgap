@@ -1,0 +1,227 @@
+{
+ "etiket": "statik0-kucuk-1",
+ "tarih": "2026-11-14 21:00",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 3,
+  "basari": 1,
+  "oran": 0.333,
+  "guven_alt": 0.061,
+  "guven_ust": 0.792,
+  "ortanca_sure": 23.7,
+  "toplam_sure": 72,
+  "turler": {
+   "ozellik": [
+    1,
+    1
+   ],
+   "cok_dosya": [
+    0,
+    2
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "onbellek_dekorator",
+   "tur": "ozellik",
+   "tur_tamam": true,
+   "sure_sn": 30.7,
+   "gizli_test": true,
+   "arac": 8,
+   "arac_adlari": {
+    "search_code": 3,
+    "read_file": 3,
+    "edit_file": 1,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "araclar.py",
+    "araclar.py",
+    "araclar.py"
+   ],
+   "degisen": [
+    "araclar.py"
+   ],
+   "dusunce": 2611,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "# 6\nprint(araclar.pahali(3))  # 6 (yeniden hesaplanmaz)\nprint(araclar.SAYAC['n'])  # 1\n```\n\nBu şekilde aynı argümanlarla çağrıldığında fonksiyon yeniden çalıştırılmıyor ve saklanan sonuç döndürülüyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 9,
+    "okunan_toplam": 12353,
+    "okunan_en_fazla": 1731,
+    "okuma_sn": 1.8,
+    "uretim_sn": 12.0,
+    "tam_okuma": 0,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1069,
+     1125,
+     1211,
+     1277,
+     1352,
+     1439,
+     1514,
+     1635,
+     1731
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "alan_ekle_katmanli",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 17.8,
+   "gizli_test": false,
+   "arac": 19,
+   "arac_adlari": {
+    "search_code": 6,
+    "read_file": 4,
+    "run_command": 1,
+    "list_files": 2,
+    "edit_file": 6
+   },
+   "komut": 1,
+   "okunan": [
+    "kullanici/model.py",
+    "kullanici/model.py",
+    "kullanici/dogrula.py",
+    "kullanici/ozet.py"
+   ],
+   "degisen": [
+    "kullanici/dogrula.py",
+    "kullanici/model.py",
+    "kullanici/ozet.py"
+   ],
+   "dusunce": 2070,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "20 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": " only, else ValueError. Phone required. Update ozet to include phone: 'ad <eposta> telefon'.\n\nAlso need to update any code that constructs Kullanici or uses its attributes. Search for Kullanici usage.",
+   "test_cikti": "k (most recent call last):\n  File \"/work/_gizli_test.py\", line 8, in test_gizli\n    k = olustur('Ali', 'a@b', '555')\n  File \"/work/kullanici/dogrula.py\", line 7, in olustur\n    return Kullanici(ad, eposta)\nTypeError: Kullanici.__init__() missing 1 required positional argument: 'telefon'\n\n----------------------------------------------------------------------\nRan 1 test in 0.005s\n\nFAILED (errors=1)\n",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (unexpected indent, satir 4), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n2\t\n3\t\n4\t    def olustur(ad, eposta, telefon):\n5\t    if '@' not in epost"
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 69894,
+    "okunan_en_fazla": 5370,
+    "okuma_sn": 1.8,
+    "uretim_sn": 13.0,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1465,
+     1521,
+     2013,
+     2080,
+     2150,
+     2241,
+     2301,
+     2916,
+     3488,
+     3537,
+     4152,
+     4208,
+     4311,
+     4387,
+     4450,
+     4590,
+     4664,
+     4776,
+     5274,
+     5370
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "isim_degistir_tum",
+   "tur": "cok_dosya",
+   "tur_tamam": false,
+   "sure_sn": 23.7,
+   "gizli_test": false,
+   "arac": 15,
+   "arac_adlari": {
+    "search_code": 3,
+    "read_file": 4,
+    "search_text": 5,
+    "edit_file": 3
+   },
+   "komut": 0,
+   "okunan": [
+    "para/vergi.py",
+    "para/vergi.py",
+    "para/fatura.py",
+    "para/rapor.py"
+   ],
+   "degisen": [
+    "para/fatura.py",
+    "para/vergi.py"
+   ],
+   "dusunce": 4829,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "20 adim sinirina ulasildi, durduruldu."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "\", line 12, in test_gizli\n    self.assertEqual(rapor(100), '120.00')\n                     ~~~~~^^^^^\n  File \"/work/para/rapor.py\", line 5, in rapor\n    return f'{vergi.hesapla_kdv(t):.2f}'\n              ^^^^^^^^^^^^^^^^^\nAttributeError: module 'para.vergi' has no attribute 'hesapla_kdv'\n\n----------------------------------------------------------------------\nRan 1 test in 0.011s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 57190,
+    "okunan_en_fazla": 4074,
+    "okuma_sn": 1.5,
+    "uretim_sn": 19.1,
+    "tam_okuma": 16,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     1415,
+     1887,
+     1953,
+     2010,
+     2080,
+     2157,
+     2629,
+     3101,
+     3172,
+     3274,
+     3376,
+     3449,
+     3522,
+     3584,
+     3727,
+     3829,
+     3944,
+     4007,
+     4074
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}
