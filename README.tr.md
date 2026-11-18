@@ -5,6 +5,12 @@
 Yerel Ollama modeliyle çalışan, ajan modunda kod asistanı: terminalde ve VS Code panelinde.
 Dosya okur ve düzenler, komut çalıştırır, sonucu kontrol eder. Yazma ve komut için onay ister.
 
+<p align="center">
+  <img src="docs/airgap-desktop.gif" alt="Airgap.exe ile gerçek bir çalışma: gpt-oss:20b başarısız testi çalıştırır, cart.py'yi okur, apply_discount için tek satırlık düzeltme önerir, her adımda onay bekler ve testler geçer" width="100%">
+  <br><sub>Yerel GPU'da <code>gpt-oss:20b</code> ile gerçek bir <code>Airgap.exe</code> çalışması. Her komut ve değişiklik bir insan tarafından onaylandı; yalnız bekleme süresi kısaltıldı.</sub>
+  <br><br><a href="https://github.com/cybergah/airgap/releases/latest"><b>⬇ Airgap.exe'yi indir</b></a>
+</p>
+
 ## Gerekenler
 
 - Python 3.10 veya üstü, git, [Ollama](https://ollama.com)
@@ -37,11 +43,6 @@ Sonra bir klasör aç ve soldaki `</>` simgesine bas. Ayarlar: **Airgap** (model
 fark görünümü, her kartın içinde onay, tek tıkla geri alma, `@` ile dosya önerisi, son projeler ve canlı Ollama durumu.
 Yalnız `127.0.0.1`'de çalışır, her istek rastgele bir anahtar taşır; yazı tipleri ve simgeler programın içindedir,
 ağdan hiçbir şey yüklenmez.
-
-<p align="center">
-  <img src="docs/airgap-desktop.gif" alt="Airgap.exe ile gerçek bir çalışma: gpt-oss:20b başarısız testi çalıştırır, cart.py'yi okur, apply_discount için tek satırlık düzeltme önerir, her adımda onay bekler ve testler geçer" width="100%">
-  <br><sub>Yerel GPU'da <code>gpt-oss:20b</code> ile gerçek bir <code>Airgap.exe</code> çalışması. Her komut ve değişiklik bir insan tarafından onaylandı; yalnız bekleme süresi kısaltıldı.</sub>
-</p>
 
 **[`Airgap.exe`](https://github.com/cybergah/airgap/releases/latest)'yi indir** ve çalıştır: Python ya da Node gerekmez,
 yalnız [Ollama](https://ollama.com) ve Microsoft Edge (Windows 11'de hazır). Ya da kaynaktan çalıştır:

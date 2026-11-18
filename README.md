@@ -3,7 +3,7 @@
 <img src="docs/banner.svg" alt="Airgap: your code never leaves the machine" width="100%">
 
 A security-hardened AI coding agent that runs **100% locally** on [Ollama](https://ollama.com):
-in your terminal and in VS Code. No cloud, no API keys, no telemetry.
+as a Windows app, in VS Code and in your terminal. No cloud, no API keys, no telemetry.
 
 [![release](https://img.shields.io/github/v/release/cybergah/airgap?color=00FF41&labelColor=0D1117)](https://github.com/cybergah/airgap/releases/latest)
 [![tests](https://github.com/cybergah/airgap/actions/workflows/testler.yml/badge.svg)](https://github.com/cybergah/airgap/actions/workflows/testler.yml)
@@ -19,8 +19,9 @@ in your terminal and in VS Code. No cloud, no API keys, no telemetry.
 ---
 
 <p align="center">
-  <img src="docs/airgap-demo.gif" alt="A real Airgap run: gpt-oss:20b on a local GPU reads the code, runs the failing test, proposes a one-line fix to is_leap_year, waits for approval, and the tests pass" width="100%">
-  <br><sub>A real run on a local GPU. Every command and edit was approved by a human; only the waiting time was shortened.</sub>
+  <img src="docs/airgap-desktop.gif" alt="A real run of Airgap.exe: gpt-oss:20b runs the failing unittest, reads cart.py, proposes a one-line fix to apply_discount, waits for approval each time, and the tests pass" width="100%">
+  <br><sub>A real run of <code>Airgap.exe</code> with <code>gpt-oss:20b</code> on a local GPU. Every command and edit was approved by a human; only the waiting time was shortened.</sub>
+  <br><br><a href="https://github.com/cybergah/airgap/releases/latest"><b>⬇ Download Airgap.exe</b></a> · <a href="#quick-start">VS Code and terminal</a>
 </p>
 
 ```mermaid
@@ -114,6 +115,11 @@ git clone https://github.com/cybergah/airgap
 python airgap/kod-ajani/ajan.py --dizin /path/to/your/project
 ```
 
+<p align="center">
+  <img src="docs/airgap-demo.gif" alt="A real Airgap run in the terminal: gpt-oss:20b on a local GPU reads the code, runs the failing test, proposes a one-line fix to is_leap_year, waits for approval, and the tests pass" width="100%">
+  <br><sub>A real run in the terminal on a local GPU. Every command and edit was approved by a human; only the waiting time was shortened.</sub>
+</p>
+
 Chat commands: `/undo` undo the last turn · `/new` new chat · `/approve` toggle approvals · `/help` help · `/quit` quit.
 One-shot mode: `--gorev "fix the failing tests" --otomatik`. Sandbox: `--korumali` (first run `docker pull python:3.13-slim`).
 
@@ -135,11 +141,6 @@ A standalone window with the same agent, no VS Code needed: chat, inline diffs w
 unified/split views, approvals inside each card, one-click undo, `@` file suggestions,
 recent projects and a live Ollama status. It runs on `127.0.0.1` only, every request
 carries a random key, and fonts and icons are bundled: nothing is loaded from the network.
-
-<p align="center">
-  <img src="docs/airgap-desktop.gif" alt="A real run of Airgap.exe: gpt-oss:20b runs the failing unittest, reads cart.py, proposes a one-line fix to apply_discount, waits for approval each time, and the tests pass" width="100%">
-  <br><sub>A real run of <code>Airgap.exe</code> with <code>gpt-oss:20b</code> on a local GPU. Every command and edit was approved by a human; only the waiting time was shortened.</sub>
-</p>
 
 **Download [`Airgap.exe`](https://github.com/cybergah/airgap/releases/latest)** and run it: no Python or Node needed, only
 [Ollama](https://ollama.com) and Microsoft Edge (built into Windows 11). Or run it from source:
