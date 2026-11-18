@@ -28,7 +28,7 @@ python kod-ajani/paketle.py
 ```
 
 ```bash
-code --install-extension dist/kod-ajani-0.13.1.vsix --force
+code --install-extension dist/kod-ajani-0.14.0.vsix --force
 ```
 
 Sonra bir klasör aç ve soldaki `</>` simgesine bas. Ayarlar: **Airgap** (model, Python komutu, bağlam).
