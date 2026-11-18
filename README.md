@@ -122,7 +122,7 @@ One-shot mode: `--gorev "fix the failing tests" --otomatik`. Sandbox: `--korumal
 Download `kod-ajani-<version>.vsix` from the [latest release](https://github.com/cybergah/airgap/releases/latest) and install it:
 
 ```bash
-code --install-extension kod-ajani-0.14.0.vsix --force
+code --install-extension kod-ajani-0.14.1.vsix --force
 ```
 
 The extension ships with the agent inside; you only need Python and Ollama. To build it yourself: `python airgap/kod-ajani/paketle.py` (writes `airgap/dist/`).
