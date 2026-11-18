@@ -38,6 +38,14 @@ fark görünümü, her kartın içinde onay, tek tıkla geri alma, `@` ile dosya
 Yalnız `127.0.0.1`'de çalışır, her istek rastgele bir anahtar taşır; yazı tipleri ve simgeler programın içindedir,
 ağdan hiçbir şey yüklenmez.
 
+<p align="center">
+  <img src="docs/airgap-desktop.gif" alt="Airgap.exe ile gerçek bir çalışma: gpt-oss:20b başarısız testi çalıştırır, cart.py'yi okur, apply_discount için tek satırlık düzeltme önerir, her adımda onay bekler ve testler geçer" width="100%">
+  <br><sub>Yerel GPU'da <code>gpt-oss:20b</code> ile gerçek bir <code>Airgap.exe</code> çalışması. Her komut ve değişiklik bir insan tarafından onaylandı; yalnız bekleme süresi kısaltıldı.</sub>
+</p>
+
+**[`Airgap.exe`](https://github.com/cybergah/airgap/releases/latest)'yi indir** ve çalıştır: Python ya da Node gerekmez,
+yalnız [Ollama](https://ollama.com) ve Microsoft Edge (Windows 11'de hazır). Ya da kaynaktan çalıştır:
+
 ```bash
 cd kod-ajani/masaustu/arayuz
 npm ci

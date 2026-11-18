@@ -1,5 +1,7 @@
+import os
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 import ajan as a
@@ -157,7 +159,7 @@ class DonguTesti(unittest.TestCase):
             self.assertFalse(ajan.tur("calistir"))
             arac = [m["content"] for m in ajan.mesajlar if m["role"] == "tool"]
             self.assertEqual(arac, [a.REDDEDILDI, a.YENIDEN_ISTENDI, arac[-1]])
-            self.assertIn("Durduruldu", arac[-1])
+            self.assertIn("Stopped", arac[-1])
 
     def test_ayni_hatali_cagri_uc_kez_denenince_durur(self):
         with tempfile.TemporaryDirectory() as kok:
@@ -173,7 +175,7 @@ class DonguTesti(unittest.TestCase):
 
             ajan._modeli_cagir = model
             self.assertFalse(ajan.tur("duzenle"))
-            hata = [m for m in ajan.mesajlar if m["role"] == "tool" and m["content"].startswith("HATA")]
+            hata = [m for m in ajan.mesajlar if m["role"] == "tool" and m["content"].startswith("ERROR")]
             self.assertEqual(len(hata), a.TEKRAR_SINIRI)
 
     def test_uyaridan_sonra_farkli_islem_devam_eder(self):
@@ -226,6 +228,45 @@ class GecmisTesti(unittest.TestCase):
         a.gecmisi_sigdir(mesajlar, 1000)
         self.assertLess(len(mesajlar[0]["content"]), 300)
         self.assertEqual(len(mesajlar[-1]["content"]), 5000)
+
+
+class ModelDiliTesti(unittest.TestCase):
+    """Arac sonuclari modele arayuz dilinden bagimsiz Ingilizce gider; dosya icerigi ve komut ciktisi aynen."""
+
+    def test_sonuc_ve_hata_ingilizce(self):
+        self.assertEqual(a.model_sonucu("cart.py duzenlendi"), "cart.py edited")
+        self.assertEqual(a.model_sonucu("Ran 3 tests\n\nOK\n[cikis kodu: 0]"), "Ran 3 tests\n\nOK\n[exit code: 0]")
+        self.assertEqual(a.model_sonucu("HATA: gecersiz arguman: x"), "ERROR: invalid argument: x")
+        self.assertIn("must be a string", a.model_sonucu("HATA: content metin (string) olmali, dict geldi. "
+                                                         "JSON icerigi de tek bir metin olarak yaz."))
+
+    def test_dosya_icerigi_cevrilmez(self):
+        icerik = "1\tprint('dosya bulunamadi: x')"
+        self.assertEqual(a.model_sonucu(icerik), icerik)
+
+    def test_turkce_arayuzde_de_model_ingilizce_gorur(self):
+        with mock.patch.dict(os.environ, {"AIRGAP_LANG": "tr"}), tempfile.TemporaryDirectory() as kok:
+            (Path(kok) / "a.py").write_text("x = 1\n")
+            ajan = a.Ajan(Path(kok), "sahte")
+            cagrilar = iter([("edit_file", {"path": "a.py", "old_text": "x = 1", "new_text": "x = 2"})])
+
+            def model():
+                try:
+                    ad, arg = next(cagrilar)
+                except StopIteration:
+                    return {"role": "assistant", "content": "done", "tool_calls": []}
+                return {"role": "assistant", "content": "", "tool_calls": [{"function": {"name": ad, "arguments": arg}}]}
+
+            ajan._modeli_cagir = model
+            ajan._onay = lambda soru, tur="yazma": True
+            ajan.tur("duzenle")
+            arac = [m["content"] for m in ajan.mesajlar if m["role"] == "tool"]
+            self.assertEqual(arac[0], "a.py edited")
+
+    def test_read_file_line_takma_adi(self):
+        with tempfile.TemporaryDirectory() as kok:
+            (Path(kok) / "a.py").write_text("bir\niki\nuc\n")
+            self.assertEqual(a.Araclar(Path(kok)).read_file("a.py", line=2), "2\tiki\n3\tuc")
 
 
 if __name__ == "__main__":

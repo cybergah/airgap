@@ -136,6 +136,14 @@ unified/split views, approvals inside each card, one-click undo, `@` file sugges
 recent projects and a live Ollama status. It runs on `127.0.0.1` only, every request
 carries a random key, and fonts and icons are bundled: nothing is loaded from the network.
 
+<p align="center">
+  <img src="docs/airgap-desktop.gif" alt="A real run of Airgap.exe: gpt-oss:20b runs the failing unittest, reads cart.py, proposes a one-line fix to apply_discount, waits for approval each time, and the tests pass" width="100%">
+  <br><sub>A real run of <code>Airgap.exe</code> with <code>gpt-oss:20b</code> on a local GPU. Every command and edit was approved by a human; only the waiting time was shortened.</sub>
+</p>
+
+**Download [`Airgap.exe`](https://github.com/cybergah/airgap/releases/latest)** and run it: no Python or Node needed, only
+[Ollama](https://ollama.com) and Microsoft Edge (built into Windows 11). Or run it from source:
+
 ```bash
 cd airgap/kod-ajani/masaustu/arayuz
 npm ci

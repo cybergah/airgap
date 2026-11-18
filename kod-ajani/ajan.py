@@ -38,7 +38,8 @@ VARSAYILAN_MODEL = os.environ.get("KOD_AJANI_MODEL", "gpt-oss:20b")
 # ---------------------------------------------------------------- arayuz dili
 # Kullaniciya gorunen metinler varsayilan olarak Ingilizce; AIRGAP_LANG=tr Turkce yapar.
 # Modele giden metinler (istemler, arac sonuclari) bu ayardan ETKILENMEZ: ajanin davranisi
-# ve olcumler dile gore degismez. Ceviri yalniz ekrana yazilan kopyaya uygulanir.
+# ve olcumler dile gore degismez. Arac sonuclari modele her zaman Ingilizce gider (model_sonucu):
+# Turkce sonuc goren model, Ingilizce yazan kullaniciya Turkce cevap veriyordu.
 
 def arayuz_dili() -> str:
     deger = (os.environ.get("AIRGAP_LANG") or os.environ.get("KOD_AJANI_DIL") or "en").strip().lower()
@@ -142,6 +143,12 @@ _MESAJ_EN = [(re.compile(k), y) for k, y in [
     (r"git calistirilamadi: ", "git could not be run: "),
     (r"git (\S*) cikis kodu (-?\d+): ", r"git \1 exit code \2: "),
     (r"proje disinda bir yol: ", "a path outside the project: "),
+    (r"(\S+) metin \(string\) olmali, (\S+) geldi\. JSON icerigi de tek bir metin olarak yaz\.",
+     r"\1 must be a string, got \2. Write JSON content as a single string too."),
+    (r"(.+?) UTF-8 degil \(eski bir kodlama, orn\. Windows-1254\); duzenlenirse Turkce harfler bozulur, uygulanmadi\. "
+     r"Kullaniciya dosyayi UTF-8'e cevirmesini oner\.",
+     r"\1 is not UTF-8 (an old encoding such as Windows-1254); editing it would corrupt non-ASCII letters, so the edit "
+     r"was not applied. Suggest that the user converts the file to UTF-8."),
 ]]
 # Basarili arac sonuclarinin yalniz ajanin ekledigi parcalari: dosya icerigine ve komut ciktisina dokunulmaz.
 _SONUC_EN = [(re.compile(k), y) for k, y in [
@@ -159,24 +166,29 @@ _SONUC_EN = [(re.compile(k), y) for k, y in [
 ]]
 
 
-def ekran_metni(metin: str) -> str:
-    """Ajanin kendi urettigi bir mesajin ekranda gosterilecek hali (hata, uyari)."""
-    if arayuz_dili() == "tr":
-        return metin
+def _ingilizce_metin(metin: str) -> str:
     for kalip, yerine in _MESAJ_EN:
         metin = kalip.sub(yerine, metin)
     return metin
 
 
-def ekran_sonucu(metin: str) -> str:
-    """Arac sonucunun ekrandaki hali; dosya icerigi ve komut ciktisi oldugu gibi kalir."""
-    if arayuz_dili() == "tr":
-        return metin
+def model_sonucu(metin: str) -> str:
+    """Arac sonucunun modele giden hali: ajanin ekledigi parcalar Ingilizce, dosya icerigi ve komut ciktisi aynen."""
     if metin.startswith("HATA"):
-        return ekran_metni(metin)
+        return _ingilizce_metin(metin)
     for kalip, yerine in _SONUC_EN:
         metin = kalip.sub(yerine, metin, count=1)
     return metin
+
+
+def ekran_metni(metin: str) -> str:
+    """Ajanin kendi urettigi bir mesajin ekranda gosterilecek hali (hata, uyari)."""
+    return metin if arayuz_dili() == "tr" else _ingilizce_metin(metin)
+
+
+def ekran_sonucu(metin: str) -> str:
+    """Arac sonucunun ekrandaki hali; dosya icerigi ve komut ciktisi oldugu gibi kalir."""
+    return metin if arayuz_dili() == "tr" else model_sonucu(metin)
 
 
 def ollama_adresi(deger: str | None) -> str:
@@ -291,7 +303,7 @@ YENIDEN_ISTENDI = ("REJECTED again: the user already declined this exact call, s
                    "Requesting it once more ends this turn. Try a different approach or ask the user.")
 
 
-_ARAC_ALANLARI = {k for _, _, alanlar, _ in ARAC_TANIMLARI for k in alanlar} | {"line_start", "line_end", "start_line", "end_line"}
+_ARAC_ALANLARI = {k for _, _, alanlar, _ in ARAC_TANIMLARI for k in alanlar} | {"line_start", "line_end", "start_line", "end_line", "line"}
 
 
 def yarim_arac_cagrisi(icerik: str) -> bool:
@@ -510,9 +522,11 @@ class Araclar:
         return "\n".join(liste[:500]) + (f"\n... ve {fazla} dosya daha" if fazla > 0 else "")
 
     def read_file(self, path: str, offset: int = 1, limit: int | None = None, line_start: int | None = None,
-                  line_end: int | None = None, start_line: int | None = None, end_line: int | None = None) -> str:
-        # gpt-oss neredeyse her turda once line_start/line_end ile deniyor; hata verip bir adim harcatmak yerine kabul.
-        bas_ = line_start or start_line
+                  line_end: int | None = None, start_line: int | None = None, end_line: int | None = None,
+                  line: int | None = None) -> str:
+        # gpt-oss neredeyse her turda once line_start/line_end (bazen line) ile deniyor; hata verip bir adim
+        # harcatmak yerine kabul. Tek basina "line" o satirdan baslar.
+        bas_ = line_start or start_line or line
         son_ = line_end or end_line
         if bas_ or son_:
             offset = int(bas_ or offset or 1)
@@ -2586,7 +2600,7 @@ class Ajan:
             ne = f"`{komut}` passed before your edits and fails now."
         self.mesajlar.append({"role": "user", "content": (
             f"[Automatic check] You said you were done, but {ne} Fix the code, not the tests. "
-            f"Output:\n{kisalt(sonuc, 3000)}")})
+            f"Output:\n{kisalt(model_sonucu(sonuc), 3000)}")})
         return True
 
     # ------------------------------------------------------------ kalici sohbet
@@ -3066,8 +3080,9 @@ class Ajan:
                     if imza in reddedilen or tekrar >= TEKRAR_SINIRI:
                         neden = "reddedilen islemi yine istedi" if imza in reddedilen \
                             else "ayni cagriyi ust uste tekrarladi"
-                        self.mesajlar.append({"role": "tool", "tool_name": ad,
-                                              "content": f"Durduruldu: {neden}."})
+                        self.mesajlar.append({"role": "tool", "tool_name": ad, "content": (
+                            "Stopped: you asked again for a rejected action." if imza in reddedilen
+                            else "Stopped: you repeated the same call over and over.")})
                         neden_ekran = L(neden, "asked again for a rejected action" if imza in reddedilen
                                         else "repeated the same call over and over")
                         self.arayuz.uyari(L(f"Model {neden_ekran}; tur durduruldu: ",
@@ -3076,7 +3091,7 @@ class Ajan:
                     sonuc = self._arac_uygula(ad, arg)
                     if sonuc == REDDEDILDI:
                         reddedilen[imza] = 1
-                    self.mesajlar.append({"role": "tool", "tool_name": ad, "content": sonuc})
+                    self.mesajlar.append({"role": "tool", "tool_name": ad, "content": model_sonucu(sonuc)})
                     if sonuc.startswith("HATA"):
                         # Arada dosya okusa da ayni hatali cagriyi tekrarlamak ilerleme degildir.
                         hatalar[imza] = hatalar.get(imza, 0) + 1
