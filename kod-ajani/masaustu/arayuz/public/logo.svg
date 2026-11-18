@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128" role="img" aria-label="Airgap logo">
+  <title>Airgap</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#00FF41"/>
+      <stop offset="1" stop-color="#00B32D"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#0D1117"/>
+  <!-- shield -->
+  <path d="M64 14 L104 28 V62 C104 88 87 106 64 116 C41 106 24 88 24 62 V28 Z"
+        fill="none" stroke="url(#g)" stroke-width="7" stroke-linejoin="round"/>
+  <!-- the cable, cut: the air gap -->
+  <path d="M38 66 H56" stroke="#00FF41" stroke-width="7" stroke-linecap="round"/>
+  <path d="M72 66 H90" stroke="#00FF41" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="56" cy="66" r="2.5" fill="#0D1117"/>
+  <circle cx="72" cy="66" r="2.5" fill="#0D1117"/>
+  <path d="M60 58 L68 74" stroke="#C9D1D9" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+</svg>

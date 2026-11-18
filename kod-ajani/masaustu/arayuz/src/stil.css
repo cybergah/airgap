@@ -1,0 +1,137 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* Airgap marka renkleri (docs/logo.svg, docs/banner.svg): gece koyusu zemin, terminal yesili vurgu.
+   Yazi tipleri programin icinde: hicbir sey internetten yuklenmez. */
+@theme {
+  --font-sans: "Inter Variable", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", "Cascadia Mono", Consolas, monospace;
+  --color-zemin: #0d1117;
+  --color-derin: #010409;
+  --color-yuzey: #161b22;
+  --color-yuzey-2: #1c2128;
+  --color-kenar: #30363d;
+  --color-kenar-2: #21262d;
+  --color-metin: #e6edf3;
+  --color-parlak: #f0f6fc;
+  --color-soluk: #8b949e;
+  --color-vurgu: #00ff41;
+  --color-vurgu-koyu: #00b32d;
+  --color-ekle: #3fb950;
+  --color-sil: #f85149;
+  --color-uyari: #d29922;
+  --color-kod: #0a0e13;
+  --color-balon: #0f2a17;
+  --color-balon-metin: #e6edf3;
+
+  --animate-gir: gir 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-imlec: imlec 1.06s steps(1) infinite;
+  --animate-yuzme: yuzme 6s ease-in-out infinite;
+}
+
+@keyframes gir {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes imlec { 50% { opacity: 0; } }
+@keyframes yuzme { 50% { transform: translateY(-6px); } }
+@keyframes nabiz {
+  0%, 100% { box-shadow: 0 0 0 1px rgb(210 153 34 / 0.45), 0 0 0 0 rgb(210 153 34 / 0); }
+  50% { box-shadow: 0 0 0 1px rgb(210 153 34 / 0.8), 0 0 24px 2px rgb(210 153 34 / 0.18); }
+}
+@keyframes tarama {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(400%); }
+}
+@keyframes kivilcim {
+  0%, 82%, 100% { opacity: 0.55; }
+  86% { opacity: 1; stroke: #00ff41; }
+  90% { opacity: 0.3; }
+  94% { opacity: 1; stroke: #f0f6fc; }
+}
+@keyframes isinma {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.85; }
+}
+
+:root { color-scheme: dark; }
+html, body, #kok { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-zemin);
+  color: var(--color-metin);
+}
+/* Kod yazi tipinde "<<", "=>", "!=" tek simgeye birlesmesin: kod oldugu gibi okunmali. */
+code, pre, .font-mono { font-variant-ligatures: none; font-feature-settings: "liga" 0, "calt" 0; }
+::selection { background: rgb(0 255 65 / 0.28); color: #f0f6fc; }
+* { scrollbar-width: thin; scrollbar-color: #30363d transparent; }
+
+/* Afisteki izgara ve yesil isik: ana alanin arka plani */
+.izgara {
+  background-image:
+    radial-gradient(900px 520px at 85% -10%, rgb(0 255 65 / 0.07), transparent 60%),
+    radial-gradient(700px 480px at -10% 110%, rgb(0 179 45 / 0.06), transparent 60%),
+    linear-gradient(rgb(0 255 65 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(0 255 65 / 0.035) 1px, transparent 1px);
+  background-size: auto, auto, 32px 32px, 32px 32px;
+}
+
+.cam { background: rgb(22 27 34 / 0.72); backdrop-filter: blur(14px) saturate(1.2); }
+.parilti { box-shadow: 0 0 0 1px rgb(0 255 65 / 0.35), 0 0 28px -4px rgb(0 255 65 / 0.35); }
+.yazi-parilti { text-shadow: 0 0 18px rgb(0 255 65 / 0.45); }
+.nabiz { animation: nabiz 2.2s ease-in-out infinite; }
+.kivilcim { animation: kivilcim 3.2s ease-in-out infinite; }
+.isinma { animation: isinma 3s ease-in-out infinite; }
+
+/* Calisirken yazma kutusunun ustunde kayan tarama isigi */
+.tarama { position: relative; overflow: hidden; }
+.tarama::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  height: 1.5px;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, #00ff41, transparent);
+  animation: tarama 1.6s linear infinite;
+}
+
+@layer components {
+  .dugme {
+    @apply inline-flex items-center gap-1.5 rounded-lg border border-kenar bg-yuzey-2 px-3 py-1.5 text-[13px] font-medium text-metin transition duration-150 hover:border-soluk/60 hover:bg-kenar-2 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40;
+  }
+  .dugme-ana {
+    @apply inline-flex items-center gap-1.5 rounded-lg bg-vurgu px-3 py-1.5 text-[13px] font-semibold text-derin shadow-[0_0_20px_-4px_rgb(0_255_65/0.6)] transition duration-150 hover:bg-[#33ff67] hover:shadow-[0_0_26px_-2px_rgb(0_255_65/0.7)] active:scale-[0.98] disabled:opacity-40 disabled:shadow-none;
+  }
+  .girdi {
+    @apply block w-full rounded-lg border border-kenar bg-derin px-3 py-2 text-sm text-metin outline-none transition placeholder:text-soluk/60 focus:border-vurgu/70 focus:shadow-[0_0_0_3px_rgb(0_255_65/0.12)];
+  }
+  .cip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-vurgu/35 px-2 py-0.5 font-mono text-[10.5px] text-vurgu/90;
+  }
+}
+
+/* Ajanin markdown cevaplari */
+.yazi { font-size: 14.5px; line-height: 1.72; overflow-wrap: anywhere; color: var(--color-metin); }
+.yazi > :first-child { margin-top: 0; }
+.yazi > :last-child { margin-bottom: 0; }
+.yazi p { margin: 0.55em 0; }
+.yazi h1, .yazi h2, .yazi h3, .yazi h4 { margin: 1.15em 0 0.45em; font-weight: 650; line-height: 1.35; color: var(--color-parlak); letter-spacing: -0.01em; }
+.yazi h1 { font-size: 1.32em; }
+.yazi h2 { font-size: 1.16em; }
+.yazi h3 { font-size: 1.04em; }
+.yazi ul, .yazi ol { margin: 0.5em 0; padding-left: 1.4em; }
+.yazi ul { list-style: disc; }
+.yazi ol { list-style: decimal; }
+.yazi li { margin: 0.22em 0; }
+.yazi li::marker { color: var(--color-vurgu-koyu); }
+.yazi blockquote { margin: 0.7em 0; border-left: 2px solid var(--color-vurgu-koyu); padding-left: 0.9em; color: var(--color-soluk); }
+.yazi hr { border: 0; border-top: 1px solid var(--color-kenar); margin: 1.2em 0; }
+.yazi strong { font-weight: 650; color: var(--color-parlak); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

@@ -129,6 +129,26 @@ The extension ships with the agent inside; you only need Python and Ollama. To b
 
 Open a folder and click the `</>` icon in the activity bar. Settings live under **Airgap**.
 
+**Desktop app (Windows)**
+
+A standalone window with the same agent, no VS Code needed: chat, inline diffs with
+unified/split views, approvals inside each card, one-click undo, `@` file suggestions,
+recent projects and a live Ollama status. It runs on `127.0.0.1` only, every request
+carries a random key, and fonts and icons are bundled: nothing is loaded from the network.
+
+```bash
+cd airgap/kod-ajani/masaustu/arayuz
+npm ci
+npm run build
+cd ../..
+python masaustu/uygulama.py
+```
+
+To build a single `Airgap.exe` that needs neither Python nor Node:
+`python -m pip install pyinstaller`, then `python masaustu/paketle_exe.py` (writes `airgap/dist/Airgap.exe`).
+The window is Microsoft Edge in app mode (built into Windows 11). End-to-end checks with a real model:
+`python masaustu/uctan_uca.py`.
+
 **Optional:** better repo maps for JavaScript, TypeScript and C#:
 
 ```bash

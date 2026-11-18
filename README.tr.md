@@ -33,6 +33,23 @@ code --install-extension dist/kod-ajani-0.13.1.vsix --force
 
 Sonra bir klasör aç ve soldaki `</>` simgesine bas. Ayarlar: **Airgap** (model, Python komutu, bağlam).
 
+**Masaüstü uygulaması (Windows):** VS Code olmadan, aynı ajanla ayrı bir pencere: sohbet, alt alta / yan yana
+fark görünümü, her kartın içinde onay, tek tıkla geri alma, `@` ile dosya önerisi, son projeler ve canlı Ollama durumu.
+Yalnız `127.0.0.1`'de çalışır, her istek rastgele bir anahtar taşır; yazı tipleri ve simgeler programın içindedir,
+ağdan hiçbir şey yüklenmez.
+
+```bash
+cd kod-ajani/masaustu/arayuz
+npm ci
+npm run build
+cd ../..
+python masaustu/uygulama.py
+```
+
+Python ve Node gerektirmeyen tek dosyalık `Airgap.exe` için: `python -m pip install pyinstaller`, sonra
+`python masaustu/paketle_exe.py` (çıktı: `dist/Airgap.exe`). Pencere, Windows 11'de yerleşik Edge'in uygulama
+kipidir. Gerçek modelle uçtan uca deneme: `python masaustu/uctan_uca.py`.
+
 **Arayüz dili:** Varsayılan İngilizcedir. Türkçe için VS Code'da **Airgap › Dil** ayarını `tr` yap; terminalde `AIRGAP_LANG=tr` (PowerShell: `$env:AIRGAP_LANG="tr"`). Yalnız ekranda gördüklerin değişir; modele giden metinler aynı kalır.
 
 Kod seçip **Ctrl+Alt+K**'ye basınca (veya sağ tık menüsünden) ne değişeceğini yazarsın; öneriyi fark görünümünde görüp uygular ya da reddedersin. Seçim yoksa bulunduğun satır düzenlenir. Uygulanan değişiklik kaydedilmez ve Ctrl+Z ile geri alınır.
