@@ -199,6 +199,7 @@ node kod-ajani/vscode-eklenti/test/duman.js
 Bug reports, translations, new benchmark tasks and security findings are all welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md),
 or pick an issue labelled [**good first issue**](https://github.com/cybergah/airgap/labels/good%20first%20issue): most need no
 knowledge of how the agent works. Comment on an issue to claim it.
+Questions or ideas? Talk to us in **[DevHarbor](https://t.me/devharborhq)**, a developer community on Telegram.
 
 **Beat the command analyzer.** Find a risky command that Airgap does not flag ([#4](https://github.com/cybergah/airgap/issues/4)):
 it becomes a test case, and your name goes in the list below. Serious sandbox escapes: please report them privately first,
