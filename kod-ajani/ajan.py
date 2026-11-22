@@ -850,14 +850,44 @@ def dusunceyi_temizle(icerik: str) -> str:
 DUSUNCE_SAKLA = os.environ.get("KOD_AJANI_DUSUNCE", "1") != "0"
 
 
-def gecmisi_sigdir(mesajlar: list[dict], baglam: int) -> None:
+def _mesaj_boyutu(m: dict) -> int:
+    return len(m.get("content") or "") + len(m.get("thinking") or "") + sum(
+        len(json.dumps(c.get("function", {}).get("arguments") or {}, ensure_ascii=False)) for c in m.get("tool_calls") or [])
+
+
+def mesajlar_boyutu(mesajlar: list[dict]) -> int:
+    return sum(_mesaj_boyutu(m) for m in mesajlar)
+
+
+# Olculdu (qwen3.6): model kodu harf basina gpt-oss'tan cok belirtece boluyor; "3 harf = 1 belirtec" hesabiyla
+# istem num_ctx'i asti, Ollama bastaki mesajlari (gorev dahil) sessizce atti ve cevaba yer kalmadi. Basarisiz
+# her denemede istem sinira dayanmisti, basarililarda hic dayanmamisti. KOD_AJANI_SIGDIR=0 eski hesabi kullanir.
+SIGDIR_ACIK = os.environ.get("KOD_AJANI_SIGDIR", "1") != "0"
+VARSAYILAN_HARF_ORANI = 3.0
+EN_DUSUK_HARF_ORANI = 1.5
+
+
+def sigdirma_butcesi(baglam: int, oran: float = VARSAYILAN_HARF_ORANI) -> int:
+    """Gecmis icin karakter butcesi: arac tanimlari dusulur, cevap ve dusunce icin baglamin dortte biri bos kalir."""
+    if not SIGDIR_ACIK:
+        return baglam * 3
+    return max(int((baglam - baglam // 4) * oran) - len(json.dumps(ollama_araclari(), ensure_ascii=False)), 2000)
+
+
+def harf_orani(karakter: int, belirtec: int, onceki: float) -> float:
+    """Ollama'nin saydigi istem belirtecinden modelin karakter/belirtec oranini ogrenir (en kotu gorulen kalir).
+
+    Onbellek calistiginda prompt_eval_count yalniz yeni kismi sayar; o cagrilar oran icin kullanilmaz."""
+    if belirtec <= 0 or karakter <= 0 or belirtec < karakter / onceki * 0.6:
+        return onceki
+    return max(EN_DUSUK_HARF_ORANI, min(onceki, karakter / belirtec))
+
+
+def gecmisi_sigdir(mesajlar: list[dict], baglam: int, butce: int | None = None) -> None:
     """Baglam dolunca en eski arac ciktilarini kisaltir; son mesajlara dokunmaz."""
-    butce = baglam * 3  # kabaca karakter/belirtec orani
-
-    def boyut(m):
-        return len(m.get("content") or "") + len(m.get("thinking") or "") + sum(len(json.dumps(c.get("function", {}).get("arguments") or {}, ensure_ascii=False))
-                                                 for c in m.get("tool_calls") or [])
-
+    if butce is None:
+        butce = baglam * 3  # kabaca karakter/belirtec orani
+    boyut = _mesaj_boyutu
     toplam = sum(boyut(m) for m in mesajlar)
     for mesaj in mesajlar:  # once eski dusunceler: en az degerli ve en buyuk parca
         if toplam <= butce:
@@ -2439,6 +2469,7 @@ class Ajan:
         self.otomatik = otomatik
         self.hep_izinli: set[str] = set()  # bu sohbette "hep izin ver" denen turler: "yazma", "komut"
         self.baglam = baglam
+        self.harf_orani = VARSAYILAN_HARF_ORANI
         self.maks_adim = maks_adim
         self.arayuz = arayuz or TerminalArayuz()
         self.izinler = IzinKurallari()
@@ -2915,6 +2946,7 @@ class Ajan:
         arac_cagrilari: list[dict] = []
         if self.dusun is None:
             self.dusun = self.dusunme and "thinking" in model_yetenekleri(self.model)
+        gonderilen = mesajlar_boyutu(self.mesajlar) + len(json.dumps(ollama_araclari(), ensure_ascii=False))
         akis = model_akisi(self.model, self.mesajlar, self.baglam, self._think())
         dusunce_uzunlugu = 0
         dusunceler: list[str] = []
@@ -2942,6 +2974,7 @@ class Ajan:
             if parca.get("done"):  # Ollama'nin sayaclari: yeniden okunan istem ve uretilen belirtec
                 self.cagri_olcumleri.append({k: parca.get(k, 0) for k in (
                     "prompt_eval_count", "prompt_eval_duration", "eval_count", "eval_duration")})
+                self.harf_orani = harf_orani(gonderilen, parca.get("prompt_eval_count") or 0, self.harf_orani)
         if arac_cagrilari and icerik.strip() and hasattr(self.arayuz, "ara_not"):
             # Model arac cagirmadan once kendine kisa not yaziyor ("Let's list."); Ollama bunu dusunce degil
             # metin olarak gonderiyor. Bu bir cevap degil: arayuz onu dusunce gibi gosterebilsin.
@@ -2980,7 +3013,7 @@ class Ajan:
                     self.mesajlar.append({"role": "user", "content": BUTCE_NOTU.format(kullanilan=adim, toplam=self.maks_adim)})
                 if adim == self.maks_adim - 3 and adim > 0:
                     self.mesajlar.append({"role": "user", "content": SON_ADIMLAR_NOTU.format(kalan=3)})
-                gecmisi_sigdir(self.mesajlar, self.baglam)
+                gecmisi_sigdir(self.mesajlar, self.baglam, sigdirma_butcesi(self.baglam, self.harf_orani))
                 try:
                     yanit = self._modeli_cagir()
                 except DusunmeSiniri:

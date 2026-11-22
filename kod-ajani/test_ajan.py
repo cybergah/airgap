@@ -229,6 +229,25 @@ class GecmisTesti(unittest.TestCase):
         self.assertLess(len(mesajlar[0]["content"]), 300)
         self.assertEqual(len(mesajlar[-1]["content"]), 5000)
 
+    def test_harf_orani_gercek_belirtecten_ogrenilir(self):
+        self.assertAlmostEqual(a.harf_orani(30000, 15000, 3.0), 2.0)
+        self.assertEqual(a.harf_orani(30000, 300, 3.0), 3.0)  # onbellekten okunan cagri: yalniz yeni kisim sayildi
+        self.assertEqual(a.harf_orani(30000, 9000, 2.0), 2.0)  # daha iyi oran gorulse de en kotusu kalir
+        self.assertEqual(a.harf_orani(30000, 29000, 3.0), a.EN_DUSUK_HARF_ORANI)
+
+    def test_butce_cevaba_yer_birakir_ve_orana_uyar(self):
+        tam = 16384 * 3
+        self.assertLess(a.sigdirma_butcesi(16384), tam * 0.8)
+        self.assertLess(a.sigdirma_butcesi(16384, 2.0), a.sigdirma_butcesi(16384, 3.0))
+
+    def test_dusuk_oranda_daha_cok_kisaltilir(self):
+        def yap():
+            return [{"role": "tool", "tool_name": "x", "content": "a" * 4000} for _ in range(12)]
+        genis, dar = yap(), yap()
+        a.gecmisi_sigdir(genis, 16384, a.sigdirma_butcesi(16384, 3.0))
+        a.gecmisi_sigdir(dar, 16384, a.sigdirma_butcesi(16384, 2.0))
+        self.assertLess(a.mesajlar_boyutu(dar), a.mesajlar_boyutu(genis))
+
 
 class ModelDiliTesti(unittest.TestCase):
     """Arac sonuclari modele arayuz dilinden bagimsiz Ingilizce gider; dosya icerigi ve komut ciktisi aynen."""
