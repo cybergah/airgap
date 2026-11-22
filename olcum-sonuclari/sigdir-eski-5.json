@@ -1,0 +1,269 @@
+{
+ "etiket": "sigdir-eski-5",
+ "tarih": "2026-11-22 20:16",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 3,
+  "oran": 0.75,
+  "guven_alt": 0.301,
+  "guven_ust": 0.954,
+  "ortanca_sure": 225.6,
+  "toplam_sure": 698,
+  "turler": {
+   "gercek_ozellik": [
+    2,
+    2
+   ],
+   "gercek_hata": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 4,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 1,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 231.0,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "read_file": 3,
+    "edit_file": 2,
+    "run_command": 10
+   },
+   "komut": 10,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 2221,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": "endi.\n\n**Doğrulama:** Tüm cache türlerinde (Cache, FIFOCache, LFUCache, LRUCache, TTLCache, RRCache) test edildi; boş cache için `0.0`, dolu cache için `1.0`, kısmi doluluk için doğru oran döndürüyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 14,
+    "okunan_toplam": 123151,
+    "okunan_en_fazla": 11725,
+    "okuma_sn": 21.6,
+    "uretim_sn": 195.2,
+    "tam_okuma": 13,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4106,
+     6084,
+     6880,
+     7182,
+     7362,
+     8031,
+     8739,
+     9423,
+     9527,
+     10286,
+     10842,
+     11384,
+     11580,
+     11725
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 147.0,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 3193,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "\n\n**Doğrulama:**\n- `partition(None, [0, 1])` → `([0], [1])` ✓\n- Docstring örneği `[0, 1, False, True, '', ' ']` → `false_items: [0, False, '']`, `true_items: [1, True, ' ']` ✓\n- Tüm doctest'ler geçti.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 41570,
+    "okunan_en_fazla": 5093,
+    "okuma_sn": 10.0,
+    "uretim_sn": 61.5,
+    "tam_okuma": 9,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2789,
+     2951,
+     3509,
+     4193,
+     4342,
+     4439,
+     4559,
+     4764,
+     4931,
+     5093
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 225.6,
+   "gizli_test": true,
+   "arac": 31,
+   "arac_adlari": {
+    "read_file": 13,
+    "search_text": 7,
+    "search_code": 2,
+    "edit_file": 4,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 5772,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "``\n\n**Doğrulama:**\n- `list(every_nth(range(10), 3))` → `[0, 3, 6, 9]` ✓\n- `every_nth(range(10), 0)` → `ValueError: n must be at least 1` ✓\n- `from more_itertools import every_nth` sorunsuz çalışıyor ✓",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 228807,
+    "okunan_en_fazla": 15917,
+    "okuma_sn": 57.7,
+    "uretim_sn": 134.5,
+    "tam_okuma": 19,
+    "baglama_dayandi": 1,
+    "okunanlar": [
+     2783,
+     3820,
+     4061,
+     6065,
+     7716,
+     10061,
+     10979,
+     11470,
+     11903,
+     12486,
+     13316,
+     14063,
+     14589,
+     14862,
+     15004,
+     15228,
+     15380,
+     15917,
+     14399,
+     14705
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 94.4,
+   "gizli_test": false,
+   "arac": 9,
+   "arac_adlari": {
+    "search_code": 6,
+    "read_file": 2,
+    "search_text": 1
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [],
+   "dusunce": 3554,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "nce sıralıyor. Kısa seçenekler (`-v`) sonra geliyor.\n\nDüzeltmek için sıralama yönünü tersine çevirmemiz gerekiyor. Önce kısa seçenekleri (`-v`), sonra uzun seçenekleri (`--verbose`) getirecek şekilde:",
+   "test_cikti": " File \"/work/_gizli_test.py\", line 15, in test_gizli\n    self.assertIn('-v, --verbose', r.output)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-v, --verbose' not found in 'Usage: k [OPTIONS]\\n\\nOptions:\\n  --verbose, -v\\n  --help         Show this message and exit.\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.018s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 89763,
+    "okunan_en_fazla": 15646,
+    "okuma_sn": 50.4,
+    "uretim_sn": 41.2,
+    "tam_okuma": 9,
+    "baglama_dayandi": 1,
+    "okunanlar": [
+     2831,
+     4039,
+     5225,
+     6364,
+     7416,
+     11113,
+     11322,
+     12349,
+     13458,
+     15646
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

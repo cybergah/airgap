@@ -1,0 +1,817 @@
+{
+ "etiket": "model-gpt-oss-2",
+ "tarih": "2026-11-22 15:25",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 11,
+  "basari": 10,
+  "oran": 0.909,
+  "guven_alt": 0.623,
+  "guven_ust": 0.984,
+  "ortanca_sure": 65.2,
+  "toplam_sure": 640,
+  "turler": {
+   "gercek_hata": [
+    8,
+    8
+   ],
+   "gercek_ozellik": [
+    2,
+    3
+   ]
+  },
+  "tamamlanan": 8,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 2
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_lru_okuma",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 68.8,
+   "gizli_test": true,
+   "arac": 24,
+   "arac_adlari": {
+    "read_file": 8,
+    "search_text": 3,
+    "edit_file": 2,
+    "run_command": 9,
+    "list_files": 2
+   },
+   "komut": 9,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "tests/test_cached.py",
+    "tests/test_cached.py",
+    "tests/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 8529,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md needs attention: contains network access or URLs. The model sees it as a note from the repository author, not as rules; still, read the file yourself."
+   ],
+   "yanit_sonu": "ı eklendi. Böylece LRU mantığı doğru çalışıyor; artık en son kullanılan öğe korunuyor. Bu değişiklikle ilgili testleri çalıştırmak için `PYTHONPATH=src` ile `pytest` veya `unittest` kullanabilirsiniz.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 24,
+    "okunan_toplam": 202116,
+    "okunan_en_fazla": 12488,
+    "okuma_sn": 5.8,
+    "uretim_sn": 38.2,
+    "tam_okuma": 23,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3422,
+     4750,
+     5175,
+     5549,
+     6008,
+     6374,
+     6931,
+     7652,
+     7842,
+     7969,
+     8040,
+     8240,
+     8456,
+     8675,
+     9983,
+     10149,
+     10239,
+     10908,
+     9664,
+     9819,
+     9920,
+     11776,
+     12087,
+     12488
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_ttl_sinir",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 24.2,
+   "gizli_test": true,
+   "arac": 16,
+   "arac_adlari": {
+    "search_text": 2,
+    "open_file": 1,
+    "read_file": 5,
+    "edit_file": 2,
+    "run_command": 6
+   },
+   "komut": 6,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 2037,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md needs attention: contains network access or URLs. The model sees it as a note from the repository author, not as rules; still, read the file yourself."
+   ],
+   "yanit_sonu": "dı (`python -m unittest discover -q`).  \n- 416 test başarılı bir şekilde geçti.  \n\nBu değişiklikle `in` ve `get` tutarlı hale geldi; süre dolduğunda `in` False dönecek ve `get` KeyError fırlatacaktır.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 16,
+    "okunan_toplam": 91397,
+    "okunan_en_fazla": 7398,
+    "okuma_sn": 2.3,
+    "uretim_sn": 15.1,
+    "tam_okuma": 15,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3391,
+     3506,
+     3572,
+     4177,
+     4813,
+     4916,
+     5653,
+     6221,
+     6495,
+     6647,
+     6744,
+     6802,
+     6887,
+     6969,
+     7206,
+     7398
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_kapasite",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 85.9,
+   "gizli_test": true,
+   "arac": 29,
+   "arac_adlari": {
+    "run_command": 7,
+    "list_files": 4,
+    "read_file": 9,
+    "search_text": 4,
+    "edit_file": 4,
+    "write_file": 1
+   },
+   "komut": 7,
+   "okunan": [
+    "tests/test_cache.py",
+    "tests/__init__.py",
+    "tests/test_cache.py",
+    "tests/test_cache.py",
+    "tests/test_cache.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 15483,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "cachetools/__init__.py"
+   ],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 255110,
+    "okunan_en_fazla": 13757,
+    "okuma_sn": 8.1,
+    "uretim_sn": 67.5,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3393,
+     3601,
+     3682,
+     3767,
+     3847,
+     3965,
+     4061,
+     4127,
+     5563,
+     5625,
+     5708,
+     5816,
+     6015,
+     7607,
+     9421,
+     10224,
+     10317,
+     10382,
+     11024,
+     11226,
+     11463,
+     12068,
+     12191,
+     13065,
+     13543,
+     13749,
+     13757,
+     11302,
+     12198,
+     12403
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 69.7,
+   "gizli_test": true,
+   "arac": 25,
+   "arac_adlari": {
+    "read_file": 3,
+    "search_text": 4,
+    "edit_file": 6,
+    "run_command": 8,
+    "write_file": 4
+   },
+   "komut": 8,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "cachetools/__init__.py",
+    "cachetools/func.py",
+    "cachetools/keys.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 5208,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md needs attention: contains network access or URLs. The model sees it as a note from the repository author, not as rules; still, read the file yourself."
+   ],
+   "yanit_sonu": "hetools/keys.py` ve `cachetools/func.py` dosyaları oluşturularak\n     gerçek implementasyonların içerikleri re‑export edildi.\n\nTüm testler `python -m unittest discover -q` komutuyla başarıyla geçiyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "cachetools/__init__.py",
+    "cachetools/func.py",
+    "cachetools/keys.py"
+   ],
+   "baglam": {
+    "cagri": 25,
+    "okunan_toplam": 269556,
+    "okunan_en_fazla": 14103,
+    "okuma_sn": 11.4,
+    "uretim_sn": 41.1,
+    "tam_okuma": 24,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3410,
+     5036,
+     5425,
+     7577,
+     7964,
+     8363,
+     8739,
+     9010,
+     9101,
+     9207,
+     9265,
+     9501,
+     12961,
+     13346,
+     13750,
+     13918,
+     13846,
+     13800,
+     12746,
+     13151,
+     13347,
+     13873,
+     14071,
+     14046,
+     14103
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_maxsplit",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 73.2,
+   "gizli_test": true,
+   "arac": 8,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 2,
+    "edit_file": 1,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 2254,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ools import split_at\nprint(list(split_at('abcdcba', lambda x: x=='b', maxsplit=1)))\nPY\n```\nÇıktı:\n```\n[['a'], ['c', 'd', 'c', 'b', 'a']]\n```\nBeklenen sonuca eşleşti. Diğer örnekler de doğru çalışıyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 8,
+    "okunan_toplam": 31044,
+    "okunan_en_fazla": 5168,
+    "okuma_sn": 1.4,
+    "uretim_sn": 14.5,
+    "tam_okuma": 7,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2265,
+     2333,
+     3311,
+     3746,
+     4292,
+     4909,
+     5020,
+     5168
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 37.0,
+   "gizli_test": true,
+   "arac": 7,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 1478,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "rtition(None, iterable)` çağrısı artık beklenen gibi çalışıyor:  \n- `false_items` falsy (yani `bool(item) == False`) öğeleri içerir.  \n- `true_items` truthy öğeleri içerir.\n\nTestler başarıyla geçiyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 7,
+    "okunan_toplam": 20804,
+    "okunan_en_fazla": 3548,
+    "okuma_sn": 1.3,
+    "uretim_sn": 10.3,
+    "tam_okuma": 6,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2234,
+     2309,
+     2805,
+     3180,
+     3311,
+     3417,
+     3548
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 76.1,
+   "gizli_test": false,
+   "arac": 27,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 12,
+    "open_file": 2,
+    "read_file": 11
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [],
+   "dusunce": 7747,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\nImportError: cannot import name 'every_nth' from 'more_itertools' (/work/more_itertools/__init__.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [
+    "x old_text 6 kez geciyor; daha fazla cevre metin ekle"
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 339316,
+    "okunan_en_fazla": 15239,
+    "okuma_sn": 21.9,
+    "uretim_sn": 43.9,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2250,
+     3016,
+     3724,
+     7203,
+     7368,
+     7469,
+     8275,
+     8389,
+     9192,
+     9286,
+     9795,
+     11067,
+     11425,
+     11640,
+     11865,
+     12908,
+     12998,
+     13089,
+     13719,
+     14959,
+     15132,
+     15040,
+     15083,
+     15239,
+     14796,
+     14903,
+     14954,
+     14773,
+     14858,
+     14901
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 65.2,
+   "gizli_test": true,
+   "arac": 28,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 4,
+    "search_text": 3,
+    "edit_file": 2,
+    "run_command": 15,
+    "list_files": 2
+   },
+   "komut": 15,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "tests/test_types/test_IntRange.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 6163,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "The model wrote a broken tool call; retrying."
+   ],
+   "yanit_sonu": " değişiklik geçerlidir.  \n\n**Özet**\n\n- `IntRange` sınır değerlerinin yanlış yorumlanması sorunu giderildi.  \n- Testlerin çalıştırılması için `pytest` ortamının kurulması gerekir; bu adım tamamlanmadı.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 28,
+    "okunan_toplam": 197793,
+    "okunan_en_fazla": 11531,
+    "okuma_sn": 4.6,
+    "uretim_sn": 35.2,
+    "tam_okuma": 27,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2257,
+     2325,
+     3107,
+     3910,
+     3983,
+     4669,
+     5192,
+     5313,
+     5402,
+     5790,
+     6110,
+     6180,
+     6269,
+     6359,
+     6434,
+     6264,
+     6357,
+     9029,
+     9089,
+     9152,
+     9249,
+     10398,
+     10474,
+     10550,
+     10710,
+     10786,
+     10904,
+     11531
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secim",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 31.9,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "search_code": 2,
+    "open_file": 1,
+    "read_file": 3,
+    "search_text": 1,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 2306,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "tildi.  \n\n**Doğrulama:**  \n- Yerel test scripti çalıştırılarak `--fruit elma` ve `--fruit ELMA` girişlerinin `Elma` olarak kabul edildiği doğrulandı.  \n- Çıktı: `fruit Elma` (her iki durumda da aynı).",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 74944,
+    "okunan_en_fazla": 6787,
+    "okuma_sn": 2.1,
+    "uretim_sn": 18.7,
+    "tam_okuma": 14,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2237,
+     2307,
+     3198,
+     3263,
+     4015,
+     4811,
+     5387,
+     5684,
+     5903,
+     5976,
+     6065,
+     6237,
+     6450,
+     6624,
+     6787
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 48.3,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 14,
+    "open_file": 1,
+    "read_file": 11,
+    "edit_file": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 2960,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "options also used elsewhere maybe for other contexts. But we only want help formatting to show short first. join_options used in get_help_spec and maybe elsewhere. Let's search for join_options usage.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 288701,
+    "okunan_en_fazla": 13846,
+    "okuma_sn": 11.8,
+    "uretim_sn": 23.8,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2243,
+     2389,
+     3388,
+     3466,
+     4378,
+     5992,
+     6251,
+     6315,
+     6901,
+     7692,
+     7765,
+     7894,
+     8674,
+     8739,
+     11762,
+     11842,
+     11971,
+     12451,
+     12574,
+     13005,
+     13355,
+     13631,
+     13421,
+     13551,
+     13271,
+     13327,
+     13568,
+     13846,
+     12434,
+     12605
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 59.6,
+   "gizli_test": true,
+   "arac": 20,
+   "arac_adlari": {
+    "search_code": 5,
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 7,
+    "list_files": 2
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/_textwrap.py",
+    "src/click/__init__.py",
+    "src/click/__init__.py",
+    "src/click/__init__.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py"
+   ],
+   "dusunce": 6957,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": " world', 5)` → `he...`  \n- `click.truncate('hello', 10)` → `hello`  \n- `click.truncate('hello', 3)` → `...`  \n- `click.truncate('hello', 3, '!!')` → `h!!`  \n\nBu çıktılar beklenen davranışı gösteriyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 176326,
+    "okunan_en_fazla": 11852,
+    "okuma_sn": 5.1,
+    "uretim_sn": 39.3,
+    "tam_okuma": 19,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2251,
+     2322,
+     3185,
+     4772,
+     6158,
+     7112,
+     8782,
+     9389,
+     9782,
+     10469,
+     10553,
+     10630,
+     11117,
+     11207,
+     11376,
+     11539,
+     11735,
+     11852,
+     10980,
+     11115
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

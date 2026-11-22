@@ -1,0 +1,285 @@
+{
+ "etiket": "sigdir-yeni-4",
+ "tarih": "2026-11-22 20:04",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 4,
+  "oran": 1.0,
+  "guven_alt": 0.51,
+  "guven_ust": 1.0,
+  "ortanca_sure": 285.4,
+  "toplam_sure": 890,
+  "turler": {
+   "gercek_ozellik": [
+    2,
+    2
+   ],
+   "gercek_hata": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 4,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 98.7,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 1274,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md needs attention: contains network access or URLs. The model sees it as a note from the repository author, not as rules; still, read the file yourself."
+   ],
+   "yanit_sonu": "syasına `@property def fill_ratio(self) -> float: ...` eklendi.\n\nTüm cache türlerinde (Cache, LRUCache, LFUCache, FIFOCache, RRCache, TTLCache, TLRUCache) çalışır çünkü hepsi `Cache`'ten kalıtım alır.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 7,
+    "okunan_toplam": 67234,
+    "okunan_en_fazla": 11370,
+    "okuma_sn": 22.8,
+    "uretim_sn": 70.3,
+    "tam_okuma": 6,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4104,
+     9656,
+     10095,
+     10571,
+     10673,
+     10765,
+     11370
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 285.4,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 5693,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": "x: not x` yerine `bool` kullanıldı. Böylece:\n- `bool(0) = False` → ilk gruba (false_items)\n- `bool(1) = True` → ikinci gruba (true_items)\n\n**Dosya değişikliği:** `more_itertools/recipes.py`, satır 430",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 50627,
+    "okunan_en_fazla": 7177,
+    "okuma_sn": 11.5,
+    "uretim_sn": 159.6,
+    "tam_okuma": 9,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2790,
+     2968,
+     3670,
+     4414,
+     4868,
+     5280,
+     5701,
+     6816,
+     6943,
+     7177
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 351.7,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "list_files": 1,
+    "search_text": 6,
+    "read_file": 14,
+    "search_code": 1,
+    "run_command": 4,
+    "edit_file": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 5912,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "every_nth'` eklendi.\n\n2. **`more_itertools/more.pyi`**: `every_nth` için tip tanımı (`def every_nth(iterable: Iterable[_T], n: int) -> Iterator[_T]: ...`) ve `__all__` listesine `'every_nth'` eklendi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 21,
+    "okunan_toplam": 210221,
+    "okunan_en_fazla": 12541,
+    "okuma_sn": 130.2,
+    "uretim_sn": 128.7,
+    "tam_okuma": 20,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2783,
+     3223,
+     4182,
+     7063,
+     8597,
+     9685,
+     11647,
+     12028,
+     12541,
+     12423,
+     11966,
+     10738,
+     10871,
+     11033,
+     11158,
+     11428,
+     11641,
+     11855,
+     11786,
+     12143,
+     11430
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 153.9,
+   "gizli_test": true,
+   "arac": 20,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 4,
+    "read_file": 4,
+    "edit_file": 1,
+    "run_command": 9
+   },
+   "komut": 9,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 3195,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "im. Bu sayede kısa prefix'li (`-v`) seçenekler uzun prefix'lilerden (`--verbose`) önce geliyor.\n\n**Doğrulama:** Manuel test ile `-v, --verbose TEXT` şeklinde doğru sıralamanın sağlandığını doğruladım.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 176704,
+    "okunan_en_fazla": 11546,
+    "okuma_sn": 44.0,
+    "uretim_sn": 73.6,
+    "tam_okuma": 19,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2832,
+     3969,
+     5155,
+     5464,
+     6398,
+     8429,
+     8585,
+     9155,
+     9250,
+     9374,
+     9704,
+     10115,
+     10382,
+     10567,
+     10767,
+     11269,
+     11413,
+     11546,
+     11086,
+     11244
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

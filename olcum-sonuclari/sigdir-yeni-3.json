@@ -1,0 +1,316 @@
+{
+ "etiket": "sigdir-yeni-3",
+ "tarih": "2026-11-22 19:37",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 4,
+  "oran": 1.0,
+  "guven_alt": 0.51,
+  "guven_ust": 1.0,
+  "ortanca_sure": 517.8,
+  "toplam_sure": 1461,
+  "turler": {
+   "gercek_ozellik": [
+    2,
+    2
+   ],
+   "gercek_hata": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 517.8,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "read_file": 3,
+    "search_code": 1,
+    "search_text": 1,
+    "edit_file": 2,
+    "run_command": 8
+   },
+   "komut": 8,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "tests/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 1856,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "he`, `LFUCache`, `RRCache`, `TLRUCache`) çalıştığı test edildi. Edge case'ler de doğrulandı:\n- `maxsize=0` → `0.0`\n- `maxsize=inf` → `0.0` (sonsuz bölünme)\n- Dolu cache (`currsize == maxsize`) → `1.0`",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 14,
+    "okunan_toplam": 135905,
+    "okunan_en_fazla": 12313,
+    "okuma_sn": 157.9,
+    "uretim_sn": 339.2,
+    "tam_okuma": 13,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4103,
+     7880,
+     8062,
+     8198,
+     8967,
+     9261,
+     9436,
+     10006,
+     10592,
+     11620,
+     12224,
+     12240,
+     12313,
+     11003
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 197.9,
+   "gizli_test": true,
+   "arac": 9,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 6
+   },
+   "komut": 6,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 4505,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "`python\n# Önceki (yanlış):\npred = lambda x: not x\n\n# Yeni (doğru):\npred = bool\n```\n\n**Doğrulama:** \n- `partition(None, [0, 1])` → `([0], [1])` ✓\n- Docstring'deki örnek de dahil tüm doctest'ler geçti ✓",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 50174,
+    "okunan_en_fazla": 6999,
+    "okuma_sn": 10.0,
+    "uretim_sn": 102.0,
+    "tam_okuma": 9,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2791,
+     2969,
+     3671,
+     4369,
+     4784,
+     5325,
+     5735,
+     6706,
+     6825,
+     6999
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 527.1,
+   "gizli_test": true,
+   "arac": 36,
+   "arac_adlari": {
+    "search_code": 3,
+    "list_files": 1,
+    "read_file": 19,
+    "search_text": 6,
+    "edit_file": 4,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 12726,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "_` in `more.pyi`\n4. Add the type stub for `every_nth` in `more.pyi`Now I need to add the type stub for `every_nth` in `more.pyi`. Let me find the right location:Let me verify the implementation works:",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 316269,
+    "okunan_en_fazla": 12340,
+    "okuma_sn": 235.4,
+    "uretim_sn": 269.6,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2783,
+     3764,
+     4597,
+     6058,
+     8231,
+     9188,
+     10097,
+     10233,
+     10400,
+     10885,
+     11954,
+     12340,
+     12123,
+     12153,
+     12237,
+     12099,
+     12294,
+     11526,
+     11703,
+     12076,
+     12146,
+     12246,
+     12165,
+     11379,
+     11638,
+     11808,
+     11959,
+     11900,
+     12092,
+     12195
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 218.0,
+   "gizli_test": true,
+   "arac": 29,
+   "arac_adlari": {
+    "search_code": 3,
+    "search_text": 12,
+    "read_file": 6,
+    "run_command": 7,
+    "edit_file": 1
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "src/click/parser.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 5368,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "-x[0]`).\n\nÖnce mevcut durumu test edelim:Doğruladım: `--verbose, -v` görünüyor. Şimdi düzeltiyorum:Düzeltmeyi doğrulayalım:Artık `-v, --verbose` şeklinde doğru sırada görünüyor. Testleri çalıştıralım:",
+   "test_cikti": "",
+   "son_hata": [
+    "x proje klasorunun disina cikilamaz: /work/src/click/formatting.py"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 293113,
+    "okunan_en_fazla": 12327,
+    "okuma_sn": 127.1,
+    "uretim_sn": 69.9,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2834,
+     4170,
+     5360,
+     6430,
+     6569,
+     7333,
+     7516,
+     8020,
+     8731,
+     8890,
+     9395,
+     9489,
+     9585,
+     9918,
+     10163,
+     10516,
+     10815,
+     11246,
+     11748,
+     11923,
+     12178,
+     12297,
+     12327,
+     12324,
+     12203,
+     12270,
+     12213,
+     12111,
+     12231,
+     12308
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

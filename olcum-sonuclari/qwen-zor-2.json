@@ -1,0 +1,77 @@
+{
+ "etiket": "qwen-zor-2",
+ "tarih": "2026-11-22 17:26",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 0,
+  "oran": 0.0,
+  "guven_alt": 0.0,
+  "guven_ust": 0.793,
+  "ortanca_sure": 43.4,
+  "toplam_sure": 43,
+  "turler": {
+   "gercek_ozellik": [
+    0,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 1,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 43.4,
+   "gizli_test": false,
+   "arac": 9,
+   "arac_adlari": {
+    "list_files": 1,
+    "search_code": 3,
+    "read_file": 5
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/__init__.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [],
+   "dusunce": 2028,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ertools` library, but I don't see a specific task or question. What would you like me to do with this project? For example:\n\n- Fix a bug or issue?\n- Add a new feature?\n- Review code?\n- Something else?",
+   "test_cikti": "3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\nImportError: cannot import name 'every_nth' from 'more_itertools' (/work/more_itertools/__init__.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 5,
+    "okunan_toplam": 47558,
+    "okunan_en_fazla": 15888,
+    "okuma_sn": 29.3,
+    "uretim_sn": 12.6,
+    "tam_okuma": 4,
+    "baglama_dayandi": 1,
+    "okunanlar": [
+     2783,
+     3921,
+     9671,
+     15295,
+     15888
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

@@ -1,0 +1,279 @@
+{
+ "etiket": "sigdir-eski-3",
+ "tarih": "2026-11-22 19:12",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 3,
+  "oran": 0.75,
+  "guven_alt": 0.301,
+  "guven_ust": 0.954,
+  "ortanca_sure": 332.9,
+  "toplam_sure": 1114,
+  "turler": {
+   "gercek_ozellik": [
+    2,
+    2
+   ],
+   "gercek_hata": [
+    1,
+    2
+   ]
+  },
+  "tamamlanan": 4,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 1,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 139.5,
+   "gizli_test": true,
+   "arac": 11,
+   "arac_adlari": {
+    "read_file": 2,
+    "edit_file": 2,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 1374,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": "-> float: ...\n```\n\n**Doğrulama:** `Cache`, `LRUCache` ve `TTLCache` ile test edildi; boş cache (0.0), kısmi doluluk (örn. 2/10 → 0.2), tam doluluk (5/5 → 1.0) ve `maxsize=0` durumları doğru çalışıyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 75471,
+    "okunan_en_fazla": 9700,
+    "okuma_sn": 37.0,
+    "uretim_sn": 93.7,
+    "tam_okuma": 9,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4104,
+     6506,
+     6827,
+     6979,
+     7404,
+     7832,
+     8242,
+     8702,
+     9175,
+     9700
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 141.1,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 2503,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "oğrulama:** \n- `partition(None, [0, 1])` → `([0], [1])` ✓\n- Docstring'deki örnek `[0, 1, False, True, '', ' ']` → `([0, False, ''], [1, True, ' '])` ✓\n- Normal predicate ile de çalıştığı test edildi ✓",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 49983,
+    "okunan_en_fazla": 6927,
+    "okuma_sn": 13.8,
+    "uretim_sn": 94.4,
+    "tam_okuma": 9,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2790,
+     2941,
+     3643,
+     4313,
+     4794,
+     5335,
+     5825,
+     6650,
+     6765,
+     6927
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 332.9,
+   "gizli_test": true,
+   "arac": 27,
+   "arac_adlari": {
+    "search_code": 1,
+    "list_files": 1,
+    "search_text": 8,
+    "read_file": 10,
+    "edit_file": 4,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 5755,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "alışıyor ve tüm testler başarılı:\n- `every_nth(range(10), 3)` → `[0, 3, 6, 9]`\n- `n=1` → tüm elemanlar döner\n- `n=0` veya `n=-1` → `ValueError` fırlatılır\n- String ve diğer iterasyonlarla da çalışıyor",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 193453,
+    "okunan_en_fazla": 12932,
+    "okuma_sn": 112.7,
+    "uretim_sn": 189.2,
+    "tam_okuma": 19,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2783,
+     3788,
+     4567,
+     6647,
+     7476,
+     8581,
+     8945,
+     9240,
+     10226,
+     10462,
+     10840,
+     11702,
+     12045,
+     12214,
+     12475,
+     12603,
+     12778,
+     12932,
+     11306,
+     11843
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 500.7,
+   "gizli_test": false,
+   "arac": 17,
+   "arac_adlari": {
+    "search_code": 3,
+    "search_text": 6,
+    "read_file": 8
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py"
+   ],
+   "degisen": [],
+   "dusunce": 3059,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "please tell me what you'd like me to do? For example:\n- Fix a bug in `get_help_record`?\n- Add a new feature?\n- Refactor something?\n- Investigate an issue?\n\nPlease describe the task you need help with.",
+   "test_cikti": " File \"/work/_gizli_test.py\", line 15, in test_gizli\n    self.assertIn('-v, --verbose', r.output)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: '-v, --verbose' not found in 'Usage: k [OPTIONS]\\n\\nOptions:\\n  --verbose, -v\\n  --help         Show this message and exit.\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.018s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 173787,
+    "okunan_en_fazla": 16283,
+    "okuma_sn": 405.4,
+    "uretim_sn": 90.8,
+    "tam_okuma": 17,
+    "baglama_dayandi": 3,
+    "okunanlar": [
+     2831,
+     4035,
+     5089,
+     6224,
+     6395,
+     6978,
+     7550,
+     7655,
+     7829,
+     7938,
+     10100,
+     11631,
+     11755,
+     14116,
+     16283,
+     15846,
+     15998,
+     15534
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

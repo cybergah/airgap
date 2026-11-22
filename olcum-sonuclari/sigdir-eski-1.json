@@ -1,0 +1,279 @@
+{
+ "etiket": "sigdir-eski-1",
+ "tarih": "2026-11-22 18:00",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 3,
+  "oran": 0.75,
+  "guven_alt": 0.301,
+  "guven_ust": 0.954,
+  "ortanca_sure": 89.5,
+  "toplam_sure": 339,
+  "turler": {
+   "gercek_ozellik": [
+    1,
+    2
+   ],
+   "gercek_hata": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 4,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 1,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 89.5,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "read_file": 5,
+    "edit_file": 2,
+    "run_command": 8
+   },
+   "komut": 8,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 3259,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": " türlerinde (`Cache`, `LRUCache`, `LFUCache`, `FIFOCache`, `RRCache`, `TTLCache`, `TLRUCache`) çalışır çünkü özellik temel `Cache` sınıfında tanımlı. Manuel testler tüm cache tipleriyle başarılı oldu.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 12,
+    "okunan_toplam": 146017,
+    "okunan_en_fazla": 15350,
+    "okuma_sn": 14.8,
+    "uretim_sn": 67.0,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4104,
+     9663,
+     10127,
+     10900,
+     11942,
+     12793,
+     13021,
+     13759,
+     14685,
+     14789,
+     14884,
+     15350
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 62.6,
+   "gizli_test": true,
+   "arac": 9,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 6
+   },
+   "komut": 6,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 3126,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": " satır 430'da:\n```python\n# Önce (yanlış):\npred = lambda x: not x\n\n# Sonra (doğru):\npred = bool\n```\n\n**Sonuç:** `partition(None, [0, 1])` artık `(first=[0], second=[1])` döndürüyor — beklenen davranış.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 9,
+    "okunan_toplam": 42616,
+    "okunan_en_fazla": 6279,
+    "okuma_sn": 6.5,
+    "uretim_sn": 31.5,
+    "tam_okuma": 8,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2791,
+     3006,
+     3708,
+     4513,
+     4984,
+     5409,
+     5875,
+     6051,
+     6279
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 107.0,
+   "gizli_test": false,
+   "arac": 19,
+   "arac_adlari": {
+    "list_files": 1,
+    "search_text": 1,
+    "read_file": 15,
+    "search_code": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [],
+   "dusunce": 4400,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "The model gave an empty reply; asking it to continue."
+   ],
+   "yanit_sonu": "e understand what's going on by looking at the full context of the file and checking for any issues:I see you mentioned \"Your last reply was empty\" - it seems this is a continuation of a previous task",
+   "test_cikti": "3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\nImportError: cannot import name 'every_nth' from 'more_itertools' (/work/more_itertools/__init__.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 12,
+    "okunan_toplam": 133660,
+    "okunan_en_fazla": 16230,
+    "okuma_sn": 72.9,
+    "uretim_sn": 31.3,
+    "tam_okuma": 11,
+    "baglama_dayandi": 4,
+    "okunanlar": [
+     2784,
+     3251,
+     4554,
+     7706,
+     9944,
+     12520,
+     14671,
+     16199,
+     15818,
+     14304,
+     15679,
+     16230
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 79.5,
+   "gizli_test": true,
+   "arac": 20,
+   "arac_adlari": {
+    "search_code": 3,
+    "search_text": 3,
+    "read_file": 4,
+    "run_command": 9,
+    "edit_file": 1
+   },
+   "komut": 9,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "src/click/parser.py",
+    "tests/test_options.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 3743,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "the model wrote: '    rv.sort(key=lambda x: -x[0])'"
+   ],
+   "yanit_sonu": "ğrulama:**\n```python\n>>> join_options(['-v', '--verbose'])\n('-v, --verbose', False)   # ✓ artık doğru sıra\n>>> join_options(['-h', '--help'])\n('-h, --help', False)      # ✓ aynı şekilde düzeltildi\n```",
+   "test_cikti": "",
+   "son_hata": [
+    "x proje klasorunun disina cikilamaz: /work/src/click/formatting.py"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 169636,
+    "okunan_en_fazla": 11328,
+    "okuma_sn": 22.8,
+    "uretim_sn": 35.7,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2832,
+     4450,
+     6586,
+     7666,
+     7752,
+     8082,
+     8289,
+     8586,
+     9358,
+     9496,
+     9998,
+     10096,
+     10576,
+     10736,
+     10835,
+     11113,
+     11233,
+     11328,
+     10624
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

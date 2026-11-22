@@ -1,0 +1,104 @@
+{
+ "etiket": "qwen-zor-5",
+ "tarih": "2026-11-22 17:34",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 1,
+  "oran": 1.0,
+  "guven_alt": 0.207,
+  "guven_ust": 1.0,
+  "ortanca_sure": 198.1,
+  "toplam_sure": 198,
+  "turler": {
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 198.1,
+   "gizli_test": true,
+   "arac": 31,
+   "arac_adlari": {
+    "search_code": 1,
+    "list_files": 1,
+    "read_file": 12,
+    "search_text": 6,
+    "run_command": 6,
+    "edit_file": 5
+   },
+   "komut": 6,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 4087,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": " davranışı:**\n- 0. elemandan başlayarak her n. elemanı üretir (`islice(iterable, 0, None, n)`)\n- `n < 1` ise `ValueError(\"n must be at least 1\")` verir\n- `from more_itertools import every_nth` çalışır",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 23,
+    "okunan_toplam": 242846,
+    "okunan_en_fazla": 14111,
+    "okuma_sn": 27.6,
+    "uretim_sn": 70.7,
+    "tam_okuma": 22,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2785,
+     3786,
+     5533,
+     6639,
+     7526,
+     8459,
+     9378,
+     10333,
+     10841,
+     11093,
+     11236,
+     11597,
+     11901,
+     12171,
+     12649,
+     13125,
+     13283,
+     13630,
+     12694,
+     12974,
+     13464,
+     13638,
+     14111
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

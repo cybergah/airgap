@@ -1,0 +1,304 @@
+{
+ "etiket": "sigdir-eski-2",
+ "tarih": "2026-11-22 18:26",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 3,
+  "oran": 0.75,
+  "guven_alt": 0.301,
+  "guven_ust": 0.954,
+  "ortanca_sure": 311.0,
+  "toplam_sure": 989,
+  "turler": {
+   "gercek_ozellik": [
+    1,
+    2
+   ],
+   "gercek_hata": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 107.1,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "read_file": 5,
+    "edit_file": 2,
+    "run_command": 8
+   },
+   "komut": 8,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 1893,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md needs attention: contains network access or URLs. The model sees it as a note from the repository author, not as rules; still, read the file yourself."
+   ],
+   "yanit_sonu": "e`, `FIFOCache`, `LFUCache`, `RRCache`) `Cache`'ten miras aldığından otomatik olarak bu özelliği kullanır. Manuel testlerle doğrulandı: boş cache → `0.0`, dolu cache → doğru oran, `maxsize=0` → `0.0`.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 12,
+    "okunan_toplam": 102140,
+    "okunan_en_fazla": 10893,
+    "okuma_sn": 20.8,
+    "uretim_sn": 76.8,
+    "tam_okuma": 11,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4103,
+     6506,
+     7021,
+     7453,
+     7999,
+     8572,
+     9036,
+     9591,
+     10223,
+     10324,
+     10419,
+     10893
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 191.7,
+   "gizli_test": true,
+   "arac": 14,
+   "arac_adlari": {
+    "search_text": 2,
+    "read_file": 2,
+    "edit_file": 1,
+    "run_command": 9
+   },
+   "komut": 9,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "tests/test_recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 3729,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "e, [0, 1])` → `([0], [1])` ✓\n- `partition(None, range(3))` → `([0], [1, 2])` ✓ (mevcut test)\n- `partition(None, [0, 1, False, True, '', ' '])` → `([0, False, ''], [1, True, ' '])` ✓ (docstring örneği)",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 14,
+    "okunan_toplam": 83512,
+    "okunan_en_fazla": 8969,
+    "okuma_sn": 31.9,
+    "uretim_sn": 125.4,
+    "tam_okuma": 13,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2790,
+     2949,
+     3651,
+     4502,
+     5074,
+     5565,
+     5682,
+     6202,
+     6791,
+     6909,
+     7702,
+     8146,
+     8580,
+     8969
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 311.0,
+   "gizli_test": false,
+   "arac": 22,
+   "arac_adlari": {
+    "list_files": 1,
+    "search_text": 2,
+    "read_file": 14,
+    "search_code": 2,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py"
+   ],
+   "degisen": [],
+   "dusunce": 5627,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "The model gave an empty reply; asking it to continue."
+   ],
+   "yanit_sonu": "s/more.py` dosyasına fonksiyon implementasyonu ve `__all__` listesine ekleme\n2. `more_itertools/more.pyi` dosyasına tip tanımı ve `__all__` listesine ekleme gerekiyor.\n\nÖnce ilgili satırları okuyayım:",
+   "test_cikti": "3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\nImportError: cannot import name 'every_nth' from 'more_itertools' (/work/more_itertools/__init__.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [
+    "The model returned an empty reply."
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 17,
+    "okunan_toplam": 193790,
+    "okunan_en_fazla": 16344,
+    "okuma_sn": 215.5,
+    "uretim_sn": 87.3,
+    "tam_okuma": 16,
+    "baglama_dayandi": 4,
+    "okunanlar": [
+     2784,
+     3277,
+     4557,
+     6528,
+     8238,
+     9441,
+     10704,
+     11881,
+     12911,
+     13630,
+     14507,
+     15025,
+     15825,
+     16344,
+     15517,
+     16292,
+     16329
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 379.0,
+   "gizli_test": true,
+   "arac": 31,
+   "arac_adlari": {
+    "search_code": 4,
+    "search_text": 9,
+    "read_file": 8,
+    "run_command": 9,
+    "edit_file": 1
+   },
+   "komut": 9,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "src/click/parser.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "tests/test_options.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 10880,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "lick/formatting.py` içindeki `join_options` fonksiyonunda sıralama mantığı yanlış. Uzun prefix'i (long option) öne alıyor, oysa kısa seçenek (`-v`) önce gelmeli.\n\nDüzeltme:Şimdi testleri çalıştırayım:",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 328634,
+    "okunan_en_fazla": 15790,
+    "okuma_sn": 182.2,
+    "uretim_sn": 179.5,
+    "tam_okuma": 29,
+    "baglama_dayandi": 1,
+    "okunanlar": [
+     2834,
+     4273,
+     5398,
+     6554,
+     7706,
+     7876,
+     8457,
+     8625,
+     9073,
+     9157,
+     9287,
+     9636,
+     9856,
+     10147,
+     10723,
+     11081,
+     12198,
+     12327,
+     13026,
+     13963,
+     14489,
+     14663,
+     14748,
+     14898,
+     15075,
+     15790,
+     13695,
+     14139,
+     14385,
+     14555
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

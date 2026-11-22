@@ -1,0 +1,844 @@
+{
+ "etiket": "model-gpt-oss-1",
+ "tarih": "2026-11-22 14:57",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 11,
+  "basari": 10,
+  "oran": 0.909,
+  "guven_alt": 0.623,
+  "guven_ust": 0.984,
+  "ortanca_sure": 45.7,
+  "toplam_sure": 676,
+  "turler": {
+   "gercek_hata": [
+    8,
+    8
+   ],
+   "gercek_ozellik": [
+    2,
+    3
+   ]
+  },
+  "tamamlanan": 4,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 4
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_lru_okuma",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 118.4,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 4,
+    "open_file": 1,
+    "read_file": 5,
+    "search_text": 1,
+    "edit_file": 7,
+    "run_command": 9,
+    "write_file": 3
+   },
+   "komut": 9,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "tests/__init__.py"
+   ],
+   "dusunce": 11974,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "s. But tests already have relative imports like `from . import CacheTestMixin`. That means tests are part of a package. We need to make `tests` a package by adding `__init__.py`. Let's add empty file.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "cachetools/__init__.py",
+    "tests/__init__.py"
+   ],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 290422,
+    "okunan_en_fazla": 13105,
+    "okuma_sn": 14.8,
+    "uretim_sn": 72.4,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3423,
+     3493,
+     4219,
+     4290,
+     5180,
+     6031,
+     6659,
+     6741,
+     6848,
+     7708,
+     8399,
+     9727,
+     9911,
+     10089,
+     10163,
+     10358,
+     12378,
+     13105,
+     12790,
+     12845,
+     13011,
+     12283,
+     12654,
+     12814,
+     12477,
+     12564,
+     12232,
+     12414,
+     12729,
+     12887
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_ttl_sinir",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 88.7,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_text": 9,
+    "read_file": 8,
+    "edit_file": 2,
+    "run_command": 10,
+    "write_file": 1
+   },
+   "komut": 10,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 13596,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "cachetools/__init__.py"
+   ],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 289629,
+    "okunan_en_fazla": 13791,
+    "okuma_sn": 13.3,
+    "uretim_sn": 61.9,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3392,
+     3488,
+     4243,
+     4646,
+     5215,
+     5564,
+     5634,
+     5729,
+     5924,
+     6144,
+     6230,
+     6521,
+     10094,
+     10819,
+     10994,
+     11534,
+     11986,
+     13337,
+     12020,
+     13179,
+     12501,
+     12858,
+     12951,
+     13393,
+     13470,
+     13344,
+     13399,
+     13652,
+     13791,
+     13577
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_kapasite",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 84.0,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "run_command": 11,
+    "open_file": 4,
+    "read_file": 7,
+    "search_text": 5,
+    "edit_file": 2,
+    "write_file": 1
+   },
+   "komut": 11,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "tests/__init__.py",
+    "src/cachetools/_cached.py"
+   ],
+   "degisen": [
+    "cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 11600,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "cachetools/__init__.py"
+   ],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 317923,
+    "okunan_en_fazla": 13284,
+    "okuma_sn": 12.8,
+    "uretim_sn": 58.5,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3394,
+     3539,
+     3616,
+     3854,
+     6883,
+     6970,
+     8573,
+     10299,
+     10638,
+     10690,
+     11256,
+     12140,
+     12300,
+     13172,
+     13259,
+     13077,
+     13204,
+     13284,
+     10481,
+     12506,
+     12928,
+     12313,
+     12842,
+     12893,
+     11986,
+     12028,
+     12225,
+     12318,
+     12583,
+     12672
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 65.7,
+   "gizli_test": true,
+   "arac": 29,
+   "arac_adlari": {
+    "read_file": 12,
+    "search_text": 7,
+    "edit_file": 4,
+    "run_command": 4,
+    "write_file": 1,
+    "list_files": 1
+   },
+   "komut": 4,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "tests/test_cached.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 6980,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "cachetools/__init__.py"
+   ],
+   "baglam": {
+    "cagri": 29,
+    "okunan_toplam": 323667,
+    "okunan_en_fazla": 13984,
+    "okuma_sn": 15.7,
+    "uretim_sn": 39.5,
+    "tam_okuma": 28,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3410,
+     5037,
+     5427,
+     5995,
+     6630,
+     7362,
+     8256,
+     10355,
+     10431,
+     10520,
+     12572,
+     12640,
+     13306,
+     13529,
+     13321,
+     13396,
+     13699,
+     13762,
+     13784,
+     12400,
+     12444,
+     12533,
+     12581,
+     12671,
+     12912,
+     13340,
+     13474,
+     13984,
+     13896
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_maxsplit",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 99.4,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 4,
+    "edit_file": 5,
+    "search_text": 2,
+    "run_command": 6
+   },
+   "komut": 6,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "tests/test_more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 12079,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "The automatic test failed; the model keeps fixing."
+   ],
+   "yanit_sonu": "**Doğrulama**  \n- `list(split_at([1,2,3,4,5,6,7,8,9,10], lambda x: x%3==0, maxsplit=2, keep_separator=True))` → `[[1, 2], [3], [4, 5], [6], [7, 8, 9, 10]]`  \n- Diğer örnekler beklenen çıktıyı veriyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 110801,
+    "okunan_en_fazla": 8568,
+    "okuma_sn": 3.8,
+    "uretim_sn": 63.0,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2265,
+     2333,
+     3318,
+     3753,
+     4299,
+     5412,
+     5546,
+     5799,
+     6099,
+     6271,
+     6832,
+     6988,
+     7165,
+     6482,
+     6558,
+     7109,
+     8439,
+     8568,
+     7565
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 30.7,
+   "gizli_test": true,
+   "arac": 8,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 2,
+    "edit_file": 1,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 932,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "` dosyasında 430‑431 satırları güncellendi:\n```python\nif pred is None:\n    pred = bool\n```\n\n**Doğrulama**\n- `partition(None, [0, 1])` çağrısı artık `[0]` ve `[1]` döndürüyor, beklenen davranışa uygun.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 8,
+    "okunan_toplam": 27281,
+    "okunan_en_fazla": 4248,
+    "okuma_sn": 1.4,
+    "uretim_sn": 8.7,
+    "tam_okuma": 7,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2235,
+     2308,
+     2749,
+     3669,
+     3933,
+     3998,
+     4141,
+     4248
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 45.7,
+   "gizli_test": false,
+   "arac": 29,
+   "arac_adlari": {
+    "list_files": 2,
+    "search_text": 16,
+    "read_file": 11
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [],
+   "dusunce": 4886,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\nImportError: cannot import name 'every_nth' from 'more_itertools' (/work/more_itertools/__init__.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 318013,
+    "okunan_en_fazla": 15515,
+    "okuma_sn": 13.4,
+    "uretim_sn": 27.8,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2251,
+     2343,
+     2581,
+     6059,
+     6220,
+     6946,
+     7052,
+     7365,
+     8433,
+     8566,
+     8734,
+     9322,
+     9598,
+     9929,
+     10463,
+     11080,
+     11155,
+     11302,
+     15296,
+     15479,
+     15515,
+     13833,
+     13972,
+     14669,
+     14712,
+     14851,
+     14890,
+     14976,
+     15098,
+     15323
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_aralik",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 44.5,
+   "gizli_test": true,
+   "arac": 14,
+   "arac_adlari": {
+    "search_text": 2,
+    "read_file": 4,
+    "edit_file": 1,
+    "run_command": 5,
+    "list_files": 2
+   },
+   "komut": 5,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "tests/test_types/test_IntRange.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 5417,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "The model wrote a broken tool call; retrying."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [
+    "Model error: error parsing tool call: raw='{\"command\":\"python - <<'PY'\\nimport click\\nfrom click.types import IntRange\\n\\n# test cases from test_IntRange\\ncases = [\\n    (IntRange(0,5), '3', 3),\\n    "
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 92710,
+    "okunan_en_fazla": 8142,
+    "okuma_sn": 2.2,
+    "uretim_sn": 19.3,
+    "tam_okuma": 14,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2257,
+     2344,
+     4164,
+     4243,
+     6052,
+     6526,
+     6830,
+     7026,
+     7084,
+     7172,
+     7240,
+     7729,
+     7986,
+     7915,
+     8142
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secim",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 28.7,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "search_code": 2,
+    "open_file": 1,
+    "read_file": 3,
+    "edit_file": 1,
+    "run_command": 7,
+    "search_text": 1
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py"
+   ],
+   "degisen": [
+    "src/click/types.py"
+   ],
+   "dusunce": 1968,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "lma` seçeneğiyle eşleşiyor.  \n- Büyük/küçük harf duyarlı durumda (`case_sensitive=True`) beklenen hatayı veriyor.  \n\nBu değişiklikle `click.Choice` için `case_sensitive=False` doğru şekilde çalışıyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 15,
+    "okunan_toplam": 86925,
+    "okunan_en_fazla": 9312,
+    "okuma_sn": 2.5,
+    "uretim_sn": 18.1,
+    "tam_okuma": 14,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2237,
+     2313,
+     3210,
+     3275,
+     4031,
+     4827,
+     5403,
+     5621,
+     5694,
+     5783,
+     8575,
+     8667,
+     8886,
+     9091,
+     9312
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": false,
+   "sure_sn": 39.0,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_text": 10,
+    "search_file": 1,
+    "read_file": 7,
+    "edit_file": 2,
+    "run_command": 8,
+    "list_files": 2
+   },
+   "komut": 8,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 3270,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 264956,
+    "okunan_en_fazla": 12330,
+    "okuma_sn": 6.1,
+    "uretim_sn": 23.8,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2245,
+     3114,
+     4721,
+     4801,
+     4867,
+     5990,
+     6246,
+     7770,
+     7839,
+     7916,
+     7990,
+     8133,
+     8654,
+     8773,
+     9204,
+     9457,
+     9583,
+     10120,
+     10382,
+     10653,
+     10767,
+     10824,
+     10907,
+     10975,
+     12188,
+     12245,
+     12330,
+     11876,
+     12093,
+     12293
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 31.3,
+   "gizli_test": true,
+   "arac": 11,
+   "arac_adlari": {
+    "search_code": 2,
+    "search_text": 1,
+    "read_file": 2,
+    "edit_file": 2,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "src/click/__init__.py",
+    "src/click/__init__.py"
+   ],
+   "degisen": [
+    "src/click/__init__.py"
+   ],
+   "dusunce": 4091,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "kten uzunsa sonuna `suffix` eklenir. Genişlik `suffix` uzunluğundan küçükse sadece `suffix` kullanılır.  \n\nBu değişiklikle `click.truncate` artık dışarıdan erişilebilir ve beklenen davranışı gösterir.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 11,
+    "okunan_toplam": 52783,
+    "okunan_en_fazla": 6650,
+    "okuma_sn": 1.5,
+    "uretim_sn": 24.0,
+    "tam_okuma": 10,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2252,
+     2501,
+     3367,
+     3418,
+     4804,
+     5282,
+     5573,
+     6207,
+     6270,
+     6459,
+     6650
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

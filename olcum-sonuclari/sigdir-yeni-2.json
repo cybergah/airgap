@@ -1,0 +1,296 @@
+{
+ "etiket": "sigdir-yeni-2",
+ "tarih": "2026-11-22 18:54",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 4,
+  "oran": 1.0,
+  "guven_alt": 0.51,
+  "guven_ust": 1.0,
+  "ortanca_sure": 417.9,
+  "toplam_sure": 1660,
+  "turler": {
+   "gercek_ozellik": [
+    2,
+    2
+   ],
+   "gercek_hata": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 4,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 417.9,
+   "gizli_test": true,
+   "arac": 20,
+   "arac_adlari": {
+    "read_file": 5,
+    "search_text": 1,
+    "edit_file": 2,
+    "run_command": 12
+   },
+   "komut": 12,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 2205,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "nırsız önbellek) `0.0` döndürür\n- Tüm alt sınıflar (`LRUCache`, `FIFOCache`, `LFUCache`, `RRCache`, `TTLCache`, `TLRUCache`) bu özelliği miras alır ve çalışır\n\n**Doğrulama:** 204 test başarıyla geçti.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 194841,
+    "okunan_en_fazla": 12232,
+    "okuma_sn": 176.6,
+    "uretim_sn": 218.0,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4103,
+     11829,
+     11984,
+     12232,
+     8784,
+     9717,
+     9833,
+     10791,
+     11803,
+     8636,
+     8827,
+     9529,
+     10195,
+     10429,
+     10684,
+     10808,
+     11133,
+     11543,
+     11981
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 271.2,
+   "gizli_test": true,
+   "arac": 10,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 2968,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "rtition(None, [0, 1])` → `([0], [1])` ✓\n- Docstring'deki örnek `[0, 1, False, True, '', ' ']` → `([0, False, ''], [1, True, ' '])` ✓\n- Normal predicate ile kullanım etkilenmedi ✓\n- Doctest'ler geçti ✓",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 10,
+    "okunan_toplam": 52099,
+    "okunan_en_fazla": 7419,
+    "okuma_sn": 23.8,
+    "uretim_sn": 110.7,
+    "tam_okuma": 9,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2792,
+     2954,
+     3659,
+     4347,
+     4982,
+     5524,
+     6181,
+     7061,
+     7180,
+     7419
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 572.0,
+   "gizli_test": true,
+   "arac": 24,
+   "arac_adlari": {
+    "list_files": 2,
+    "search_code": 2,
+    "read_file": 9,
+    "search_text": 4,
+    "edit_file": 3,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/__init__.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 4006,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "re_itertools import every_nth\n>>> list(every_nth([0, 1, 2, 3, 4, 5], 2))\n[0, 2, 4]\n>>> list(every_nth(range(10), 3))\n[0, 3, 6, 9]\n>>> list(every_nth([1, 2, 3], 0))\nValueError: n must be at least 1\n```",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 171695,
+    "okunan_en_fazla": 12400,
+    "okuma_sn": 290.0,
+    "uretim_sn": 138.5,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2784,
+     4377,
+     4995,
+     9870,
+     10896,
+     12400,
+     11266,
+     12246,
+     12042,
+     7879,
+     8314,
+     8465,
+     8586,
+     8954,
+     9090,
+     9509,
+     10031,
+     10152,
+     9839
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 399.0,
+   "gizli_test": true,
+   "arac": 20,
+   "arac_adlari": {
+    "search_code": 4,
+    "search_text": 3,
+    "read_file": 5,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "src/click/core.py",
+    "src/click/formatting.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 4492,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "ralama yönünü `rv.sort(key=lambda x: x[0])` olarak değiştirdim. Böylece kısa prefix (uzunluk 1) önce, uzun prefix (uzunluk 2) sonra gelir.\n\n**Sonuç:** `-v, --verbose` şeklinde doğru sıralama sağlandı.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 180228,
+    "okunan_en_fazla": 12114,
+    "okuma_sn": 275.0,
+    "uretim_sn": 100.6,
+    "tam_okuma": 19,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2830,
+     4033,
+     5087,
+     6259,
+     6423,
+     7006,
+     7680,
+     7774,
+     8867,
+     8989,
+     9321,
+     10773,
+     11636,
+     11836,
+     11942,
+     11986,
+     11796,
+     11936,
+     11940,
+     12114
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

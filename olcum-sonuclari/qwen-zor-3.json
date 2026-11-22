@@ -1,0 +1,106 @@
+{
+ "etiket": "qwen-zor-3",
+ "tarih": "2026-11-22 17:29",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 1,
+  "oran": 1.0,
+  "guven_alt": 0.207,
+  "guven_ust": 1.0,
+  "ortanca_sure": 166.6,
+  "toplam_sure": 167,
+  "turler": {
+   "gercek_ozellik": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 1
+ },
+ "sonuclar": [
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 166.6,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "read_file": 12,
+    "search_text": 6,
+    "edit_file": 4,
+    "run_command": 8
+   },
+   "komut": 8,
+   "okunan": [
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi"
+   ],
+   "degisen": [
+    "more_itertools/__pycache__/more.cpython-313.pyc",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 5369,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "ulama:** `from more_itertools import every_nth` çalışıyor, temel kullanım (`[1,2,3,4,5,6,7,8,9,10]` → n=3 → `[1,4,7,10]`), `n=1`, `n<1` (ValueError), boş iterable ve string ile çalışma testleri geçti.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "more_itertools/__pycache__/more.cpython-313.pyc"
+   ],
+   "baglam": {
+    "cagri": 24,
+    "okunan_toplam": 255728,
+    "okunan_en_fazla": 14342,
+    "okuma_sn": 27.3,
+    "uretim_sn": 68.4,
+    "tam_okuma": 23,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2784,
+     4678,
+     6085,
+     7203,
+     7761,
+     8673,
+     9027,
+     9736,
+     10147,
+     10749,
+     10889,
+     11120,
+     11661,
+     12319,
+     12733,
+     12932,
+     13043,
+     13663,
+     12412,
+     12546,
+     13419,
+     13568,
+     14238,
+     14342
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

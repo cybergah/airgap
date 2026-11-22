@@ -1,0 +1,296 @@
+{
+ "etiket": "sigdir-eski-4",
+ "tarih": "2026-11-22 19:49",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 4,
+  "oran": 1.0,
+  "guven_alt": 0.51,
+  "guven_ust": 1.0,
+  "ortanca_sure": 182.9,
+  "toplam_sure": 680,
+  "turler": {
+   "gercek_ozellik": [
+    2,
+    2
+   ],
+   "gercek_hata": [
+    2,
+    2
+   ]
+  },
+  "tamamlanan": 4,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "ct_yeni_ozellik",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 135.9,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 9
+   },
+   "komut": 9,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 1445,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "ache`, `TTLCache`, `LFUCache`, `LRUCache`, `FIFOCache` ve `RRCache` türlerinin hepsinde test edildi; boş cache'lerde `0.0`, dolu cache'lerde doğru oran döndürüyor, `maxsize=0` durumunda `0.0` dönüyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 14,
+    "okunan_toplam": 126070,
+    "okunan_en_fazla": 12634,
+    "okuma_sn": 17.2,
+    "uretim_sn": 99.8,
+    "tam_okuma": 13,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4103,
+     6506,
+     7248,
+     7546,
+     7723,
+     8474,
+     9222,
+     9325,
+     9422,
+     9536,
+     10453,
+     11459,
+     12419,
+     12634
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_partition",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 182.9,
+   "gizli_test": true,
+   "arac": 9,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "edit_file": 1,
+    "run_command": 6
+   },
+   "komut": 6,
+   "okunan": [
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 2877,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "- `partition(None, [0, 1])` → `([0], [1])` ✓\n- Dokümantasyon örneği `partition(None, [0, 1, False, True, '', ' '])` → `([0, False, ''], [1, True, ' '])` ✓\n- Normal pred ile de çalışmaya devam ediyor ✓",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 9,
+    "okunan_toplam": 43233,
+    "okunan_en_fazla": 6646,
+    "okuma_sn": 10.1,
+    "uretim_sn": 66.7,
+    "tam_okuma": 8,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2792,
+     3008,
+     3478,
+     4215,
+     4886,
+     5525,
+     6279,
+     6404,
+     6646
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 167.5,
+   "gizli_test": true,
+   "arac": 25,
+   "arac_adlari": {
+    "read_file": 10,
+    "search_text": 4,
+    "run_command": 7,
+    "edit_file": 4
+   },
+   "komut": 7,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/__init__.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py",
+    "more_itertools/more.pyi"
+   ],
+   "dusunce": 4532,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "very_nth(iterable: Iterable[_T], n: int) -> Iterator[_T]: ...` imzası eklendi.\n\nDoğrulama: `from more_itertools import every_nth` çalışıyor, temel kullanım ve `n < 1` için `ValueError` testi başarılı.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 229926,
+    "okunan_en_fazla": 15822,
+    "okuma_sn": 49.4,
+    "uretim_sn": 83.6,
+    "tam_okuma": 18,
+    "baglama_dayandi": 1,
+    "okunanlar": [
+     2783,
+     3500,
+     8382,
+     9946,
+     10629,
+     11783,
+     12367,
+     13016,
+     13210,
+     13388,
+     13518,
+     13774,
+     14015,
+     14339,
+     14688,
+     14810,
+     14990,
+     15822,
+     14966
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "ck_secenek_sirasi",
+   "tur": "gercek_hata",
+   "tur_tamam": true,
+   "sure_sn": 193.7,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 5,
+    "search_text": 7,
+    "read_file": 7,
+    "edit_file": 1,
+    "run_command": 10
+   },
+   "komut": 10,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/formatting.py",
+    "tests/test_options.py"
+   ],
+   "degisen": [
+    "src/click/formatting.py"
+   ],
+   "dusunce": 4448,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": ".\n\n**Doğrulama:** Manuel test ile `-v, --verbose` ve `-c, --config` formatlarının doğru çıktığı görüldü. `tests/test_options.py:81` satırındaki test de zaten `-v, --verbose` bekliyor (doğru sıralama).",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 28,
+    "okunan_toplam": 319359,
+    "okunan_en_fazla": 14803,
+    "okuma_sn": 57.7,
+    "uretim_sn": 108.1,
+    "tam_okuma": 27,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2833,
+     4201,
+     6119,
+     7177,
+     7956,
+     9148,
+     9352,
+     10029,
+     10634,
+     10853,
+     11364,
+     12497,
+     12581,
+     12677,
+     13011,
+     13469,
+     13656,
+     13874,
+     13025,
+     13153,
+     13240,
+     13431,
+     13556,
+     13728,
+     13938,
+     14361,
+     14803,
+     14693
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

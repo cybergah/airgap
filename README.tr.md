@@ -131,6 +131,19 @@ python kod-ajani/olcum.py --etiket yeni --karsilastir taban --tekrar 3
 
 Son ölçüm (0.14, 0.13.1 ile sırayla, 3 tur): küçük set 67/72'den **70/72**'ye (%97, %90–%99); gerçek projeler 25/33'ten **28/33**'e (%85, %69–%93); en kararsız 6 görev × 5'te 19/30'dan 29/30'a. Artış modelin düşüncesini araç çağrıları arasında saklamaktan geliyor; statik denetim tek başına işe yaramadı. Bedeli: gerçek projelerde iş yaklaşık dörtte bir daha uzun sürüyor ([rapor](olcum-sonuclari/0.14-tam-kontrol.md)). Hataları kendimiz yerleştirdiğimiz için bu oranlar kullanıcının gerçek projelerindeki başarıyı göstermez.
 
+**Varsayılan model artık `qwen3.6:35b-a3b`.** İki model aynı oturumda; düzeltme için eski ve yeni kod sırayla çalıştırıldı:
+
+| Set | `gpt-oss:20b` | `qwen3.6:35b-a3b` |
+|---|---|---|
+| Gerçek projelere yerleştirilen hatalar, 11 × 3 | 30/33 | 31/33 |
+| 5.659 satırlık dosyada üç yere dokunan görev (`mi_yeni_fonksiyon`) | 0/3 | 2/3 |
+| Aynı görev, geçmiş modelin gerçek belirteç sayısına göre sığdırıldıktan sonra | 0/3 | **5/5** |
+| 4 gerçek proje görevi × 5, düzeltmeden önce → sonra | | 16/20 → **20/20** |
+| Gerçek projeler 11 × 3, düzeltmeden önce → sonra | 26/33 → 24/33 (tesadüf sınırında) | |
+
+Qwen yaklaşık 1,5 kat uzun sürdü. Düzeltmeden sonra gerçek projelerin 11 görevinin 4'ünde ölçüldü, setin tamamında değil.
+Rapor: [`qwen36-varsayilan.md`](olcum-sonuclari/qwen36-varsayilan.md).
+
 ## Testler
 
 GitHub'a her gönderimde birim testleri ve duman testi otomatik çalışır (`.github/workflows/testler.yml`; Windows, Linux ve macOS). Gerçek modelli ölçümler ve gerçek VS Code testi yalnız yerelde çalışır.

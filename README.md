@@ -97,6 +97,19 @@ Airgap assumes the model can be wrong, confused, or manipulated by the files it 
 | Bugs planted in real projects (click, more-itertools, cachetools) | `gpt-oss:20b` | 25/33 | **28/33 (85%)** | 69–93% |
 | The 6 flakiest tasks × 5 | `gpt-oss:20b` | 19/30 | **29/30** | |
 
+**Default model: `qwen3.6:35b-a3b`.** Both models in the same session; for the fix, old and new code were run alternately:
+
+| Set | `gpt-oss:20b` | `qwen3.6:35b-a3b` |
+|---|---|---|
+| Bugs planted in real projects, 11 × 3 | 30/33 | 31/33 |
+| The three-place task in a 5,659-line file (`mi_yeni_fonksiyon`) | 0/3 | 2/3 |
+| Same task after fitting the history to the model's real token count | 0/3 | **5/5** |
+| 4 real-project tasks × 5, before → after that fix | | 16/20 → **20/20** |
+| Real projects 11 × 3, before → after that fix | 26/33 → 24/33 (within chance) | |
+
+Qwen took about 1.5 times as long. After the fix it was measured on 4 of the 11 real-project tasks, not the whole set.
+Report: [`qwen36-varsayilan.md`](olcum-sonuclari/qwen36-varsayilan.md).
+
 Old and new were run alternately, 3 rounds. The gain comes from keeping the model's reasoning between tool calls;
 the static check alone did not help. Full report with the costs (real-project tasks take about a quarter longer):
 [`0.14-tam-kontrol.md`](olcum-sonuclari/0.14-tam-kontrol.md). Comparisons with other models (Devstral, Qwen2.5-Coder)

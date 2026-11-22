@@ -1,0 +1,81 @@
+{
+ "etiket": "qwen-zor-1",
+ "tarih": "2026-11-22 17:26",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 0,
+  "oran": 0.0,
+  "guven_alt": 0.0,
+  "guven_ust": 0.793,
+  "ortanca_sure": 76.3,
+  "toplam_sure": 76,
+  "turler": {
+   "gercek_ozellik": [
+    0,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 1,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "mi_yeni_fonksiyon",
+   "tur": "gercek_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 76.3,
+   "gizli_test": false,
+   "arac": 12,
+   "arac_adlari": {
+    "list_files": 1,
+    "search_text": 4,
+    "read_file": 6,
+    "search_code": 1
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/__init__.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.pyi",
+    "more_itertools/more.pyi",
+    "more_itertools/more.py"
+   ],
+   "degisen": [],
+   "dusunce": 1734,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "Önce projenin yapısını ve mevcut fonksiyonların nasıl tanımlandığını inceleyeyim.Şimdi `more.pyi` dosyasının yapısını ve benzer bir fonksiyonun nasıl tanımlandığını inceleyeyim:Proje",
+   "test_cikti": "3.13/unittest/loader.py\", line 141, in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import every_nth\nImportError: cannot import name 'every_nth' from 'more_itertools' (/work/more_itertools/__init__.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 7,
+    "okunan_toplam": 62512,
+    "okunan_en_fazla": 16278,
+    "okuma_sn": 31.5,
+    "uretim_sn": 12.5,
+    "tam_okuma": 6,
+    "baglama_dayandi": 2,
+    "okunanlar": [
+     2783,
+     3204,
+     4164,
+     9728,
+     10731,
+     15624,
+     16278
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}
