@@ -32,7 +32,8 @@ from array import array
 from collections import Counter
 from pathlib import Path
 
-VARSAYILAN_MODEL = os.environ.get("KOD_AJANI_MODEL", "gpt-oss:20b")
+# Olculdu: 3 dosyali every_nth gorevini gpt-oss:20b 0/3, qwen3.6:35b-a3b 5/5 cozdu (gercek set). gpt-oss daha hafif secenek.
+VARSAYILAN_MODEL = os.environ.get("KOD_AJANI_MODEL", "qwen3.6:35b-a3b")
 
 
 # ---------------------------------------------------------------- arayuz dili

@@ -85,7 +85,7 @@ const METINLER = {
   resim: ["[resim: {ad}]", "[image: {ad}]"],
   // ayarlar
   model: ["Model", "Model"],
-  modelIpucu: ["Ollama'daki model adı, örneğin gpt-oss:20b", "Model name in Ollama, e.g. gpt-oss:20b"],
+  modelIpucu: ["Ollama'daki model adı, örneğin qwen3.6:35b-a3b", "Model name in Ollama, e.g. qwen3.6:35b-a3b"],
   dusunme: ["Düşünme seviyesi", "Reasoning effort"],
   dusunmeIpucu: ["Yüksek: daha dikkatli ama daha yavaş", "High: more careful but slower"],
   varsayilan: ["Modelin varsayılanı", "Model default"],

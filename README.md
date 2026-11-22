@@ -108,10 +108,12 @@ We planted these bugs ourselves, so the numbers do not predict results on your o
 **Requirements:** Python 3.10+, git, [Ollama](https://ollama.com), and for the panel, VS Code. Unit tests run on Windows, Linux and macOS; end-to-end use with a real model has been tested on Windows ([reports from other systems welcome](CONTRIBUTING.md)).
 
 ```bash
-ollama pull gpt-oss:20b
+ollama pull qwen3.6:35b-a3b    # default; about 22 GB, works on a 16 GB GPU with part of it on the CPU
 ollama pull nomic-embed-text
 git clone https://github.com/cybergah/airgap
 ```
+
+A lighter option is `gpt-oss:20b`: it is faster and fits a smaller GPU, but in our benchmark it struggled with large tasks that touch several files. Pick the model with `--model` or in the settings.
 
 **Terminal**
 

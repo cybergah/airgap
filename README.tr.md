@@ -14,7 +14,7 @@ Dosya okur ve düzenler, komut çalıştırır, sonucu kontrol eder. Yazma ve ko
 ## Gerekenler
 
 - Python 3.10 veya üstü, git, [Ollama](https://ollama.com)
-- Modeller: `ollama pull gpt-oss:20b` ve `ollama pull nomic-embed-text`
+- Modeller: `ollama pull qwen3.6:35b-a3b` ve `ollama pull nomic-embed-text`. Varsayılan model yaklaşık 22 GB; 16 GB ekran kartında bir kısmı işlemcide çalışır. Daha hafif seçenek `gpt-oss:20b`: daha hızlı, ama ölçümde birden çok dosyaya dokunan büyük görevlerde zorlandı.
 - VS Code (panel için)
 
 ## Kullanım

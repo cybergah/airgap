@@ -22,7 +22,7 @@ come before everything else:
 ```bash
 git clone https://github.com/cybergah/airgap
 cd airgap
-ollama pull gpt-oss:20b
+ollama pull qwen3.6:35b-a3b
 ollama pull nomic-embed-text
 ```
 

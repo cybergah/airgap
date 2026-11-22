@@ -31,7 +31,7 @@ MASAUSTU = KAYNAK / "masaustu"
 ARAYUZ = MASAUSTU / "arayuz" / "dist"  # React arayuzu (npm run build)
 VERI = Path(os.environ.get("KOD_AJANI_MASAUSTU_VERI") or Path(os.environ.get("APPDATA") or Path.home()) / "kod-ajani" / "masaustu")
 AYAR_DOSYASI = VERI / "ayarlar.json"
-VARSAYILAN_AYAR = {"model": "gpt-oss:20b", "gomme": "", "dusunme": "", "baglam": 16384, "maks_adim": 40,
+VARSAYILAN_AYAR = {"model": "qwen3.6:35b-a3b", "gomme": "", "dusunme": "", "baglam": 16384, "maks_adim": 40,
                    "harita_butcesi": 1000, "korumali": False, "korumali_imaj": "python:3.13-slim", "dil": "",
                    "son_klasorler": []}
 YAYIN_SURESI = 8  # pencere kapandiktan sonra bekleme; sayfa yenilenirken (F5) akis bu kadar kopuk kalmaz
