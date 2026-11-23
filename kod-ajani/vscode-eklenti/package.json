@@ -2,7 +2,7 @@
   "name": "kod-ajani",
   "displayName": "Airgap",
   "description": "Security-hardened AI coding agent that runs 100% locally with Ollama",
-  "version": "0.14.1",
+  "version": "0.14.2",
   "publisher": "cybergah",
   "private": true,
   "license": "MIT",
