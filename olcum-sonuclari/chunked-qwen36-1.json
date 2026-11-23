@@ -1,0 +1,94 @@
+{
+ "etiket": "chunked-qwen36-1",
+ "tarih": "2026-11-23 10:24",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 1,
+  "oran": 1.0,
+  "guven_alt": 0.207,
+  "guven_ust": 1.0,
+  "ortanca_sure": 135.1,
+  "toplam_sure": 135,
+  "turler": {
+   "zor_uzak": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zm_chunked_none",
+   "tur": "zor_uzak",
+   "tur_tamam": true,
+   "sure_sn": 135.1,
+   "gizli_test": true,
+   "arac": 21,
+   "arac_adlari": {
+    "read_file": 5,
+    "search_code": 2,
+    "search_text": 5,
+    "run_command": 8,
+    "edit_file": 1
+   },
+   "komut": 8,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py",
+    "tests/test_recipes.py",
+    "tests/test_recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 3855,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "\n\n**Doğrulama:** \n- `list(chunked([1, 2, 3], None))` → artık `[[1, 2, 3]]` dönüyor ✓\n- `take(5, range(10))`, `take(0, [...])`, `take(-3, ...)` gibi diğer davranışlar bozulmadı ✓\n- Tüm 936 test geçti ✓",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 154393,
+    "okunan_en_fazla": 11557,
+    "okuma_sn": 15.8,
+    "uretim_sn": 38.0,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2855,
+     5153,
+     6318,
+     6448,
+     7063,
+     7591,
+     7725,
+     8533,
+     8942,
+     9325,
+     9589,
+     9998,
+     10280,
+     10486,
+     10659,
+     10763,
+     11108,
+     11557
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

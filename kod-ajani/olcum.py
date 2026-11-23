@@ -29,6 +29,7 @@ sys.path.insert(0, str(BURASI))
 import ajan as a  # noqa: E402
 import olcum_gercek as ogr  # noqa: E402
 import olcum_gorevleri as og  # noqa: E402
+import olcum_zor as ozr  # noqa: E402
 
 SONUC_KLASORU = BURASI.parent / "olcum-sonuclari"
 GIZLI_TEST = "_gizli_test.py"
@@ -373,12 +374,12 @@ def main() -> int:
     ay.add_argument("--harita", type=int, default=1000)
     ay.add_argument("--sadece", help="virgulle gorev adlari")
     ay.add_argument("--karsilastir", help="onceki olcumun etiketi")
-    ay.add_argument("--set", choices=["kucuk", "gercek"], default="kucuk", help="gorev seti")
+    ay.add_argument("--set", choices=["kucuk", "gercek", "zor"], default="kucuk", help="gorev seti")
     ay.add_argument("--tek", help=argparse.SUPPRESS)
     s = ay.parse_args()
     if s.dusunme_seviyesi:
         os.environ["KOD_AJANI_DUSUNME"] = s.dusunme_seviyesi  # alt sureclere de gecsin
-    gorevler = ogr.GOREVLER if s.set == "gercek" else og.GOREVLER
+    gorevler = {"gercek": ogr.GOREVLER, "zor": ozr.GOREVLER}.get(s.set, og.GOREVLER)
     if s.dogrula:
         hata = 0
         for g in gorevler:

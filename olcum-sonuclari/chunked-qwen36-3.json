@@ -1,0 +1,103 @@
+{
+ "etiket": "chunked-qwen36-3",
+ "tarih": "2026-11-23 10:35",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 1,
+  "oran": 1.0,
+  "guven_alt": 0.207,
+  "guven_ust": 1.0,
+  "ortanca_sure": 198.4,
+  "toplam_sure": 198,
+  "turler": {
+   "zor_uzak": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zm_chunked_none",
+   "tur": "zor_uzak",
+   "tur_tamam": true,
+   "sure_sn": 198.4,
+   "gizli_test": true,
+   "arac": 28,
+   "arac_adlari": {
+    "read_file": 6,
+    "search_code": 2,
+    "search_text": 3,
+    "run_command": 15,
+    "edit_file": 2
+   },
+   "komut": 15,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "tests/test_recipes.py",
+    "tests/test_recipes.py",
+    "tests/test_more.py",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 7880,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command inline code deletes files, uses the network or runs programs."
+   ],
+   "yanit_sonu": "\n**Değişen tek satır:**\n```python\n# Önce:\nreturn list(islice(iterable, n or 0))\n# Sonra:\nreturn list(islice(iterable, n))\n```\n\n`take(0, ...)` ve `take(n, ...)` gibi diğer tüm davranışlar aynı kalıyor.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 24,
+    "okunan_toplam": 238130,
+    "okunan_en_fazla": 12351,
+    "okuma_sn": 59.9,
+    "uretim_sn": 73.2,
+    "tam_okuma": 23,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2854,
+     5107,
+     6289,
+     6387,
+     7003,
+     7918,
+     8323,
+     9674,
+     10135,
+     10218,
+     10744,
+     10973,
+     11277,
+     11559,
+     11920,
+     12261,
+     12351,
+     11818,
+     11370,
+     12189,
+     11960,
+     12074,
+     12137,
+     11589
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

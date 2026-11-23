@@ -1,0 +1,110 @@
+{
+ "etiket": "chunked-gpt-oss-3",
+ "tarih": "2026-11-23 10:37",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 1,
+  "oran": 1.0,
+  "guven_alt": 0.207,
+  "guven_ust": 1.0,
+  "ortanca_sure": 142.3,
+  "toplam_sure": 142,
+  "turler": {
+   "zor_uzak": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 0,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zm_chunked_none",
+   "tur": "zor_uzak",
+   "tur_tamam": false,
+   "sure_sn": 142.3,
+   "gizli_test": true,
+   "arac": 28,
+   "arac_adlari": {
+    "read_file": 6,
+    "search_text": 20,
+    "edit_file": 1,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 9710,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [
+    "x bu duzenleme Python sozdizimini bozar (expected an indented block after 'if' statement on line 126, satir 127), uygulanmadi. Girintiyi kontrol et. Duzenleme sonrasi hali:\n125\t    \"\"\"\n126\t    if n is"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 178694,
+    "okunan_en_fazla": 9373,
+    "okuma_sn": 5.6,
+    "uretim_sn": 48.5,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2295,
+     3049,
+     3157,
+     3223,
+     3342,
+     3411,
+     3583,
+     4043,
+     4853,
+     4922,
+     5029,
+     5305,
+     5675,
+     5855,
+     5910,
+     5995,
+     6161,
+     6970,
+     7023,
+     7203,
+     7253,
+     7945,
+     8400,
+     8590,
+     8918,
+     9087,
+     9373,
+     7203,
+     7436,
+     7485
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

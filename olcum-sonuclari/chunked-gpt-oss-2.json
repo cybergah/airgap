@@ -1,0 +1,109 @@
+{
+ "etiket": "chunked-gpt-oss-2",
+ "tarih": "2026-11-23 10:31",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 1,
+  "oran": 1.0,
+  "guven_alt": 0.207,
+  "guven_ust": 1.0,
+  "ortanca_sure": 112.4,
+  "toplam_sure": 112,
+  "turler": {
+   "zor_uzak": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 0,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zm_chunked_none",
+   "tur": "zor_uzak",
+   "tur_tamam": false,
+   "sure_sn": 112.4,
+   "gizli_test": true,
+   "arac": 30,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 20,
+    "read_file": 6,
+    "edit_file": 2,
+    "run_command": 1
+   },
+   "komut": 1,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 4763,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 173049,
+    "okunan_en_fazla": 8849,
+    "okuma_sn": 6.2,
+    "uretim_sn": 40.8,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2295,
+     3213,
+     3302,
+     3955,
+     4062,
+     4128,
+     4198,
+     4268,
+     4389,
+     4756,
+     4827,
+     4751,
+     4827,
+     4914,
+     5044,
+     5434,
+     6029,
+     6294,
+     6364,
+     6488,
+     6938,
+     7452,
+     7702,
+     7751,
+     8194,
+     8437,
+     8849,
+     7978,
+     8088,
+     8122
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

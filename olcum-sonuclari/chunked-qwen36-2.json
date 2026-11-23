@@ -1,0 +1,97 @@
+{
+ "etiket": "chunked-qwen36-2",
+ "tarih": "2026-11-23 10:29",
+ "model": "qwen3.6:35b-a3b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 1,
+  "basari": 1,
+  "oran": 1.0,
+  "guven_alt": 0.207,
+  "guven_ust": 1.0,
+  "ortanca_sure": 189.6,
+  "toplam_sure": 190,
+  "turler": {
+   "zor_uzak": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zm_chunked_none",
+   "tur": "zor_uzak",
+   "tur_tamam": true,
+   "sure_sn": 189.6,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "read_file": 4,
+    "search_text": 4,
+    "search_code": 3,
+    "run_command": 6,
+    "edit_file": 2
+   },
+   "komut": 6,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "tests/test_more.py",
+    "more_itertools/recipes.pyi"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi"
+   ],
+   "dusunce": 4271,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": "`take(3, range(10))` → `[0, 1, 2]` (normal kullanım bozulmadı)\n- ✅ `take(0, [1,2,3])` → `[]` (n=0 hala çalışıyor)\n- ✅ `chunked([1,2,3,4,5,6], 3)` → `[[1, 2, 3], [4, 5, 6]]` (normal kullanım bozulmadı)",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 154918,
+    "okunan_en_fazla": 11690,
+    "okuma_sn": 24.2,
+    "uretim_sn": 51.5,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2853,
+     3967,
+     4107,
+     5295,
+     5388,
+     5916,
+     6530,
+     7594,
+     8637,
+     8735,
+     9668,
+     9998,
+     10172,
+     10302,
+     10937,
+     11109,
+     11247,
+     11690,
+     10773
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

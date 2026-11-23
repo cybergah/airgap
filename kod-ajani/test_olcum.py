@@ -33,6 +33,20 @@ class GorevTesti(unittest.TestCase):
             self.assertFalse((Path(k) / o.GIZLI_TEST).exists())
 
 
+class ZorSetTesti(unittest.TestCase):
+    """Zor set gercek projeleri kullanir; projeler yoksa dogrulama atlanir ama yapi her yerde denetlenir."""
+
+    def test_yapi(self):
+        import olcum_gercek as ogr
+        import olcum_zor as ozr
+        adlar = [g["ad"] for g in ozr.GOREVLER]
+        self.assertEqual(len(adlar), len(set(adlar)))
+        self.assertFalse(set(adlar) & {g["ad"] for g in ogr.GOREVLER})
+        for g in ozr.GOREVLER:
+            self.assertIn(g["proje"], ogr.PROJELER)
+            self.assertTrue(g.get("hata") or g.get("cozum"), g["ad"])
+
+
 class PuanTesti(unittest.TestCase):
     def test_guven_araligi_kucuk_ornekte_genis(self):
         alt, ust = o.wilson(9, 10)

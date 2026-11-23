@@ -1,0 +1,721 @@
+{
+ "etiket": "zor-gpt-oss-3",
+ "tarih": "2026-11-23 10:16",
+ "model": "gpt-oss:20b",
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 9,
+  "basari": 2,
+  "oran": 0.222,
+  "guven_alt": 0.063,
+  "guven_ust": 0.547,
+  "ortanca_sure": 62.5,
+  "toplam_sure": 702,
+  "turler": {
+   "zor_uzak": [
+    1,
+    2
+   ],
+   "zor_ozellik": [
+    0,
+    3
+   ],
+   "zor_yaniltici": [
+    0,
+    1
+   ],
+   "zor_buyuk": [
+    0,
+    2
+   ],
+   "zor_iki": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 5,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 3,
+  "gereksiz_dosya": 1
+ },
+ "sonuclar": [
+  {
+   "gorev": "zc_anahtar",
+   "tur": "zor_uzak",
+   "tur_tamam": true,
+   "sure_sn": 60.8,
+   "gizli_test": true,
+   "arac": 18,
+   "arac_adlari": {
+    "search_text": 2,
+    "read_file": 3,
+    "edit_file": 1,
+    "run_command": 12
+   },
+   "komut": 12,
+   "okunan": [
+    "src/cachetools/keys.py",
+    "tests/test_keys.py",
+    "src/cachetools/keys.py"
+   ],
+   "degisen": [
+    "src/cachetools/keys.py"
+   ],
+   "dusunce": 4077,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md needs attention: contains network access or URLs. The model sees it as a note from the repository author, not as rules; still, read the file yourself."
+   ],
+   "yanit_sonu": "n\n- Ran a quick manual test: `hashkey(a=1)` and `hashkey(b=1)` now produce distinct keys.\n- Confirmed that cached function now stores separate entries for different keyword arguments.\n\nAll tests pass.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 136627,
+    "okunan_en_fazla": 9292,
+    "okuma_sn": 4.9,
+    "uretim_sn": 33.1,
+    "tam_okuma": 18,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3416,
+     3556,
+     4084,
+     4485,
+     6632,
+     7209,
+     7407,
+     7613,
+     7683,
+     7772,
+     7854,
+     8042,
+     8205,
+     8370,
+     8618,
+     8945,
+     9117,
+     9292,
+     8327
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zc_peek",
+   "tur": "zor_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 62.5,
+   "gizli_test": false,
+   "arac": 21,
+   "arac_adlari": {
+    "read_file": 12,
+    "search_text": 9
+   },
+   "komut": 0,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [],
+   "dusunce": 7564,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "The model wrote the tool call as text; asking again."
+   ],
+   "yanit_sonu": "{\"path\":\"src/cachetools/__init__.py\",\"pattern\":\"class LRUCache\"}{\"path\":\"src/cachetools/__init__.py\",\"pattern\":\"__getitem__\"}{\"path\":\"src/cachetools/__init__.py\",\"pattern\":\"def __getitem__\"}",
+   "test_cikti": "zli)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/_gizli_test.py\", line 10, in test_gizli\n    self.assertEqual(c.peek('a'), 1)\n                     ^^^^^^\nAttributeError: 'LRUCache' object has no attribute 'peek'\n\n----------------------------------------------------------------------\nRan 1 test in 0.005s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 24,
+    "okunan_toplam": 205998,
+    "okunan_en_fazla": 10004,
+    "okuma_sn": 12.1,
+    "uretim_sn": 46.4,
+    "tam_okuma": 23,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3471,
+     5192,
+     6918,
+     6988,
+     7725,
+     8609,
+     9016,
+     9058,
+     9390,
+     8412,
+     9095,
+     9137,
+     9195,
+     9591,
+     9633,
+     9669,
+     9707,
+     9244,
+     9447,
+     10004,
+     8746,
+     8881,
+     9167,
+     9703
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zc_istatistik",
+   "tur": "zor_yaniltici",
+   "tur_tamam": false,
+   "sure_sn": 66.2,
+   "gizli_test": false,
+   "arac": 30,
+   "arac_adlari": {
+    "search_text": 17,
+    "read_file": 13
+   },
+   "komut": 0,
+   "okunan": [
+    "src/cachetools/_decorator.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/keys.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/_decorator.py"
+   ],
+   "degisen": [],
+   "dusunce": 9231,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "be cache_info returns wrong order? In _InfoMixin.cache_info: return self.__info(self.cache, self.__hits, self.__misses). __info is passed from cached() function. Let's inspect cached() implementation.",
+   "test_cikti": "Traceback (most recent call last):\n  File \"/work/_gizli_test.py\", line 14, in test_gizli\n    self.assertEqual((i.hits, i.misses), (2, 1))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Tuples differ: (1, 2) != (2, 1)\n\nFirst differing element 0:\n1\n2\n\n- (1, 2)\n+ (2, 1)\n\n----------------------------------------------------------------------\nRan 1 test in 0.029s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 246648,
+    "okunan_en_fazla": 9863,
+    "okuma_sn": 17.6,
+    "uretim_sn": 43.9,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     3411,
+     3579,
+     5208,
+     5492,
+     6205,
+     6311,
+     7273,
+     7964,
+     8246,
+     8778,
+     8917,
+     9337,
+     9330,
+     8442,
+     8566,
+     8697,
+     9469,
+     9394,
+     9626,
+     8907,
+     8946,
+     8986,
+     8628,
+     8916,
+     9411,
+     9610,
+     9527,
+     9854,
+     9755,
+     9863
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_chunked_none",
+   "tur": "zor_uzak",
+   "tur_tamam": true,
+   "sure_sn": 59.5,
+   "gizli_test": false,
+   "arac": 17,
+   "arac_adlari": {
+    "search_text": 7,
+    "read_file": 4,
+    "edit_file": 2,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/recipes.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 3909,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "the model wrote: \"        if strict:\\n            if n is None:\\n                raise ValueError('n must not be None when using strict mode.')\\n\\n            def ret():\\n                for chunk in "
+   ],
+   "yanit_sonu": "**Doğrulama**  \n- `list(chunked([1,2,3], None))` → `[[1, 2, 3]]`  \n- Normal kullanım (`n=3`) ve `strict` davranışı aynı kaldı.  \n- `strict=True` ile `n=None` kullanıldığında `ValueError` fırlatılıyor.",
+   "test_cikti": "ork/_gizli_test.py\", line 11, in test_gizli\n    self.assertEqual(take(None, range(3)), [0, 1, 2])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [] != [0, 1, 2]\n\nSecond list contains 3 additional elements.\nFirst extra element 0:\n0\n\n- []\n+ [0, 1, 2]\n\n----------------------------------------------------------------------\nRan 1 test in 0.011s\n\nFAILED (failures=1)\n",
+   "son_hata": [
+    "x old_text ve new_text ayni; bu duzenleme hicbir seyi degistirmez. new_text degistirilmis kodu icermeli. Degisiklik gerekmiyorsa baska bir adima gec."
+   ],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [
+    "more_itertools/more.py"
+   ],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 80934,
+    "okunan_en_fazla": 6609,
+    "okuma_sn": 2.3,
+    "uretim_sn": 31.6,
+    "tam_okuma": 17,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2274,
+     2367,
+     3020,
+     3137,
+     3203,
+     3271,
+     3339,
+     3468,
+     3926,
+     4765,
+     5226,
+     5621,
+     5755,
+     5949,
+     6216,
+     6311,
+     6477,
+     6609
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_running_sum",
+   "tur": "zor_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 77.1,
+   "gizli_test": false,
+   "arac": 28,
+   "arac_adlari": {
+    "search_text": 17,
+    "read_file": 8,
+    "search_code": 2,
+    "edit_file": 1
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi",
+    "docs/api.rst",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py"
+   ],
+   "dusunce": 9136,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "{\"path\":\"tests\",\"pattern\":\"running_sum\"}",
+   "test_cikti": ", in loadTestsFromName\n    module = __import__(module_name)\n  File \"/work/_gizli_test.py\", line 2, in <module>\n    from more_itertools import running_sum\nImportError: cannot import name 'running_sum' from 'more_itertools' (/work/more_itertools/__init__.py). Did you mean: 'running_max'?\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 267908,
+    "okunan_en_fazla": 11042,
+    "okuma_sn": 15.2,
+    "uretim_sn": 44.5,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2320,
+     2430,
+     4650,
+     4799,
+     4979,
+     6495,
+     6596,
+     8738,
+     9821,
+     9974,
+     10039,
+     10202,
+     8867,
+     9093,
+     9780,
+     10371,
+     10511,
+     10683,
+     10427,
+     10470,
+     10640,
+     10640,
+     10679,
+     10752,
+     10876,
+     10938,
+     10984,
+     11042,
+     10035,
+     10077
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_windowed_adim",
+   "tur": "zor_buyuk",
+   "tur_tamam": false,
+   "sure_sn": 178.2,
+   "gizli_test": false,
+   "arac": 28,
+   "arac_adlari": {
+    "search_text": 3,
+    "read_file": 9,
+    "edit_file": 6,
+    "run_command": 10
+   },
+   "komut": 10,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 21511,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "wed(range(6), 3, step=2))\n# -> [(0, 1, 2), (2, 3, 4), (4, 5, None)]\n```The edit_file requires old_text. We need to provide old_text that matches existing code exactly. Let's read the block to replace.",
+   "test_cikti": "^^^^^^^^^^\nAssertionError: Lists differ: [(1, 2), (2, 3), (3, 4), (4, None)] != [(1, 2), (2, 3), (3, 4)]\n\nFirst list contains 1 additional elements.\nFirst extra element 3:\n(4, None)\n\n- [(1, 2), (2, 3), (3, 4), (4, None)]\n?                        -----------\n\n+ [(1, 2), (2, 3), (3, 4)]\n\n----------------------------------------------------------------------\nRan 1 test in 0.004s\n\nFAILED (failures=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 215234,
+    "okunan_en_fazla": 10631,
+    "okuma_sn": 12.2,
+    "uretim_sn": 115.8,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2294,
+     2392,
+     2857,
+     3153,
+     3450,
+     5201,
+     5537,
+     5895,
+     6007,
+     6130,
+     6226,
+     5588,
+     8356,
+     8846,
+     8922,
+     9013,
+     8960,
+     9468,
+     10631,
+     8582,
+     9209,
+     9582,
+     9891,
+     10115,
+     10285,
+     7230,
+     7517,
+     7659,
+     7764,
+     8474
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zk_envvar_oncelik",
+   "tur": "zor_buyuk",
+   "tur_tamam": true,
+   "sure_sn": 113.4,
+   "gizli_test": false,
+   "arac": 28,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 6,
+    "search_text": 6,
+    "edit_file": 3,
+    "run_command": 11
+   },
+   "komut": 11,
+   "okunan": [
+    "src/click/core.py",
+    "src/click/core.py",
+    "tests/test_defaults.py",
+    "src/click/core.py",
+    "src/click/core.py",
+    "src/click/core.py"
+   ],
+   "degisen": [
+    "src/click/core.py"
+   ],
+   "dusunce": 14400,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "the model wrote: '            if value is UNSET and not ctx._default_map_has(self.name):\\n                envvar_value = self.value_from_envvar(ctx)\\n                if envvar_value is not None:\\n    "
+   ],
+   "yanit_sonu": " `ENVIRONMENT` kaynağı atanır.  \n\nBu değişiklik, ortam değişkeni var olduğunda bile `default_map` değerinin öncelikli olmasını engeller.  \nTestleri çalıştırarak doğruladım; tüm ilgili testler geçiyor.",
+   "test_cikti": "15, in test_gizli\n    self.assertEqual(r.invoke(k, [], env={'K_NAME': 'env'}, default_map={'name': 'map'}).output.strip(), 'env')\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'map' != 'env'\n- map\n+ env\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.004s\n\nFAILED (failures=1)\n",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n        if value is None and not ctx._default_map_has(self.name):\n            if default_map_value is not None or ctx._defa"
+   ],
+   "basari": false,
+   "yanlis_iddia": true,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 244111,
+    "okunan_en_fazla": 10080,
+    "okuma_sn": 17.1,
+    "uretim_sn": 79.2,
+    "tam_okuma": 29,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2264,
+     2474,
+     3340,
+     4106,
+     5734,
+     5909,
+     6521,
+     7416,
+     7488,
+     7582,
+     9543,
+     9618,
+     9716,
+     9096,
+     9553,
+     9697,
+     9724,
+     9668,
+     9112,
+     9447,
+     9636,
+     9789,
+     9766,
+     9955,
+     9928,
+     10080,
+     9564,
+     9768,
+     8630,
+     8987
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zk_iki_hata",
+   "tur": "zor_iki",
+   "tur_tamam": true,
+   "sure_sn": 42.8,
+   "gizli_test": true,
+   "arac": 16,
+   "arac_adlari": {
+    "search_text": 3,
+    "read_file": 6,
+    "edit_file": 2,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/termui.py",
+    "src/click/termui.py",
+    "src/click/termui.py"
+   ],
+   "degisen": [
+    "src/click/termui.py",
+    "src/click/types.py"
+   ],
+   "dusunce": 4973,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": "open=True,clamp=True).convert(15,None,None)` artık `9` döndürür.  \n- `click.style('x', bold=True)` çıktısı `\\x1b[1mx\\x1b[0m` (kalın) ve `bold=False` çıktısı `\\x1b[22mx\\x1b[0m` (normal) olarak çalışır.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 16,
+    "okunan_toplam": 92639,
+    "okunan_en_fazla": 8739,
+    "okuma_sn": 2.3,
+    "uretim_sn": 31.1,
+    "tam_okuma": 15,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2269,
+     2382,
+     3007,
+     3082,
+     3623,
+     4114,
+     4976,
+     5620,
+     6922,
+     7353,
+     7726,
+     7819,
+     7975,
+     8421,
+     8611,
+     8739
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zk_yeni_tip",
+   "tur": "zor_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 41.9,
+   "gizli_test": false,
+   "arac": 29,
+   "arac_adlari": {
+    "search_text": 17,
+    "open_file": 1,
+    "read_file": 10,
+    "search_code": 1
+   },
+   "komut": 0,
+   "okunan": [
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/types.py",
+    "src/click/__init__.py"
+   ],
+   "degisen": [],
+   "dusunce": 3063,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "",
+   "test_cikti": " call last):\n  File \"/work/_gizli_test.py\", line 10, in test_gizli\n    self.assertEqual(click.PERCENT.convert('50%', None, None), 0.5)\n                     ^^^^^^^^^^^^^\n  File \"/work/src/click/__init__.py\", line 144, in __getattr__\n    raise AttributeError(name)\nAttributeError: PERCENT\n\n----------------------------------------------------------------------\nRan 1 test in 0.007s\n\nFAILED (errors=1)\n",
+   "son_hata": [],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 29,
+    "okunan_toplam": 219804,
+    "okunan_en_fazla": 10072,
+    "okuma_sn": 11.0,
+    "uretim_sn": 21.7,
+    "tam_okuma": 28,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2277,
+     3496,
+     3579,
+     3920,
+     4261,
+     5110,
+     5375,
+     5954,
+     6119,
+     6266,
+     6723,
+     6957,
+     7555,
+     7670,
+     9026,
+     9185,
+     9259,
+     9775,
+     9814,
+     8826,
+     9686,
+     9727,
+     9736,
+     9793,
+     9833,
+     9873,
+     9934,
+     10003,
+     10072
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}
