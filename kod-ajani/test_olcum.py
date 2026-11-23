@@ -113,6 +113,8 @@ class PuanTesti(unittest.TestCase):
               {"prompt_eval_count": 16000, "prompt_eval_duration": 3e9, "eval_count": 5, "eval_duration": 1e9}]
         oz = o.baglam_ozeti(o_, 16384)
         self.assertEqual((oz["cagri"], oz["okunan_en_fazla"], oz["baglama_dayandi"], oz["uretim_sn"]), (3, 16000, 1, 4.0))
+        self.assertEqual(oz["tam_okuma"], 1)  # 2. cagri onbellekten (sayi buyuk ama sure kisa), 3. cagri bastan
+        self.assertEqual(oz["okuma_sureleri"], [0.5, 0.01, 3.0])
         self.assertEqual(o.baglam_ozeti([], 16384)["okunan_en_fazla"], 0)
 
     def test_rapor_yazilir(self):

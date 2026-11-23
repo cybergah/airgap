@@ -231,16 +231,19 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
 def baglam_ozeti(olcumler: list[dict], baglam: int) -> dict:
     """Model cagrilarinda ne kadar istemin yeniden okundugu ve ne kadar surdugu.
 
-    Onbellek calisiyorsa ilk cagridan sonra her cagrida yalniz yeni eklenen kisim okunur;
-    'tam_okuma' istemin cogunun yeniden okundugu (onbellegin bozuldugu) cagri sayisidir.
+    Ollama prompt_eval_count'ta onbellekten gelen kismi da sayar (olculdu), bu yuzden onbellegin bozulup bozulmadigi
+    sureden anlasilir: ilk cagri onbelleksizdir ve okuma hizini verir. 'tam_okuma' suresi istemin en az yarisini
+    bu hizla yeniden okumaya yetecek kadar uzun suren cagri sayisidir.
     """
     okunan = [o.get("prompt_eval_count") or 0 for o in olcumler]
     sure = [(o.get("prompt_eval_duration") or 0) / 1e9 for o in olcumler]
+    hiz = okunan[0] / sure[0] if okunan and sure[0] > 0 else 0
     uretim = sum((o.get("eval_duration") or 0) for o in olcumler) / 1e9
     return {"cagri": len(olcumler), "okunan_toplam": sum(okunan), "okunan_en_fazla": max(okunan, default=0),
             "okuma_sn": round(sum(sure), 1), "uretim_sn": round(uretim, 1),
-            "tam_okuma": sum(1 for i, n in enumerate(okunan) if i and n > 2000),
-            "baglama_dayandi": sum(1 for n in okunan if n >= baglam * 0.95), "okunanlar": okunan}
+            "tam_okuma": sum(1 for i, (n, s) in enumerate(zip(okunan, sure)) if i and hiz and s >= 0.5 * n / hiz),
+            "baglama_dayandi": sum(1 for n in okunan if n >= baglam * 0.95), "okunanlar": okunan,
+            "okuma_sureleri": [round(s, 2) for s in sure]}
 
 
 def beklenmeyen_dosyalar(g: dict, degisen: list[str]) -> list[str]:
