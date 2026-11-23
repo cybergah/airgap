@@ -747,6 +747,20 @@ def model_yetenekleri(model: str) -> list[str]:
         return []
 
 
+# Qwen3.6 model kartinin "kesin kodlama" onerisi (dusunme acik). Dusuk sicaklik dusunen modellerde tekrara yol acabilir.
+MODEL_ORNEKLEME = {"qwen3.6": {"temperature": 0.6, "top_p": 0.95, "top_k": 20, "presence_penalty": 0.0}}
+MODELE_GORE_ORNEKLE = os.environ.get("KOD_AJANI_MODEL_ORNEKLEME", "1") != "0"
+
+
+def ornekleme_ayarlari(model: str) -> dict:
+    """Modelin onerilen ornekleme ayarlari; bilinmeyen model icin eski sabit sicaklik."""
+    if MODELE_GORE_ORNEKLE:
+        for on_ek, ayar in MODEL_ORNEKLEME.items():
+            if model.lower().startswith(on_ek):
+                return dict(ayar)
+    return {"temperature": 0.2}
+
+
 def model_akisi(model: str, mesajlar: list[dict], baglam: int, dusun: bool = False, araclar: bool = True):
     """Ollama'dan gelen akis parcalarini sirayla verir."""
     govde = json.dumps({
@@ -755,7 +769,7 @@ def model_akisi(model: str, mesajlar: list[dict], baglam: int, dusun: bool = Fal
         **({"tools": ollama_araclari()} if araclar else {}),
         "stream": True,
         "think": dusun,
-        "options": {"num_ctx": baglam, "temperature": 0.2},
+        "options": {"num_ctx": baglam, **ornekleme_ayarlari(model)},
     }).encode("utf-8")
     istek = urllib.request.Request(
         f"{OLLAMA_ADRESI}/api/chat", govde, {"Content-Type": "application/json"})

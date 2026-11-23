@@ -249,6 +249,14 @@ class GecmisTesti(unittest.TestCase):
         self.assertLess(a.mesajlar_boyutu(dar), a.mesajlar_boyutu(genis))
 
 
+class OrneklemeTesti(unittest.TestCase):
+    def test_qwen_onerilen_ayarlari_alir_digerleri_eski(self):
+        self.assertEqual(a.ornekleme_ayarlari("qwen3.6:35b-a3b")["temperature"], 0.6)
+        self.assertEqual(a.ornekleme_ayarlari("qwen3.6:35b-a3b")["presence_penalty"], 0.0)
+        self.assertEqual(a.ornekleme_ayarlari("gpt-oss:20b"), {"temperature": 0.2})
+        self.assertEqual(a.ornekleme_ayarlari("qwen2.5:14b"), {"temperature": 0.2})
+
+
 class ModelDiliTesti(unittest.TestCase):
     """Arac sonuclari modele arayuz dilinden bagimsiz Ingilizce gider; dosya icerigi ve komut ciktisi aynen."""
 
