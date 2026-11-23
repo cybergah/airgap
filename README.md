@@ -103,11 +103,11 @@ Airgap assumes the model can be wrong, confused, or manipulated by the files it 
 |---|---|---|
 | Bugs planted in real projects, 11 × 3 | 30/33 | 31/33 |
 | The three-place task in a 5,659-line file (`mi_yeni_fonksiyon`) | 0/3 | 2/3 |
-| Same task after fitting the history to the model's real token count | 0/3 | **5/5** |
+| Same task after fitting the history to the model's real token count | 0/3 | **7/8** (5/5 and 2/3) |
 | 4 real-project tasks × 5, before → after that fix | | 16/20 → **20/20** |
-| Real projects 11 × 3, before → after that fix | 26/33 → 24/33 (within chance) | |
+| Real projects 11 × 3, before → after that fix | 26/33 → 24/33 (within chance) | 31/33 → **32/33** (95% CI 85–99%) |
 
-Qwen took about 1.5 times as long. After the fix it was measured on 4 of the 11 real-project tasks, not the whole set.
+Qwen took about 1.5 times as long (57 min against 32 for the 11 × 3 set). The "before" Qwen run and the "after" run were on different days.
 Report: [`qwen36-varsayilan.md`](olcum-sonuclari/qwen36-varsayilan.md).
 
 Old and new were run alternately, 3 rounds. The gain comes from keeping the model's reasoning between tool calls;

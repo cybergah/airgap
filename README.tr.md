@@ -137,11 +137,11 @@ Son ölçüm (0.14, 0.13.1 ile sırayla, 3 tur): küçük set 67/72'den **70/72*
 |---|---|---|
 | Gerçek projelere yerleştirilen hatalar, 11 × 3 | 30/33 | 31/33 |
 | 5.659 satırlık dosyada üç yere dokunan görev (`mi_yeni_fonksiyon`) | 0/3 | 2/3 |
-| Aynı görev, geçmiş modelin gerçek belirteç sayısına göre sığdırıldıktan sonra | 0/3 | **5/5** |
+| Aynı görev, geçmiş modelin gerçek belirteç sayısına göre sığdırıldıktan sonra | 0/3 | **7/8** (5/5 ve 2/3) |
 | 4 gerçek proje görevi × 5, düzeltmeden önce → sonra | | 16/20 → **20/20** |
-| Gerçek projeler 11 × 3, düzeltmeden önce → sonra | 26/33 → 24/33 (tesadüf sınırında) | |
+| Gerçek projeler 11 × 3, düzeltmeden önce → sonra | 26/33 → 24/33 (tesadüf sınırında) | 31/33 → **32/33** (%95 GA %85–%99) |
 
-Qwen yaklaşık 1,5 kat uzun sürdü. Düzeltmeden sonra gerçek projelerin 11 görevinin 4'ünde ölçüldü, setin tamamında değil.
+Qwen yaklaşık 1,5 kat uzun sürdü (11 × 3 set için 57 dakika, gpt-oss 32). Qwen'in "önce" ve "sonra" ölçümleri farklı günlerde yapıldı.
 Rapor: [`qwen36-varsayilan.md`](olcum-sonuclari/qwen36-varsayilan.md).
 
 ## Testler
