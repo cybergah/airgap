@@ -122,6 +122,28 @@ class PuanTesti(unittest.TestCase):
         v = {"etiket": "x", "tarih": "t", "model": "m", "tekrar": 1, "harita": 1000, "ozet": o.ozet_hesapla(s), "sonuclar": s}
         self.assertIn("Başarı: 1/1", o.rapor_yaz(v, None))
 
+    def test_iz_yalniz_istenince_yazilir(self):
+        import json
+        import os
+        from unittest.mock import patch
+        g = {"ad": "gorev1", "istek": "duzelt"}
+        mesajlar = [{"role": "user", "content": "duzelt"}, {"role": "assistant", "content": "",
+                                                            "tool_calls": [{"function": {"name": "read_file", "arguments": {"path": "a.py"}}}]}]
+        with tempfile.TemporaryDirectory() as d:
+            with patch.dict(os.environ, {}, clear=False):
+                os.environ.pop("KOD_AJANI_IZ", None)
+                o.iz_yaz(g, "m", {"basari": True}, mesajlar)
+                self.assertEqual(list(Path(d).iterdir()), [])
+                os.environ["KOD_AJANI_IZ"] = str(Path(d) / "iz")
+                os.environ["KOD_AJANI_IZ_ETIKET"] = "deneme"
+                o.iz_yaz(g, "m", {"basari": True, "degisen": ["a.py"]}, mesajlar)
+            dosyalar = list((Path(d) / "iz").iterdir())
+            self.assertEqual(len(dosyalar), 1)
+            self.assertTrue(dosyalar[0].name.startswith("deneme-gorev1-"))
+            veri = json.loads(dosyalar[0].read_text(encoding="utf-8"))
+            self.assertEqual((veri["basari"], veri["istek"], veri["mesajlar"]), (True, "duzelt", mesajlar))
+            self.assertIn("read_file", {t["function"]["name"] for t in veri["araclar"]})
+
 
 if __name__ == "__main__":
     unittest.main()

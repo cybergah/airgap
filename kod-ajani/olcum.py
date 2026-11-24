@@ -223,9 +223,24 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
         sonuc["yanlis_iddia"] = bool(not basari and tur_tamam and g["tur"] != "soru" and not ITIRAF.search(k["yanit"][-800:]))
         sonuc["gereksiz_dosya"] = beklenmeyen_dosyalar(g, degisen)
         sonuc["baglam"] = baglam_ozeti(ajan.cagri_olcumleri, ajan.baglam)
+        iz_yaz(g, model, sonuc, ajan.mesajlar)
         return sonuc
     finally:
         shutil.rmtree(gecici, ignore_errors=True)
+
+
+def iz_yaz(g: dict, model: str, sonuc: dict, mesajlar: list[dict]) -> None:
+    """--iz verildiyse gorevin tam konusmasini (araclar, mesajlar, sonuc) bir JSON dosyasina yazar; egitim verisi icin."""
+    klasor = os.environ.get("KOD_AJANI_IZ")
+    if not klasor:
+        return
+    hedef = Path(klasor)
+    hedef.mkdir(parents=True, exist_ok=True)
+    ad = f"{os.environ.get('KOD_AJANI_IZ_ETIKET', 'olcum')}-{g['ad']}-{os.getpid()}.json"
+    veri = {"gorev": g["ad"], "istek": g["istek"], "model": model, "basari": sonuc.get("basari", False),
+            "gereksiz_dosya": sonuc.get("gereksiz_dosya"), "degisen": sonuc.get("degisen"), "sure_sn": sonuc.get("sure_sn"),
+            "araclar": a.ollama_araclari(), "mesajlar": mesajlar}
+    (hedef / ad).write_text(json.dumps(veri, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
 
 
 def baglam_ozeti(olcumler: list[dict], baglam: int) -> dict:
@@ -378,8 +393,12 @@ def main() -> int:
     ay.add_argument("--sadece", help="virgulle gorev adlari")
     ay.add_argument("--karsilastir", help="onceki olcumun etiketi")
     ay.add_argument("--set", choices=["kucuk", "gercek", "zor"], default="kucuk", help="gorev seti")
+    ay.add_argument("--iz", help="her gorevin tam konusmasini bu klasore JSON olarak yaz (egitim verisi)")
     ay.add_argument("--tek", help=argparse.SUPPRESS)
     s = ay.parse_args()
+    if s.iz and not s.tek:  # alt sureclere ortamla gecer
+        os.environ["KOD_AJANI_IZ"] = str(Path(s.iz).resolve())
+        os.environ["KOD_AJANI_IZ_ETIKET"] = s.etiket
     if s.dusunme_seviyesi:
         os.environ["KOD_AJANI_DUSUNME"] = s.dusunme_seviyesi  # alt sureclere de gecsin
     gorevler = {"gercek": ogr.GOREVLER, "zor": ozr.GOREVLER}.get(s.set, og.GOREVLER)
