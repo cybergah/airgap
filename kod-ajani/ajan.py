@@ -2493,6 +2493,7 @@ class Ajan:
                                          self.arayuz.uyari, self.arayuz.kontrol)
         self.mesajlar: list[dict] = []
         self.cagri_olcumleri: list[dict] = []
+        self.cagri_izleri: list[dict] = []  # her model cagrisinin bitis bilgisi (olcum --iz icin)
         self.sifirla()
 
     def sifirla(self) -> None:
@@ -2978,6 +2979,8 @@ class Ajan:
                     # Ollama uretmeyi birakir; tur bu adimi kisa dusunerek yeniden dener.
                     akis.close()
                     self.arayuz.mesaj_bitti()
+                    self.cagri_izleri.append({"done_reason": "dusunme_siniri", "dusunce_harf": dusunce_uzunlugu,
+                                              "icerik_harf": 0, "arac": 0})
                     raise DusunmeSiniri(dusunce_uzunlugu)
             if mesaj.get("content"):
                 if dusunce_acik:
@@ -2990,6 +2993,10 @@ class Ajan:
                 self.cagri_olcumleri.append({k: parca.get(k, 0) for k in (
                     "prompt_eval_count", "prompt_eval_duration", "eval_count", "eval_duration")})
                 self.harf_orani = harf_orani(gonderilen, parca.get("prompt_eval_count") or 0, self.harf_orani)
+                self.cagri_izleri.append({"done_reason": parca.get("done_reason"), "eval_count": parca.get("eval_count"),
+                                          "prompt_eval_count": parca.get("prompt_eval_count"),
+                                          "dusunce_harf": dusunce_uzunlugu, "icerik_harf": len(icerik),
+                                          "arac": len(arac_cagrilari)})
         if arac_cagrilari and icerik.strip() and hasattr(self.arayuz, "ara_not"):
             # Model arac cagirmadan once kendine kisa not yaziyor ("Let's list."); Ollama bunu dusunce degil
             # metin olarak gonderiyor. Bu bir cevap degil: arayuz onu dusunce gibi gosterebilsin.

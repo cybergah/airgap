@@ -136,13 +136,14 @@ class PuanTesti(unittest.TestCase):
                 self.assertEqual(list(Path(d).iterdir()), [])
                 os.environ["KOD_AJANI_IZ"] = str(Path(d) / "iz")
                 os.environ["KOD_AJANI_IZ_ETIKET"] = "deneme"
-                o.iz_yaz(g, "m", {"basari": True, "degisen": ["a.py"]}, mesajlar)
+                o.iz_yaz(g, "m", {"basari": True, "degisen": ["a.py"]}, mesajlar, [{"done_reason": "length"}])
             dosyalar = list((Path(d) / "iz").iterdir())
             self.assertEqual(len(dosyalar), 1)
             self.assertTrue(dosyalar[0].name.startswith("deneme-gorev1-"))
             veri = json.loads(dosyalar[0].read_text(encoding="utf-8"))
             self.assertEqual((veri["basari"], veri["istek"], veri["mesajlar"]), (True, "duzelt", mesajlar))
             self.assertIn("read_file", {t["function"]["name"] for t in veri["araclar"]})
+            self.assertEqual(veri["cagrilar"], [{"done_reason": "length"}])
 
 
 if __name__ == "__main__":

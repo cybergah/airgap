@@ -223,13 +223,13 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
         sonuc["yanlis_iddia"] = bool(not basari and tur_tamam and g["tur"] != "soru" and not ITIRAF.search(k["yanit"][-800:]))
         sonuc["gereksiz_dosya"] = beklenmeyen_dosyalar(g, degisen)
         sonuc["baglam"] = baglam_ozeti(ajan.cagri_olcumleri, ajan.baglam)
-        iz_yaz(g, model, sonuc, ajan.mesajlar)
+        iz_yaz(g, model, sonuc, ajan.mesajlar, ajan.cagri_izleri)
         return sonuc
     finally:
         shutil.rmtree(gecici, ignore_errors=True)
 
 
-def iz_yaz(g: dict, model: str, sonuc: dict, mesajlar: list[dict]) -> None:
+def iz_yaz(g: dict, model: str, sonuc: dict, mesajlar: list[dict], cagrilar: list[dict] | None = None) -> None:
     """--iz verildiyse gorevin tam konusmasini (araclar, mesajlar, sonuc) bir JSON dosyasina yazar; egitim verisi icin."""
     klasor = os.environ.get("KOD_AJANI_IZ")
     if not klasor:
@@ -239,7 +239,7 @@ def iz_yaz(g: dict, model: str, sonuc: dict, mesajlar: list[dict]) -> None:
     ad = f"{os.environ.get('KOD_AJANI_IZ_ETIKET', 'olcum')}-{g['ad']}-{os.getpid()}.json"
     veri = {"gorev": g["ad"], "istek": g["istek"], "model": model, "basari": sonuc.get("basari", False),
             "gereksiz_dosya": sonuc.get("gereksiz_dosya"), "degisen": sonuc.get("degisen"), "sure_sn": sonuc.get("sure_sn"),
-            "araclar": a.ollama_araclari(), "mesajlar": mesajlar}
+            "araclar": a.ollama_araclari(), "cagrilar": cagrilar or [], "mesajlar": mesajlar}
     (hedef / ad).write_text(json.dumps(veri, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
 
 
