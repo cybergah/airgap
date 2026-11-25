@@ -112,6 +112,11 @@ class ModelTesti(unittest.TestCase):
         self.assertFalse(self.ajan.tur("isle"))
         self.assertEqual(len(self.ajan.mesajlar), once)
         self.assertTrue(self.ajan.arayuz.hatalar)
+        self.assertEqual(self.ajan.silinen_tur[0], {"role": "user", "content": "isle"}, "silinen tur kayit icin saklanir")
+        self.assertIn(a.BOZUK_CAGRI_NOTU, [m["content"] for m in self.ajan.silinen_tur])
+        self.kurgula(*[yanit("tamam")] * 3)
+        self.assertTrue(self.ajan.tur("yeni"))
+        self.assertEqual(self.ajan.silinen_tur, [], "sonraki turda sifirlanir")
 
     def test_baska_model_hatasi_yeniden_denenmez(self):
         cagri = {"n": 0}

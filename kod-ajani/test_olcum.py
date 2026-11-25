@@ -122,6 +122,17 @@ class PuanTesti(unittest.TestCase):
         v = {"etiket": "x", "tarih": "t", "model": "m", "tekrar": 1, "harita": 1000, "ozet": o.ozet_hesapla(s), "sonuclar": s}
         self.assertIn("Başarı: 1/1", o.rapor_yaz(v, None))
 
+    def test_iz_arada_bir_yazilir(self):
+        cagri = []
+        ar = o.OlcumArayuzu(lambda: cagri.append(1))
+        ar.kontrol()
+        self.assertEqual(cagri, [], "aralik dolmadan yazilmaz")
+        ar._son_anlik -= o.ANLIK_ARALIGI
+        ar.kontrol()
+        ar.kontrol()
+        self.assertEqual(cagri, [1])
+        o.OlcumArayuzu().kontrol()  # --iz yoksa bir sey yapmaz
+
     def test_iz_yalniz_istenince_yazilir(self):
         import json
         import os

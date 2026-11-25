@@ -2497,6 +2497,7 @@ class Ajan:
         self.mesajlar: list[dict] = []
         self.cagri_olcumleri: list[dict] = []
         self.cagri_izleri: list[dict] = []  # her model cagrisinin bitis bilgisi (olcum --iz icin)
+        self.silinen_tur: list[dict] = []  # hata/durdurmada gecmisten silinen son tur (olcum --iz icin)
         self.sifirla()
 
     def sifirla(self) -> None:
@@ -3019,6 +3020,7 @@ class Ajan:
     def tur(self, istek: str) -> bool:
         """Bir kullanici istegini bitene kadar calistirir; basariliysa True doner."""
         baslangic = len(self.mesajlar)
+        self.silinen_tur = []
         self._haritayi_yenile(istek)
         self.mesajlar.append({"role": "user", "content": istek})
         son_cagri, tekrar = None, 0
@@ -3166,10 +3168,12 @@ class Ajan:
                                 f"Reached the limit of {self.maks_adim} steps; stopped."))
             return False
         except ModelHatasi as hata:
+            self.silinen_tur = self.mesajlar[baslangic:]
             del self.mesajlar[baslangic:]
             self.arayuz.hata(L("Model hatasi: ", "Model error: ") + str(hata))
             return False
         except KeyboardInterrupt:
+            self.silinen_tur = self.mesajlar[baslangic:]
             del self.mesajlar[baslangic:]
             self.arayuz.uyari(L("Durduruldu. Bu tur gecmisten silindi; yapilan dosya degisiklikleri duruyor.",
                                 "Stopped. This turn was removed from the history; file changes already made are kept."))

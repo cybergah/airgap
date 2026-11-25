@@ -132,7 +132,9 @@ def gorev_dogrula(g: dict) -> list[str]:
 class OlcumArayuzu:
     """Onay kurali: kod degisikligi ve komut evet (komutlar kapsayicida), test dosyasi ve gizli okuma hayir."""
 
-    def __init__(self):
+    def __init__(self, anlik=None):
+        # Ust surec sure dolunca bu sureci oldurur; --iz kaydi kaybolmasin diye konusma arada bir yazilir.
+        self.anlik, self._son_anlik = anlik, time.time()
         self.hep_izin = True
         self.bekleyen = None
         self.kayit = {"komutlar": [], "duzenlenen": [], "reddedilen": [], "okunan": [], "araclar": 0, "uyari": [], "hata": [],
@@ -143,7 +145,9 @@ class OlcumArayuzu:
         self.kayit["arac_adlari"][ad] = self.kayit["arac_adlari"].get(ad, 0) + 1
 
     def kontrol(self):
-        pass
+        if self.anlik and time.time() - self._son_anlik >= ANLIK_ARALIGI:
+            self._son_anlik = time.time()
+            self.anlik()
 
     def dusunce(self, m):
         self.kayit["dusunce"] += len(m)
@@ -189,6 +193,9 @@ class OlcumArayuzu:
         return "e"
 
 
+ANLIK_ARALIGI = 10  # --iz: zaman asiminda kalan son kayit en fazla bu kadar saniye eski
+
+
 def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
     gecici = Path(tempfile.mkdtemp())
     os.environ["KOD_AJANI_VERI"] = str(gecici / "veri")
@@ -197,7 +204,8 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
     try:
         proje_kur(g, kok)
         once = {p.relative_to(kok).as_posix(): p.read_bytes() for p in kok.rglob("*") if p.is_file()}
-        ar = OlcumArayuzu()
+        ar = OlcumArayuzu(lambda: iz_yaz(g, model, {"yarim": True, "sure_sn": round(time.time() - bas, 1)},
+                                         ajan.mesajlar, ajan.cagri_izleri) if os.environ.get("KOD_AJANI_IZ") else None)
         baglam = {"baglam": int(os.environ["KOD_AJANI_OLCUM_BAGLAM"])} if os.environ.get("KOD_AJANI_OLCUM_BAGLAM") else {}
         ajan = a.Ajan(kok, model, maks_adim=maks_adim, arayuz=ar, harita_butce=harita, korumali=IMAJ, **baglam)
         ajan.dusunme_seviyesi = os.environ.get("KOD_AJANI_DUSUNME") or None  # --dusunme-seviyesi
@@ -224,7 +232,7 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
         sonuc["yanlis_iddia"] = bool(not basari and tur_tamam and g["tur"] != "soru" and not ITIRAF.search(k["yanit"][-800:]))
         sonuc["gereksiz_dosya"] = beklenmeyen_dosyalar(g, degisen)
         sonuc["baglam"] = baglam_ozeti(ajan.cagri_olcumleri, ajan.baglam)
-        iz_yaz(g, model, sonuc, ajan.mesajlar, ajan.cagri_izleri)
+        iz_yaz(g, model, sonuc, ajan.mesajlar + ajan.silinen_tur, ajan.cagri_izleri)
         return sonuc
     finally:
         shutil.rmtree(gecici, ignore_errors=True)
@@ -240,6 +248,7 @@ def iz_yaz(g: dict, model: str, sonuc: dict, mesajlar: list[dict], cagrilar: lis
     ad = f"{os.environ.get('KOD_AJANI_IZ_ETIKET', 'olcum')}-{g['ad']}-{os.getpid()}.json"
     veri = {"gorev": g["ad"], "istek": g["istek"], "model": model, "basari": sonuc.get("basari", False),
             "gereksiz_dosya": sonuc.get("gereksiz_dosya"), "degisen": sonuc.get("degisen"), "sure_sn": sonuc.get("sure_sn"),
+            "yarim": sonuc.get("yarim", False),
             "araclar": a.ollama_araclari(), "cagrilar": cagrilar or [], "mesajlar": mesajlar}
     (hedef / ad).write_text(json.dumps(veri, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
 
