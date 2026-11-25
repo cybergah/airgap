@@ -2,3 +2,16 @@ __pycache__/
 *.pyc
 dist/
 build/
+
+# Ham olcum kosulari: ozetleri olcum-sonuclari/*.md raporlarinda, dosyalar yerel arsivde
+olcum-sonuclari/adim60-eski-*
+olcum-sonuclari/adim60-yeni-*
+olcum-sonuclari/anahat-eski-*
+olcum-sonuclari/anahat-yeni-*
+olcum-sonuclari/erken-eski-*
+olcum-sonuclari/erken-yeni-*
+olcum-sonuclari/toplu-eski-*
+olcum-sonuclari/toplu-yeni-*
+olcum-sonuclari/qwen-tam-*
+olcum-sonuclari/qwen-uyum.*
+olcum-sonuclari/arsiv/
