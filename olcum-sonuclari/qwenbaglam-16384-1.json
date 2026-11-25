@@ -1,0 +1,370 @@
+{
+ "etiket": "qwenbaglam-16384-1",
+ "tarih": "2026-11-25 11:55",
+ "model": "qwen3.6:35b-a3b",
+ "baglam": 16384,
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 1,
+  "oran": 0.25,
+  "guven_alt": 0.046,
+  "guven_ust": 0.699,
+  "ortanca_sure": 356.5,
+  "toplam_sure": 929,
+  "turler": {
+   "zor_ozellik": [
+    0,
+    2
+   ],
+   "zor_yaniltici": [
+    1,
+    1
+   ],
+   "zor_buyuk": [
+    0,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zc_peek",
+   "tur": "zor_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 416.3,
+   "gizli_test": false,
+   "arac": 35,
+   "arac_adlari": {
+    "read_file": 31,
+    "search_code": 1,
+    "search_text": 1,
+    "edit_file": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 19260,
+   "reddedilen": [],
+   "hata_sayisi": 2,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "5. **`TLRUCache`**: Override to check expiration (returns default if expired).\n6. **`.pyi` stub**: Add the signature.Now let me add the `peek` method to `LRUCache`:Now let me add `peek` to `LFUCache`:",
+   "test_cikti": "----------------------------------------------\nTraceback (most recent call last):\n  File \"/work/_gizli_test.py\", line 19, in test_gizli\n    self.assertNotIn('a', l)\n    ~~~~~~~~~~~~~~~~^^^^^^^^\nAssertionError: 'a' unexpectedly found in LFUCache({'a': 1, 'c': 3}, maxsize=2, currsize=2)\n\n----------------------------------------------------------------------\nRan 1 test in 0.004s\n\nFAILED (failures=1)\n",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n    def clear(self):\n    def clear(self):\n    def clear(self):"
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 342070,
+    "okunan_en_fazla": 12403,
+    "okuma_sn": 214.6,
+    "uretim_sn": 108.8,
+    "tam_okuma": 0,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4169,
+     11909,
+     12403,
+     9862,
+     11114,
+     11600,
+     10999,
+     11864,
+     11610,
+     12021,
+     11810,
+     11830,
+     12131,
+     11732,
+     11774,
+     12252,
+     12254,
+     10864,
+     11677,
+     11880,
+     10956,
+     11617,
+     12150,
+     12166,
+     11406,
+     11792,
+     12107,
+     11041,
+     11322,
+     11758
+    ],
+    "okuma_sureleri": [
+     62.86,
+     7.92,
+     8.37,
+     5.86,
+     7.13,
+     7.6,
+     7.03,
+     1.09,
+     7.59,
+     7.99,
+     7.79,
+     7.66,
+     8.09,
+     7.61,
+     7.65,
+     8.16,
+     8.13,
+     6.93,
+     1.09,
+     0.51,
+     7.05,
+     0.82,
+     1.52,
+     1.56,
+     7.53,
+     0.24,
+     0.52,
+     7.22,
+     0.55,
+     0.56
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zc_istatistik",
+   "tur": "zor_yaniltici",
+   "tur_tamam": true,
+   "sure_sn": 57.0,
+   "gizli_test": true,
+   "arac": 12,
+   "arac_adlari": {
+    "read_file": 2,
+    "search_text": 1,
+    "edit_file": 1,
+    "run_command": 8
+   },
+   "komut": 8,
+   "okunan": [
+    "src/cachetools/_decorator.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 2714,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "AGENTS.md needs attention: contains network access or URLs. The model sees it as a note from the repository author, not as rules; still, read the file yourself."
+   ],
+   "yanit_sonu": "in bu sıralama yanlış verilmişti.\n\n**Doğrulama:** `@cached(LRUCache(10), info=True)` ile aynı argümanla 3 kez çağrınca artık `hits=2, misses=1` doğru şekilde döndürülüyor. TTLCache ile de test edildi.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 11,
+    "okunan_toplam": 89439,
+    "okunan_en_fazla": 10092,
+    "okuma_sn": 11.5,
+    "uretim_sn": 37.6,
+    "tam_okuma": 1,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4115,
+     6957,
+     7478,
+     7854,
+     8172,
+     8481,
+     8796,
+     8915,
+     9012,
+     9567,
+     10092
+    ],
+    "okuma_sureleri": [
+     3.93,
+     4.33,
+     0.55,
+     0.21,
+     0.34,
+     0.39,
+     0.38,
+     0.31,
+     0.27,
+     0.47,
+     0.37
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_running_sum",
+   "tur": "zor_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 99.0,
+   "gizli_test": false,
+   "arac": 20,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 1,
+    "read_file": 10,
+    "edit_file": 3,
+    "run_command": 5
+   },
+   "komut": 5,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi",
+    "docs/api.rst",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi",
+    "tests/test_recipes.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi"
+   ],
+   "degisen": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi"
+   ],
+   "dusunce": 3982,
+   "reddedilen": [],
+   "hata_sayisi": 5,
+   "son_uyari": [
+    "The model tried the same failing call 5 times; turn stopped: edit_file({\"new_text\": \"def running_max(\\n    iterable: Iterable[_NumberT], *, maxlen: int | None = ...\\n) -> Iterator[_NumberT]: ...\\ndef "
+   ],
+   "yanit_sonu": "`running_mean`'in hemen altına ekleyeceğim (alfabetik sırada `running_max` ile `running_mean` arasında).Şimdi tip dosyasına ekleyeyim:`__all__` zaten eklenmiş (satır 55). Şimdi tip tanımını ekleyeyim:",
+   "test_cikti": "erator[_NumberT]: ...\\n\\n@dataclass(frozen=True, slots=True)\\nclass Stats:\\n    size: int\\n    minimum: float\\n    median: float\\n    maximum: float\\n    mean: float\\n\\ndef running_statistics(\\n    iterable: Iterable[_NumberT], *, maxlen: int | None = ...\\n) -> Iterator[Stats]: ...\\n'\n\n----------------------------------------------------------------------\nRan 1 test in 0.029s\n\nFAILED (failures=1)\n",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\ndef running_max(\ndef running_mean(\ndef running_min("
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 20,
+    "okunan_toplam": 203639,
+    "okunan_en_fazla": 12383,
+    "okuma_sn": 34.2,
+    "uretim_sn": 45.7,
+    "tam_okuma": 2,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2871,
+     4921,
+     7024,
+     8592,
+     9377,
+     9852,
+     10377,
+     10524,
+     10757,
+     11056,
+     11296,
+     11651,
+     11794,
+     11367,
+     11587,
+     11696,
+     12042,
+     12315,
+     12383,
+     12157
+    ],
+    "okuma_sureleri": [
+     3.22,
+     2.03,
+     2.1,
+     1.71,
+     1.03,
+     0.39,
+     0.22,
+     0.27,
+     0.35,
+     0.49,
+     0.36,
+     0.54,
+     0.44,
+     8.68,
+     0.41,
+     0.23,
+     0.48,
+     0.4,
+     1.18,
+     9.6
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_windowed_adim",
+   "tur": "zor_buyuk",
+   "tur_tamam": false,
+   "sure_sn": 356.5,
+   "gizli_test": false,
+   "arac": 2,
+   "arac_adlari": {
+    "read_file": 2
+   },
+   "komut": 0,
+   "okunan": [
+    "more_itertools/more.py",
+    "more_itertools/more.py"
+   ],
+   "degisen": [],
+   "dusunce": 90567,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "The model thought for too long; retrying this step with less thinking."
+   ],
+   "yanit_sonu": "Önce `windowed` fonksiyonunun implementasyonunu inceliyorum.Önce mevcut `windowed` fonksiyonunu ve testleri inceliyorum.",
+   "test_cikti": "), (3, 4, 5)] != [(0, 1, 2), (2, 3, 4), (4, 5, None)]\n\nFirst differing element 1:\n(3, 4, 5)\n(2, 3, 4)\n\nSecond list contains 1 additional elements.\nFirst extra element 2:\n(4, 5, None)\n\n- [(0, 1, 2), (3, 4, 5)]\n+ [(0, 1, 2), (2, 3, 4), (4, 5, None)]\n?              +++   +++++    ++++++\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.011s\n\nFAILED (failures=1)\n",
+   "son_hata": [
+    "The model kept thinking for too long; the turn was stopped."
+   ],
+   "basari": false,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 2,
+    "okunan_toplam": 7010,
+    "okunan_en_fazla": 4161,
+    "okuma_sn": 3.3,
+    "uretim_sn": 4.8,
+    "tam_okuma": 0,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2849,
+     4161
+    ],
+    "okuma_sureleri": [
+     2.95,
+     0.34
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}

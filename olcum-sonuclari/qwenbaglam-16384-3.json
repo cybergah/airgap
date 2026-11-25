@@ -1,0 +1,139 @@
+{
+ "etiket": "qwenbaglam-16384-3",
+ "tarih": "2026-11-25 13:47",
+ "model": "qwen3.6:35b-a3b",
+ "baglam": 16384,
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 1,
+  "oran": 0.25,
+  "guven_alt": 0.046,
+  "guven_ust": 0.699,
+  "ortanca_sure": 600,
+  "toplam_sure": 2059,
+  "turler": {
+   "zor_ozellik": [
+    0,
+    2
+   ],
+   "zor_yaniltici": [
+    1,
+    1
+   ],
+   "zor_buyuk": [
+    0,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 3,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zc_peek",
+   "tur": "zor_ozellik",
+   "basari": false,
+   "zaman_asimi": true,
+   "sure_sn": 600,
+   "tekrar": 0
+  },
+  {
+   "gorev": "zc_istatistik",
+   "tur": "zor_yaniltici",
+   "tur_tamam": true,
+   "sure_sn": 259.0,
+   "gizli_test": true,
+   "arac": 15,
+   "arac_adlari": {
+    "read_file": 5,
+    "run_command": 9,
+    "edit_file": 1
+   },
+   "komut": 9,
+   "okunan": [
+    "src/cachetools/_decorator.py",
+    "src/cachetools/func.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 7026,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": "ache.maxsize, cache.currsize)` olarak düzelttim.\n\n**Doğrulama:**\n- Manuel test ile `hits=2, misses=1` sonucu doğrulandı\n- `tests.test_cached` ve `tests.test_cachedmethod` modüllerindeki 148 test geçti",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 14,
+    "okunan_toplam": 140856,
+    "okunan_en_fazla": 11586,
+    "okuma_sn": 124.1,
+    "uretim_sn": 123.8,
+    "tam_okuma": 3,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4115,
+     7556,
+     8565,
+     9795,
+     10451,
+     10653,
+     11439,
+     11125,
+     11380,
+     11498,
+     11586,
+     11239,
+     11525,
+     9929
+    ],
+    "okuma_sureleri": [
+     15.3,
+     12.84,
+     2.17,
+     5.81,
+     0.74,
+     0.43,
+     1.38,
+     28.45,
+     0.51,
+     0.36,
+     0.34,
+     29.49,
+     1.26,
+     25.02
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_running_sum",
+   "tur": "zor_ozellik",
+   "basari": false,
+   "zaman_asimi": true,
+   "sure_sn": 600,
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_windowed_adim",
+   "tur": "zor_buyuk",
+   "basari": false,
+   "zaman_asimi": true,
+   "sure_sn": 600,
+   "tekrar": 0
+  }
+ ]
+}

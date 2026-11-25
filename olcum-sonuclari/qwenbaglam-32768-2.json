@@ -1,0 +1,358 @@
+{
+ "etiket": "qwenbaglam-32768-2",
+ "tarih": "2026-11-25 12:37",
+ "model": "qwen3.6:35b-a3b",
+ "baglam": 32768,
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 3,
+  "oran": 0.75,
+  "guven_alt": 0.301,
+  "guven_ust": 0.954,
+  "ortanca_sure": 375.5,
+  "toplam_sure": 1244,
+  "turler": {
+   "zor_ozellik": [
+    2,
+    2
+   ],
+   "zor_yaniltici": [
+    1,
+    1
+   ],
+   "zor_buyuk": [
+    0,
+    1
+   ]
+  },
+  "tamamlanan": 1,
+  "zaman_asimi": 1,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 1
+ },
+ "sonuclar": [
+  {
+   "gorev": "zc_peek",
+   "tur": "zor_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 375.5,
+   "gizli_test": true,
+   "arac": 36,
+   "arac_adlari": {
+    "search_code": 2,
+    "read_file": 21,
+    "edit_file": 8,
+    "search_text": 2,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "tests/test_cache.py",
+    "tests/__init__.py",
+    "tests/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 16910,
+   "reddedilen": [],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "yi` stub file:Now let me add the `peek` method to the stub file. I need to add it to `Cache`, `LFUCache`, `LRUCache`, `TTLCache`, and `TLRUCache`:Let me verify the implementation by running the tests:",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text 2 kez geciyor; daha fazla cevre metin ekle"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 640506,
+    "okunan_en_fazla": 24666,
+    "okuma_sn": 207.8,
+    "uretim_sn": 152.5,
+    "tam_okuma": 10,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4170,
+     12990,
+     16096,
+     17204,
+     19645,
+     22043,
+     23868,
+     24273,
+     21292,
+     21526,
+     21935,
+     23317,
+     20370,
+     20779,
+     21204,
+     21508,
+     21687,
+     22717,
+     23346,
+     23890,
+     23070,
+     23491,
+     23784,
+     23919,
+     23788,
+     23476,
+     24397,
+     22389,
+     23666,
+     24666
+    ],
+    "okuma_sureleri": [
+     4.09,
+     8.68,
+     3.18,
+     1.22,
+     2.7,
+     2.75,
+     20.49,
+     0.62,
+     17.81,
+     0.3,
+     0.34,
+     1.21,
+     16.7,
+     0.22,
+     0.57,
+     0.23,
+     0.37,
+     1.16,
+     19.93,
+     0.88,
+     19.58,
+     0.58,
+     0.24,
+     0.34,
+     20.53,
+     20.05,
+     21.06,
+     18.9,
+     0.38,
+     2.73
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zc_istatistik",
+   "tur": "zor_yaniltici",
+   "tur_tamam": true,
+   "sure_sn": 54.2,
+   "gizli_test": true,
+   "arac": 13,
+   "arac_adlari": {
+    "read_file": 2,
+    "search_text": 1,
+    "run_command": 9,
+    "edit_file": 1
+   },
+   "komut": 9,
+   "okunan": [
+    "src/cachetools/_decorator.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 3633,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command uses an absolute path, may reach outside the project."
+   ],
+   "yanit_sonu": "10), info=True)` ile 3 çağrı sonrası `hits=2, misses=1` artık doğru raporlanıyor\n- `tests/test_cached.py`: 67 test → OK\n- `tests/test_cachedmethod.py`: 81 test → OK\n- `tests/test_ttl.py`: 34 test → OK",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 12,
+    "okunan_toplam": 103618,
+    "okunan_en_fazla": 11371,
+    "okuma_sn": 12.1,
+    "uretim_sn": 31.3,
+    "tam_okuma": 0,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4113,
+     6944,
+     7714,
+     8158,
+     8352,
+     8621,
+     8865,
+     8977,
+     9208,
+     10323,
+     10972,
+     11371
+    ],
+    "okuma_sureleri": [
+     3.95,
+     2.65,
+     0.51,
+     0.34,
+     0.55,
+     0.21,
+     0.55,
+     0.27,
+     0.47,
+     1.19,
+     0.83,
+     0.55
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_running_sum",
+   "tur": "zor_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 214.2,
+   "gizli_test": true,
+   "arac": 40,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 5,
+    "read_file": 20,
+    "edit_file": 10,
+    "run_command": 4
+   },
+   "komut": 4,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi",
+    "more_itertools/recipes.pyi",
+    "docs/api.rst",
+    "tests/test_recipes.py",
+    "README.rst",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "README.rst",
+    "docs/api.rst",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi"
+   ],
+   "dusunce": 7098,
+   "reddedilen": [
+    "test: tests/test_recipes.py",
+    "test: tests/test_recipes.py"
+   ],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Reached the limit of 30 steps; stopped."
+   ],
+   "yanit_sonu": "layalım:\n\n- maxlen=3: [40]→40, [40,30]→70, [40,30,50]→120, [30,50,46]→126, [50,46,39]→135, [46,39,44]→129\n\nDoğru sonuç: `[40, 70, 120, 126, 135, 129]`. Kodum doğru, doctest'taki beklenen değer hatalı.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "README.rst"
+   ],
+   "baglam": {
+    "cagri": 30,
+    "okunan_toplam": 426925,
+    "okunan_en_fazla": 21397,
+    "okuma_sn": 41.6,
+    "uretim_sn": 108.9,
+    "tam_okuma": 1,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2869,
+     5443,
+     7679,
+     8623,
+     9419,
+     10125,
+     11474,
+     11903,
+     12383,
+     12576,
+     13085,
+     13680,
+     14035,
+     14235,
+     14373,
+     14625,
+     15426,
+     15551,
+     14766,
+     15510,
+     15782,
+     16501,
+     17569,
+     18282,
+     18927,
+     19459,
+     20530,
+     20047,
+     20651,
+     21397
+    ],
+    "okuma_sureleri": [
+     2.89,
+     2.5,
+     2.08,
+     1.07,
+     1.01,
+     0.91,
+     1.57,
+     0.49,
+     0.22,
+     0.45,
+     0.18,
+     0.61,
+     0.2,
+     0.2,
+     0.2,
+     0.21,
+     1.03,
+     0.38,
+     12.76,
+     0.31,
+     0.48,
+     0.31,
+     1.04,
+     0.33,
+     0.44,
+     0.47,
+     1.03,
+     5.97,
+     0.47,
+     1.77
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_windowed_adim",
+   "tur": "zor_buyuk",
+   "basari": false,
+   "zaman_asimi": true,
+   "sure_sn": 600,
+   "tekrar": 0
+  }
+ ]
+}

@@ -1,0 +1,248 @@
+{
+ "etiket": "qwenbaglam-16384-2",
+ "tarih": "2026-11-25 13:13",
+ "model": "qwen3.6:35b-a3b",
+ "baglam": 16384,
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 2,
+  "oran": 0.5,
+  "guven_alt": 0.15,
+  "guven_ust": 0.85,
+  "ortanca_sure": 600,
+  "toplam_sure": 2115,
+  "turler": {
+   "zor_ozellik": [
+    1,
+    2
+   ],
+   "zor_yaniltici": [
+    1,
+    1
+   ],
+   "zor_buyuk": [
+    0,
+    1
+   ]
+  },
+  "tamamlanan": 2,
+  "zaman_asimi": 2,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 0
+ },
+ "sonuclar": [
+  {
+   "gorev": "zc_peek",
+   "tur": "zor_ozellik",
+   "basari": false,
+   "zaman_asimi": true,
+   "sure_sn": 600,
+   "tekrar": 0
+  },
+  {
+   "gorev": "zc_istatistik",
+   "tur": "zor_yaniltici",
+   "tur_tamam": true,
+   "sure_sn": 531.1,
+   "gizli_test": true,
+   "arac": 20,
+   "arac_adlari": {
+    "read_file": 9,
+    "search_text": 3,
+    "edit_file": 1,
+    "run_command": 7
+   },
+   "komut": 7,
+   "okunan": [
+    "src/cachetools/_decorator.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/_decorator.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 19212,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "ahip, ancak `_make_info` metodu bunları yanlış sırada (`misses, hits`) geçiriyordu.\n\n**Doğru kullanım:** `cls(hits, misses, cache.maxsize, cache.currsize)` şeklinde `hits` önce `misses` sonra gelmeli.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 18,
+    "okunan_toplam": 195454,
+    "okunan_en_fazla": 14452,
+    "okuma_sn": 215.8,
+    "uretim_sn": 297.6,
+    "tam_okuma": 6,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4114,
+     7227,
+     10780,
+     12012,
+     10348,
+     11130,
+     11379,
+     11446,
+     11289,
+     11424,
+     10932,
+     11040,
+     11554,
+     12028,
+     14452,
+     10858,
+     11829,
+     11612
+    ],
+    "okuma_sureleri": [
+     13.37,
+     10.88,
+     27.43,
+     4.88,
+     24.4,
+     0.28,
+     0.47,
+     0.25,
+     4.34,
+     0.35,
+     26.24,
+     0.26,
+     28.88,
+     31.36,
+     11.4,
+     26.01,
+     1.11,
+     3.92
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_running_sum",
+   "tur": "zor_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 383.6,
+   "gizli_test": true,
+   "arac": 29,
+   "arac_adlari": {
+    "read_file": 10,
+    "search_text": 5,
+    "list_files": 1,
+    "edit_file": 7,
+    "run_command": 6
+   },
+   "komut": 6,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi",
+    "more_itertools/recipes.pyi",
+    "docs/api.rst",
+    "tests/test_recipes.py",
+    "tests/test_recipes.py",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "docs/api.rst",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi"
+   ],
+   "dusunce": 6403,
+   "reddedilen": [
+    "test: tests/test_recipes.py"
+   ],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": ", 70, 120, 166, 205, 249]`\n- `maxlen=3`: `[40, 70, 120, 126, 135, 129]`\n- `maxlen=1`: son değerleri döndürüyor\n- `maxlen=0` ve `maxlen=-1`: `ValueError` veriyor\n- Boş iterable: `[]`\n- `__all__`'da var",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 24,
+    "okunan_toplam": 236284,
+    "okunan_en_fazla": 12232,
+    "okuma_sn": 155.6,
+    "uretim_sn": 182.9,
+    "tam_okuma": 3,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2870,
+     4957,
+     6305,
+     6637,
+     7119,
+     7672,
+     8914,
+     9332,
+     10028,
+     10316,
+     10791,
+     10935,
+     11061,
+     11210,
+     11398,
+     11521,
+     12128,
+     12178,
+     11956,
+     12104,
+     11105,
+     11635,
+     11880,
+     12232
+    ],
+    "okuma_sureleri": [
+     10.7,
+     7.27,
+     4.31,
+     1.15,
+     1.74,
+     1.68,
+     4.15,
+     0.48,
+     3.88,
+     0.27,
+     0.3,
+     0.36,
+     0.31,
+     0.6,
+     0.32,
+     0.28,
+     0.84,
+     39.02,
+     37.98,
+     0.41,
+     32.17,
+     2.05,
+     0.45,
+     4.93
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_windowed_adim",
+   "tur": "zor_buyuk",
+   "basari": false,
+   "zaman_asimi": true,
+   "sure_sn": 600,
+   "tekrar": 0
+  }
+ ]
+}

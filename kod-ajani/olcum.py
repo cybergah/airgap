@@ -198,7 +198,8 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
         proje_kur(g, kok)
         once = {p.relative_to(kok).as_posix(): p.read_bytes() for p in kok.rglob("*") if p.is_file()}
         ar = OlcumArayuzu()
-        ajan = a.Ajan(kok, model, maks_adim=maks_adim, arayuz=ar, harita_butce=harita, korumali=IMAJ)
+        baglam = {"baglam": int(os.environ["KOD_AJANI_OLCUM_BAGLAM"])} if os.environ.get("KOD_AJANI_OLCUM_BAGLAM") else {}
+        ajan = a.Ajan(kok, model, maks_adim=maks_adim, arayuz=ar, harita_butce=harita, korumali=IMAJ, **baglam)
         ajan.dusunme_seviyesi = os.environ.get("KOD_AJANI_DUSUNME") or None  # --dusunme-seviyesi
         bas = time.time()
         tur_tamam = ajan.tur(g["istek"])
@@ -388,6 +389,7 @@ def main() -> int:
     ay.add_argument("--tekrar", type=int, default=1)
     ay.add_argument("--maks-adim", type=int, default=20)
     ay.add_argument("--dusunme-seviyesi", choices=a.DUSUNME_SEVIYELERI + ("uyarlanir",), help="gpt-oss dusunme miktari (bos: varsayilan)")
+    ay.add_argument("--baglam", type=int, help="baglam boyutu (num_ctx); bos: ajanin varsayilani")
     ay.add_argument("--sure", type=int, default=300, help="gorev basina saniye")
     ay.add_argument("--harita", type=int, default=1000)
     ay.add_argument("--sadece", help="virgulle gorev adlari")
@@ -401,6 +403,8 @@ def main() -> int:
         os.environ["KOD_AJANI_IZ_ETIKET"] = s.etiket
     if s.dusunme_seviyesi:
         os.environ["KOD_AJANI_DUSUNME"] = s.dusunme_seviyesi  # alt sureclere de gecsin
+    if s.baglam:
+        os.environ["KOD_AJANI_OLCUM_BAGLAM"] = str(s.baglam)
     gorevler = {"gercek": ogr.GOREVLER, "zor": ozr.GOREVLER}.get(s.set, og.GOREVLER)
     if s.dogrula:
         hata = 0
@@ -450,7 +454,7 @@ def main() -> int:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
             print(f"{'OK ' if r.get('basari') else 'X  '} {g['ad']:<24} {r.get('sure_sn')}s arac={r.get('arac')} "
                   f"{'ZAMAN ASIMI' if r.get('zaman_asimi') else ''}{(r.get('ajan_hatasi') or '')[-120:]}", flush=True)
-    veri = {"etiket": s.etiket, "tarih": datetime.now().strftime("%Y-%m-%d %H:%M"), "model": s.model, "tekrar": s.tekrar,
+    veri = {"etiket": s.etiket, "tarih": datetime.now().strftime("%Y-%m-%d %H:%M"), "model": s.model, "baglam": s.baglam, "tekrar": s.tekrar,
             "harita": s.harita, "ozet": ozet_hesapla(sonuclar), "sonuclar": sonuclar}
     (SONUC_KLASORU / f"{s.etiket}.json").write_text(json.dumps(veri, ensure_ascii=False, indent=1), encoding="utf-8")
     karsi = None

@@ -1,0 +1,418 @@
+{
+ "etiket": "qwenbaglam-32768-3",
+ "tarih": "2026-11-25 14:08",
+ "model": "qwen3.6:35b-a3b",
+ "baglam": 32768,
+ "tekrar": 1,
+ "harita": 1000,
+ "ozet": {
+  "n": 4,
+  "basari": 4,
+  "oran": 1.0,
+  "guven_alt": 0.51,
+  "guven_ust": 1.0,
+  "ortanca_sure": 390.3,
+  "toplam_sure": 1229,
+  "turler": {
+   "zor_ozellik": [
+    2,
+    2
+   ],
+   "zor_yaniltici": [
+    1,
+    1
+   ],
+   "zor_buyuk": [
+    1,
+    1
+   ]
+  },
+  "tamamlanan": 3,
+  "zaman_asimi": 0,
+  "yanlis_iddia": 0,
+  "gereksiz_dosya": 1
+ },
+ "sonuclar": [
+  {
+   "gorev": "zc_peek",
+   "tur": "zor_ozellik",
+   "tur_tamam": true,
+   "sure_sn": 264.4,
+   "gizli_test": true,
+   "arac": 28,
+   "arac_adlari": {
+    "read_file": 8,
+    "edit_file": 6,
+    "run_command": 14
+   },
+   "komut": 14,
+   "okunan": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py",
+    "tests/test_cache.py",
+    "tests/__init__.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py",
+    "src/cachetools/__init__.pyi"
+   ],
+   "dusunce": 8796,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "ault` for expired items\n- `TLRUCache.peek()` returns `default` for expired items\n- `FIFOCache` and `RRCache` inherit the base implementation correctly\n- Both stub and source files parse without errors",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 26,
+    "okunan_toplam": 551927,
+    "okunan_en_fazla": 24257,
+    "okuma_sn": 91.4,
+    "uretim_sn": 108.5,
+    "tam_okuma": 4,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4169,
+     12020,
+     16631,
+     16781,
+     20801,
+     22468,
+     22900,
+     23172,
+     22062,
+     22626,
+     22823,
+     23077,
+     23332,
+     23477,
+     23579,
+     23680,
+     23775,
+     24061,
+     20532,
+     21326,
+     21778,
+     22581,
+     22770,
+     23354,
+     23895,
+     24257
+    ],
+    "okuma_sureleri": [
+     5.38,
+     8.4,
+     5.22,
+     0.36,
+     4.86,
+     0.25,
+     0.62,
+     0.24,
+     19.12,
+     0.25,
+     0.26,
+     0.26,
+     0.26,
+     0.38,
+     0.28,
+     0.37,
+     0.27,
+     22.8,
+     18.17,
+     0.89,
+     0.68,
+     0.52,
+     0.29,
+     0.49,
+     0.37,
+     0.45
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zc_istatistik",
+   "tur": "zor_yaniltici",
+   "tur_tamam": true,
+   "sure_sn": 114.5,
+   "gizli_test": true,
+   "arac": 19,
+   "arac_adlari": {
+    "read_file": 5,
+    "edit_file": 1,
+    "run_command": 11,
+    "search_code": 1,
+    "search_text": 1
+   },
+   "komut": 11,
+   "okunan": [
+    "src/cachetools/_decorator.py",
+    "src/cachetools/__init__.py",
+    "src/cachetools/_cached.py",
+    "src/cachetools/__init__.py",
+    "tests/test_cached.py"
+   ],
+   "degisen": [
+    "src/cachetools/__init__.py"
+   ],
+   "dusunce": 8660,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [
+    "Warning: this command installs or publishes packages."
+   ],
+   "yanit_sonu": "2, misses=1` beklenirken `hits=1, misses=2` dönmesine yol açıyordu.\n\n**Doğrulama:** \n- Manuel test ile 3 çağrıda `hits=2, misses=1` döndüğü doğrulandı.\n- `tests.test_cached` modülündeki 67 test geçti.",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 19,
+    "okunan_toplam": 200670,
+    "okunan_en_fazla": 13675,
+    "okuma_sn": 24.4,
+    "uretim_sn": 67.5,
+    "tam_okuma": 1,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     4114,
+     6391,
+     7066,
+     8278,
+     9334,
+     9835,
+     10081,
+     10275,
+     10371,
+     10652,
+     11668,
+     12086,
+     12302,
+     12624,
+     13161,
+     13403,
+     13519,
+     13675,
+     11835
+    ],
+    "okuma_sureleri": [
+     5.14,
+     2.21,
+     0.55,
+     1.45,
+     0.6,
+     0.3,
+     0.39,
+     0.34,
+     0.35,
+     0.41,
+     0.51,
+     0.5,
+     0.3,
+     0.78,
+     0.61,
+     0.45,
+     0.35,
+     0.43,
+     8.76
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_running_sum",
+   "tur": "zor_ozellik",
+   "tur_tamam": false,
+   "sure_sn": 390.3,
+   "gizli_test": true,
+   "arac": 28,
+   "arac_adlari": {
+    "search_code": 1,
+    "search_text": 3,
+    "read_file": 14,
+    "edit_file": 7,
+    "run_command": 3
+   },
+   "komut": 3,
+   "okunan": [
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi",
+    "more_itertools/recipes.pyi",
+    "docs/api.rst",
+    "README.rst",
+    "tests/test_recipes.py",
+    "more_itertools/recipes.py"
+   ],
+   "degisen": [
+    "README.rst",
+    "docs/api.rst",
+    "more_itertools/recipes.py",
+    "more_itertools/recipes.pyi"
+   ],
+   "dusunce": 4282,
+   "reddedilen": [
+    "test: tests/test_recipes.py"
+   ],
+   "hata_sayisi": 1,
+   "son_uyari": [
+    "The model asked again for a rejected action; turn stopped: edit_file({\"new_text\": \"class RunningWindowSizeTests(TestCase):\\n    functions = (\\n        mi.running_min,\\n        mi.running_max,\\n       "
+   ],
+   "yanit_sonu": "imdi test dosyasına `running_sum` için testler ekleyelim:Önce fonksiyonun çalıştığını doğrulayayım:Fonksiyon doğru çalışıyor (complex test'im yanlış değeri bekliyordu). Şimdi test dosyasına ekleyelim:",
+   "test_cikti": "",
+   "son_hata": [
+    "x old_text dosyada bulunamadi. Dosyadaki en yakin satirlar, birebir kopyala:\n    return _windowed_running_min(iterator, maxlen)\n    return _windowed_running_mean(iterator, maxlen)\n    return _windowed"
+   ],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [
+    "README.rst"
+   ],
+   "baglam": {
+    "cagri": 24,
+    "okunan_toplam": 280063,
+    "okunan_en_fazla": 15940,
+    "okuma_sn": 91.9,
+    "uretim_sn": 199.8,
+    "tam_okuma": 2,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2870,
+     5485,
+     8296,
+     9233,
+     9976,
+     10091,
+     10411,
+     10902,
+     11449,
+     11675,
+     11876,
+     12374,
+     12508,
+     12697,
+     12870,
+     13316,
+     13530,
+     14102,
+     13526,
+     13777,
+     13966,
+     14199,
+     14994,
+     15940
+    ],
+    "okuma_sureleri": [
+     3.16,
+     2.91,
+     13.23,
+     5.06,
+     3.95,
+     0.38,
+     1.39,
+     0.41,
+     0.82,
+     0.94,
+     0.97,
+     0.32,
+     0.36,
+     0.36,
+     0.29,
+     0.29,
+     0.74,
+     2.85,
+     48.71,
+     0.44,
+     0.87,
+     0.51,
+     0.51,
+     2.39
+    ]
+   },
+   "tekrar": 0
+  },
+  {
+   "gorev": "zm_windowed_adim",
+   "tur": "zor_buyuk",
+   "tur_tamam": true,
+   "sure_sn": 459.9,
+   "gizli_test": true,
+   "arac": 13,
+   "arac_adlari": {
+    "search_text": 1,
+    "read_file": 1,
+    "run_command": 10,
+    "edit_file": 1
+   },
+   "komut": 10,
+   "okunan": [
+    "more_itertools/more.py"
+   ],
+   "degisen": [
+    "more_itertools/more.py"
+   ],
+   "dusunce": 30344,
+   "reddedilen": [],
+   "hata_sayisi": 0,
+   "son_uyari": [],
+   "yanit_sonu": ", (2,3,4), (4,5,None)]` ✓ |\n| `step=1` | `[(0,1,2), (2,3,4), (3,4,5)]` | `[(0,1,2), (1,2,3), (2,3,4), (3,4,5)]` ✓ |\n| `step=3` | `[(0,1,2), (6,7,8)]` | `[(0,1,2), (3,4,5), (6,7,8), (9,None,None)]` ✓ |",
+   "test_cikti": "",
+   "son_hata": [],
+   "basari": true,
+   "yanlis_iddia": false,
+   "gereksiz_dosya": [],
+   "baglam": {
+    "cagri": 14,
+    "okunan_toplam": 155030,
+    "okunan_en_fazla": 18068,
+    "okuma_sn": 28.4,
+    "uretim_sn": 347.5,
+    "tam_okuma": 0,
+    "baglama_dayandi": 0,
+    "okunanlar": [
+     2849,
+     3080,
+     4055,
+     6340,
+     6586,
+     8814,
+     9218,
+     9687,
+     16639,
+     17231,
+     17367,
+     17463,
+     17633,
+     18068
+    ],
+    "okuma_sureleri": [
+     16.66,
+     0.73,
+     5.78,
+     0.58,
+     0.67,
+     0.4,
+     0.35,
+     0.82,
+     0.48,
+     0.59,
+     0.26,
+     0.23,
+     0.35,
+     0.47
+    ]
+   },
+   "tekrar": 0
+  }
+ ]
+}
