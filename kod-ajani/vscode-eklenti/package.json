@@ -94,7 +94,7 @@
         },
         "kodAjani.baglam": {
           "type": "number",
-          "default": 16384,
+          "default": 32768,
           "description": "Model context size (num_ctx)."
         },
         "kodAjani.maksAdim": {

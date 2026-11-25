@@ -31,9 +31,10 @@ MASAUSTU = KAYNAK / "masaustu"
 ARAYUZ = MASAUSTU / "arayuz" / "dist"  # React arayuzu (npm run build)
 VERI = Path(os.environ.get("KOD_AJANI_MASAUSTU_VERI") or Path(os.environ.get("APPDATA") or Path.home()) / "kod-ajani" / "masaustu")
 AYAR_DOSYASI = VERI / "ayarlar.json"
-VARSAYILAN_AYAR = {"model": "qwen3.6:35b-a3b", "gomme": "", "dusunme": "", "baglam": 16384, "maks_adim": 40,
+VARSAYILAN_AYAR = {"model": "qwen3.6:35b-a3b", "gomme": "", "dusunme": "", "baglam": 32768, "maks_adim": 40,
                    "harita_butcesi": 1000, "korumali": False, "korumali_imaj": "python:3.13-slim", "dil": "",
-                   "son_klasorler": []}
+                   "son_klasorler": [], "ayar_surumu": 2}
+GIZLI_AYARLAR = ("son_klasorler", "ayar_surumu")  # panelde gosterilmez, panelden degistirilemez
 YAYIN_SURESI = 8  # pencere kapandiktan sonra bekleme; sayfa yenilenirken (F5) akis bu kadar kopuk kalmaz
 CANLI_ARALIK = 4  # olay akisina bos satir araligi: kopan pencere en gec bu kadar saniyede anlasilir
 TURLER = {".js": "application/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".html": "text/html",
@@ -93,7 +94,13 @@ def ayar_oku() -> dict:
         kayitli = json.loads(AYAR_DOSYASI.read_text(encoding="utf-8-sig"))  # elle duzenlenip BOM eklenmis olabilir
     except (OSError, ValueError):
         kayitli = {}
-    return {**VARSAYILAN_AYAR, **(kayitli if isinstance(kayitli, dict) else {})}
+    kayitli = kayitli if isinstance(kayitli, dict) else {}
+    if kayitli.get("ayar_surumu", 1) < 2:
+        # Eski varsayilan 16K kayitli kaldiysa yeni varsayilana gecer; kullanicinin elle sectigi baska deger kalir.
+        if kayitli.get("baglam") == 16384:
+            kayitli["baglam"] = VARSAYILAN_AYAR["baglam"]
+        kayitli["ayar_surumu"] = VARSAYILAN_AYAR["ayar_surumu"]
+    return {**VARSAYILAN_AYAR, **kayitli}
 
 
 def ayar_yaz(ayar: dict) -> None:
@@ -391,11 +398,11 @@ class Uygulama:
             self.gecmis_kaydet()
             self.yayinla({"tur": "temizle"}, kaydet=False)
         elif tur == "ayar_al":
-            m["_kuyruk"].put({"tur": "ayarlar", "ayar": {k: v for k, v in self.ayar.items() if k != "son_klasorler"}})
+            m["_kuyruk"].put({"tur": "ayarlar", "ayar": {k: v for k, v in self.ayar.items() if k not in GIZLI_AYARLAR}})
         elif tur == "ayar_kaydet" and isinstance(m.get("ayar"), dict):
             yeni = dict(self.ayar)
             for k, v in m["ayar"].items():
-                if k in VARSAYILAN_AYAR and k != "son_klasorler" and type(v) is type(VARSAYILAN_AYAR[k]):
+                if k in VARSAYILAN_AYAR and k not in GIZLI_AYARLAR and type(v) is type(VARSAYILAN_AYAR[k]):
                     yeni[k] = v
             self.ayar = yeni
             ayar_yaz(yeni)

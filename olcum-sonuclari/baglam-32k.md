@@ -1,4 +1,4 @@
-# Qwen: 32K context instead of 16K
+# Qwen: 32K context instead of 16K (now the default)
 
 Qwen3.6 35B lost the same four hard-set tasks again and again. Traces (`qweniz-1..3`, `olcum.py --iz`) show that the
 16K context runs out:
@@ -27,4 +27,37 @@ The four lost tasks, 3 rounds, with 16K and 32K alternated in the same session, 
 - These are the four tasks Qwen lost, chosen for that reason. The full hard set must be checked before changing the
   default.
 
-Reports: `qwenbaglam-16384-1..3`, `qwenbaglam-32768-1..3`, `qweniz-1..3`.
+## Full hard set
+
+32K, 9 tasks × 3, against the six 16K rounds already on record (`ornek-yeni-1..3`, `qwensembol-eski-1..3`):
+
+| Task | 16K | 32K |
+|---|---|---|
+| zc_anahtar, zk_envvar_oncelik, zk_iki_hata, zk_yeni_tip, zm_chunked_none | 29/30 | 15/15 |
+| zc_istatistik | 4/6 | 3/3 |
+| zm_running_sum | 4/6 | 2/3 |
+| zc_peek | 2/6 | 1/3 |
+| zm_windowed_adim | 2/6 | 1/3 |
+| **Total** | **41/54** | **22/27** |
+
+- Nothing got worse: the five tasks Qwen already solved stayed solved.
+- On the full set the gain is within chance (Fisher p = 0.78). The 11/12 on the four lost tasks did not hold up:
+  `zc_peek` and `zm_windowed_adim` are still the hardest tasks.
+- The 32K rounds took 57 min each, against 35 min for the old 16K rounds. The machine was the cause, not the context
+  size. An Android emulator was using the CPU that day, and Qwen runs 40% on the CPU. Two tasks, 16K and 32K
+  alternated twice in the same session:
+
+  | | 16K | 32K |
+  |---|---|---|
+  | Solved | 4/4 | 4/4 |
+  | Time | 584 s, 63 calls | 632 s, 67 calls |
+
+  That is 9.3 and 9.4 seconds per call. On that day `zc_anahtar` also took 132–182 s at 16K, against 74 s in the old
+  rounds.
+- In `zm_running_sum` the model also changed `README.rst` twice at 32K, which the task does not need. One of those
+  runs still passed.
+
+32K became the default: the agent, the VS Code setting and the desktop app. Desktop settings that still hold the
+old default of 16384 move to 32768 once. A value the user chose stays.
+
+Reports: `qwenbaglam-16384-1..3`, `qwenbaglam-32768-1..3`, `qweniz-1..3`, `qwen32k-1..3`.

@@ -748,6 +748,9 @@ def model_yetenekleri(model: str) -> list[str]:
 
 
 # Qwen3.6 model kartinin "kesin kodlama" onerisi (dusunme acik). Dusuk sicaklik dusunen modellerde tekrara yol acabilir.
+# 16K'da Qwen3.6'nin dusuncesi baglami doldurup bos cevap veriyor, buyuk dosyalardan sonra gorevi unutuyordu.
+# Kaybettigi 4 zor gorevde 32K: 4/12 -> 11/12; zor setin kalan 5 gorevinde bozulma yok (olcum-sonuclari/baglam-32k.md).
+VARSAYILAN_BAGLAM = 32768
 MODEL_ORNEKLEME = {"qwen3.6": {"temperature": 0.6, "top_p": 0.95, "top_k": 20, "presence_penalty": 0.0}}
 MODELE_GORE_ORNEKLE = os.environ.get("KOD_AJANI_MODEL_ORNEKLEME", "1") != "0"
 
@@ -2467,7 +2470,7 @@ def statik_sorunlar(kok: Path, dosyalar: list[str]) -> dict[str, str] | None:
 
 class Ajan:
     def __init__(self, kok: Path, model: str, otomatik: bool = False,
-                 baglam: int = 16384, maks_adim: int = 40, dusunme: bool = True, arayuz=None,
+                 baglam: int = VARSAYILAN_BAGLAM, maks_adim: int = 40, dusunme: bool = True, arayuz=None,
                  gomme_modeli: str | None = None, harita_butce: int = 1000,
                  korumali: str | None = None):
         self.harita_butce = harita_butce  # belirtec; 0 kapatir
@@ -3359,7 +3362,7 @@ def main() -> int:
     ayrac.add_argument("--gorev", help=L("tek gorev calistirip cik", "run one task and exit"))
     ayrac.add_argument("--otomatik", action="store_true",
                        help=L("dosya degisikliklerini ve komutlari onaysiz calistir", "apply file changes and run commands without approval"))
-    ayrac.add_argument("--baglam", type=int, default=16384, help=L("baglam boyutu (num_ctx)", "context size (num_ctx)"))
+    ayrac.add_argument("--baglam", type=int, default=VARSAYILAN_BAGLAM, help=L("baglam boyutu (num_ctx)", "context size (num_ctx)"))
     ayrac.add_argument("--maks-adim", type=int, default=40, help=L("tur basina en fazla model cagrisi", "maximum model calls per turn"))
     ayrac.add_argument("--dusunmesiz", action="store_true", help=L("modelin dusunme modunu kapat", "turn off the model's thinking mode"))
     ayrac.add_argument("--dusunme-seviyesi", choices=DUSUNME_SEVIYELERI + ("uyarlanir",),

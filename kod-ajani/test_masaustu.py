@@ -95,6 +95,17 @@ class MasaustuSunucuTesti(unittest.TestCase):
             with patch.dict(os.environ, {"OLLAMA_HOST": deger}):
                 self.assertEqual(u.ollama_adresi(), beklenen, deger)
 
+    def test_eski_varsayilan_baglam_bir_kez_32k_olur(self):
+        f = u.VERI / "ayarlar.json"
+        for kayitli, beklenen in (({"baglam": 16384}, 32768), ({"baglam": 8192}, 8192), ({}, 32768),
+                                  ({"baglam": 16384, "ayar_surumu": 2}, 16384)):
+            with self.subTest(kayitli=kayitli):
+                f.write_text(json.dumps(kayitli), encoding="utf-8")
+                ayar = u.ayar_oku()
+                self.assertEqual((ayar["baglam"], ayar["ayar_surumu"]), (beklenen, 2))
+        self.uyg.panel_mesaji({"tur": "ayar_kaydet", "ayar": {"baglam": 16384, "ayar_surumu": 1}})
+        self.assertEqual((self.uyg.ayar["baglam"], self.uyg.ayar["ayar_surumu"]), (16384, 2), "elle secilen 16K kalir")
+
     def test_bomlu_ayar_dosyasi_okunur(self):
         (u.VERI / "ayarlar.json").write_text('{"model": "qwen3:8b"}', encoding="utf-8-sig")
         self.assertEqual(u.ayar_oku()["model"], "qwen3:8b")
