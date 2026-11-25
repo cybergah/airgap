@@ -53,6 +53,9 @@ GOREVLER = [
                (MRI, "    'running_statistics',\n    'sieve',\n", "    'running_statistics',\n    'running_sum',\n    'sieve',\n"),
                (MRI, "", "\ndef running_sum(\n    iterable: Iterable[_NumberT], *, maxlen: int | None = ...\n) -> Iterator[_NumberT]: ...\n"),
                ("docs/api.rst", ".. autofunction:: running_statistics", ".. autofunction:: running_statistics\n.. autofunction:: running_sum")],
+     # README.rst'deki fonksiyon tablosu running_min/max/mean/median'i listeler; istek "belgeler" dedigi icin oraya
+     # eklemek dogru, gereksiz dosya sayilmaz (32K olcumunde 5 kez yanlis alarm verdi).
+     "izinli": ["README.rst"],
      "gizli_test": _test("self.assertEqual(list(running_sum([1, 2, 3, 4])), [1, 3, 6, 10])\nself.assertEqual(list(running_sum([1, 2, 3, 4], maxlen=2)), [1, 3, 5, 7])\nself.assertEqual(list(running_sum([])), [])\nwith self.assertRaises(ValueError):\n    list(running_sum([1], maxlen=0))\nimport more_itertools.more as m, more_itertools.recipes as r\nmod = 'more' if 'running_sum' in m.__all__ else 'recipes'\nself.assertIn('running_sum', (m if mod == 'more' else r).__all__)\nstub = open(f'more_itertools/{mod}.pyi', encoding='utf-8').read()\nself.assertIn('def running_sum', stub)\nself.assertIn(\"'running_sum'\", stub)\nself.assertIn('autofunction:: running_sum', open('docs/api.rst', encoding='utf-8').read())",
                          "from more_itertools import running_sum")},
     {"ad": "zm_windowed_adim", "proje": "more-itertools", "tur": "zor_buyuk",

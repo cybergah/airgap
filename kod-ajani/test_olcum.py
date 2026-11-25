@@ -106,6 +106,8 @@ class PuanTesti(unittest.TestCase):
         self.assertEqual(o.beklenmeyen_dosyalar(g, ["src/a.py", "src/b.py", "src/a.pyi", "tests/test_a.py", "cachetools/__init__.py", "tests/__init__.py"]),
                          ["cachetools/__init__.py", "tests/__init__.py"])
         self.assertEqual(o.beklenmeyen_dosyalar({}, ["x.py"]), [])
+        self.assertEqual(o.beklenmeyen_dosyalar({**g, "izinli": ["README.rst"]}, ["src/a.py", "README.rst", "setup.py"]),
+                         ["setup.py"], "gorevin izinli saydigi dosya gereksiz sayilmaz")
 
     def test_baglam_ozeti(self):
         o_ = [{"prompt_eval_count": 2200, "prompt_eval_duration": 5e8, "eval_count": 10, "eval_duration": 2e9},

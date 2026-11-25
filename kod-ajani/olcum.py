@@ -272,8 +272,8 @@ def baglam_ozeti(olcumler: list[dict], baglam: int) -> dict:
 
 
 def beklenmeyen_dosyalar(g: dict, degisen: list[str]) -> list[str]:
-    """Referans cozumun dokunmadigi degisiklikler. Test dosyasi eklemek gereksiz sayilmaz."""
-    beklenen = {d for d, *_ in list(g.get("hata", [])) + list(g.get("cozum", []))}
+    """Referans cozumun dokunmadigi degisiklikler. Test dosyasi ve gorevin izinli saydigi dosyalar gereksiz sayilmaz."""
+    beklenen = {d for d, *_ in list(g.get("hata", [])) + list(g.get("cozum", []))} | set(g.get("izinli", []))
     if not beklenen:
         return []
     kalan = []
