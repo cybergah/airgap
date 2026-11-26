@@ -1,6 +1,7 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 from unittest import mock
 from pathlib import Path
 
@@ -229,6 +230,28 @@ class GecmisTesti(unittest.TestCase):
         self.assertLess(len(mesajlar[0]["content"]), 300)
         self.assertEqual(len(mesajlar[-1]["content"]), 5000)
 
+    def test_kirpma_tek_seferde_bol_yapilir_sonra_dokunulmaz(self):
+        """Onbellek icin: butce asilinca gecmis butcenin %60'ina iner, sonraki birkac adimda basi hic degismez."""
+        mesajlar = [{"role": "tool", "tool_name": "x", "content": "a" * 1000} for _ in range(30)]
+        a.gecmisi_sigdir(mesajlar, 0, 20000)
+        self.assertLessEqual(a.mesajlar_boyutu(mesajlar), 20000 * a.KIRPMA_ORANI)
+        bas = [m["content"] for m in mesajlar]
+        for _ in range(5):  # her adim ~1000 harf ekler; butceye daha var
+            mesajlar.append({"role": "tool", "tool_name": "x", "content": "b" * 1000})
+            a.gecmisi_sigdir(mesajlar, 0, 20000)
+        self.assertEqual([m["content"] for m in mesajlar[:30]], bas, "gecmisin basi degismedi")
+
+    def test_butce_asilmadikca_dusunce_bile_silinmez(self):
+        mesajlar = [{"role": "assistant", "content": "", "thinking": "d" * 500}, {"role": "tool", "content": "x"}]
+        a.gecmisi_sigdir(mesajlar, 0, 1000)
+        self.assertEqual(mesajlar[0]["thinking"], "d" * 500)
+
+    def test_eski_kirpma_orani_secilebilir(self):
+        mesajlar = [{"role": "tool", "tool_name": "x", "content": "a" * 1000} for _ in range(30)]
+        with patch.object(a, "KIRPMA_ORANI", 1.0):
+            a.gecmisi_sigdir(mesajlar, 0, 20000)
+        self.assertGreater(a.mesajlar_boyutu(mesajlar), 20000 * 0.9)
+
     def test_harf_orani_gercek_belirtecten_ogrenilir(self):
         self.assertAlmostEqual(a.harf_orani(30000, 15000, 3.0), 2.0)
         self.assertEqual(a.harf_orani(30000, 300, 3.0), 3.0)  # onbellekten okunan cagri: yalniz yeni kisim sayildi
@@ -242,7 +265,7 @@ class GecmisTesti(unittest.TestCase):
 
     def test_dusuk_oranda_daha_cok_kisaltilir(self):
         def yap():
-            return [{"role": "tool", "tool_name": "x", "content": "a" * 4000} for _ in range(12)]
+            return [{"role": "tool", "tool_name": "x", "content": "a" * 1000} for _ in range(60)]
         genis, dar = yap(), yap()
         a.gecmisi_sigdir(genis, 16384, a.sigdirma_butcesi(16384, 3.0))
         a.gecmisi_sigdir(dar, 16384, a.sigdirma_butcesi(16384, 2.0))

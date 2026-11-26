@@ -162,9 +162,9 @@ class DusunceSaklamaTesti(ModelTesti):
         for i in range(10):
             m += [{"role": "assistant", "content": "", "thinking": "d" * 1000, "tool_calls": []},
                   {"role": "tool", "content": f"sonuc {i} " + "x" * 300}]
-        a.gecmisi_sigdir(m, 2000)  # butce ~6000 karakter
+        a.gecmisi_sigdir(m, 0, 7000)  # hedef 7000 * KIRPMA_ORANI = 4200 karakter
         self.assertTrue(all(len(t["content"]) > 300 for t in m if t["role"] == "tool"), "arac sonuclari korunmali")
-        self.assertLessEqual(sum(len(x.get("thinking", "")) for x in m), 6000 - 3100)
+        self.assertLessEqual(sum(len(x.get("thinking", "")) for x in m), 4200 - 3100)
         self.assertIn("thinking", m[-2], "en yeni dusunce kalir")
 
     def test_kayitli_sohbete_dusunce_yazilmaz(self):

@@ -901,16 +901,30 @@ def harf_orani(karakter: int, belirtec: int, onceki: float) -> float:
     return max(EN_DUSUK_HARF_ORANI, min(onceki, karakter / belirtec))
 
 
+# Butce asilinca gecmis tek seferde butcenin bu oranina indirilir. Olculdu (zc_peek, 32K): yalniz sinirin altina
+# inecek kadar kirpinca birkac adimda bir yine kirpiliyordu; gecmisin basi her degistiginde Ollama onbellegi bozulup
+# 20-24 bin belirtec bastan okundu (denemede 7-13 kez, 205-521 sn). Tek seferde %60'a inince zc_peek'te istem okuma
+# 559 -> 209 sn, basari 2/3 -> 3/3 (olcum-sonuclari/kirpma-onbellek.md). KOD_AJANI_KIRPMA_ORANI=1 eski davranis.
+KIRPMA_ORANI = min(1.0, max(0.3, float(os.environ.get("KOD_AJANI_KIRPMA_ORANI", "0.6"))))
+
+
 def gecmisi_sigdir(mesajlar: list[dict], baglam: int, butce: int | None = None) -> None:
-    """Baglam dolunca en eski arac ciktilarini kisaltir; son mesajlara dokunmaz."""
+    """Baglam dolunca en eski dusunce ve arac ciktilarini kisaltir; son mesajlara dokunmaz.
+
+    Butce asilmadikca hicbir sey degismez; asilinca gecmis butcenin KIRPMA_ORANI'na kadar indirilir ki
+    onbellegi bozan kirpma sik tekrarlanmasin."""
     if butce is None:
         butce = baglam * 3  # kabaca karakter/belirtec orani
     boyut = _mesaj_boyutu
     toplam = sum(boyut(m) for m in mesajlar)
-    for mesaj in mesajlar:  # once eski dusunceler: en az degerli ve en buyuk parca
+    if toplam <= butce:
+        return
+    butce = int(butce * KIRPMA_ORANI)
+    son_dusunce = next((m for m in reversed(mesajlar) if m.get("thinking")), None)
+    for mesaj in mesajlar:  # once eski dusunceler: en az degerli ve en buyuk parca; en yenisi kalir
         if toplam <= butce:
             return
-        if mesaj.get("thinking") and mesaj is not mesajlar[-1]:
+        if mesaj.get("thinking") and mesaj is not son_dusunce:
             toplam -= len(mesaj.pop("thinking"))
     for mesaj in mesajlar[:-6]:
         if toplam <= butce:
