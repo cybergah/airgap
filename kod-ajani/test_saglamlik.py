@@ -209,6 +209,70 @@ class TekrarVeDogrulamaTesti(ModelTesti):
         self.assertFalse([m for m in self.ajan.mesajlar if "[Automatic check]" in (m.get("content") or "")])
 
 
+    def anlik_kur(self, *kosular):
+        """Testli proje, korumali ortam; ilk _sessiz_komut taban, sonrakiler duzenleme sonrasi kosular."""
+        (self.kok / "test_a.py").write_text("x\n", encoding="utf-8")
+        self.ajan.araclar.kum = object()
+        sira = iter(["OK\n[cikis kodu: 0]", *kosular])
+        self.kosulan = []
+        self.ajan._sessiz_komut = lambda komut: self.kosulan.append(komut) or next(sira)
+        self.ajan._calistir_ve_bildir = lambda ad, arg: "OK\n[cikis kodu: 0]" if ad == "run_command" else "duzenlendi"
+
+    def duzenleme_sonucu(self):
+        return next(m["content"] for m in self.ajan.mesajlar if m["role"] == "tool" and m.get("tool_name") == "edit_file")
+
+    def test_anlik_kontrol_bozulan_testi_bilgi_notu_olarak_ekler(self):
+        self.anlik_kur("FAIL: test_x (test_a.T.test_x)\nFAILED (failures=1)\n[cikis kodu: 1]")
+        self.duzenleme_akisi(yanit("bitti"))
+        self.ajan.tur("isle")
+        sonuc = self.duzenleme_sonucu()
+        self.assertTrue(sonuc.startswith("duzenlendi\n\n[Note]"), sonuc)
+        self.assertIn("- test_a.T.test_x", sonuc)
+        self.assertNotIn("(failures=1)\n-", sonuc)
+        self.assertIn("can be expected", sonuc)
+        self.assertEqual(self.ajan.anlik_izleri[0]["yeni"], 1)
+
+    def test_anlik_kontrol_gecerse_kisa_not(self):
+        self.anlik_kur("OK\n[cikis kodu: 0]")
+        self.duzenleme_akisi(yanit("bitti"))
+        self.ajan.tur("isle")
+        self.assertIn("nothing that passed before fails now", self.duzenleme_sonucu())
+
+    def test_anlik_kontrol_python_disi_dosyada_calismaz(self):
+        self.anlik_kur()
+        (self.kok / "README.md").write_text("x = 1\n", encoding="utf-8")
+        self.kurgula(yanit(edit_file={"path": "README.md", "old_text": "x = 1", "new_text": "x = 2"}), yanit("bitti"))
+        self.ajan.tur("isle")
+        self.assertEqual(self.duzenleme_sonucu(), "duzenlendi")
+        self.assertEqual(len(self.kosulan), 1, "yalniz taban kosusu")
+
+    def test_anlik_kontrol_testsiz_veya_kapaliyken_calismaz(self):
+        calisan = []
+        self.ajan.araclar.kum = object()
+        self.ajan._sessiz_komut = lambda komut: calisan.append(komut) or "OK\n[cikis kodu: 0]"
+        self.ajan._calistir_ve_bildir = lambda ad, arg: "duzenlendi"
+        self.duzenleme_akisi(yanit("bitti"))
+        self.ajan.tur("isle")
+        self.assertEqual((calisan, self.duzenleme_sonucu()), ([], "duzenlendi"), "test dosyasi yok")
+        self.anlik_kur("FAIL: test_x (test_a.T.test_x)\n[cikis kodu: 1]")
+        with patch.object(a, "ANLIK_KONTROL", False):
+            self.ajan.mesajlar = self.ajan.mesajlar[:1]
+            self.ajan._test_taban = None
+            self.duzenleme_akisi(yanit("bitti"))
+            self.ajan.tur("isle")
+        self.assertEqual(self.duzenleme_sonucu(), "duzenlendi")
+
+    def test_anlik_kontrol_yavassa_turda_kapanir(self):
+        self.anlik_kur("OK\n[cikis kodu: 0]")
+        zaman = iter([0, 0, 0, a.TEST_SURE_SINIRI + 1])  # taban hizli, ilk anlik kosu yavas
+        with patch.object(a.time, "monotonic", lambda: next(zaman, 10_000)):
+            self.kurgula(yanit(edit_file={"path": "a.py", "old_text": "x = 1", "new_text": "x = 2"}),
+                         yanit(edit_file={"path": "a.py", "old_text": "x = 2", "new_text": "x = 3"}), yanit("bitti"))
+            self.ajan.tur("isle")
+        self.assertEqual(self.ajan.anlik_izleri, [{"sure": a.TEST_SURE_SINIRI + 1, "yeni": None}])
+        self.assertEqual(len(self.kosulan), 2, "yavas kosudan sonra bir daha calismaz")
+
+
 class BitirmeTesti(ModelTesti):
     def test_yarim_cagri_taninir(self):
         for m in ['{"line_end":690,"line_start":668,"path":"src/click/types.py"}',

@@ -2180,7 +2180,16 @@ def basarisiz_testler(cikti: str) -> set[str]:
     """Test ciktisindaki basarisiz testlerin adlari (pytest -rfE ve unittest)."""
     adlar = {ad.strip() for ad in re.findall(r"^(?:FAILED|ERROR) (.+?)(?: - .*)?$", cikti, re.M)}
     adlar |= {f"{sinif}.{ad}" for ad, sinif in re.findall(r"^(?:FAIL|ERROR): (\S+) \(([^)\s]+)\)", cikti, re.M)}
-    return adlar
+    return {ad for ad in adlar if not ad.startswith("(")}  # unittest ozeti "FAILED (failures=6)" test adi degil
+
+
+# Her kaynak duzenlemesinden sonra, turun basinda olculen hizli test komutu sessizce yeniden calisir ve yeni bozulan
+# testler duzenleme sonucuna kisa bir not olarak eklenir. Olculdu (zm_windowed_adim, 32K): model projenin testlerini
+# hic calistirmadan kendi yazdigi denemeyle yanlis duzeltmeyi "dogruladi"; bitisteki otomatik test bozulan 6 testi
+# 15-20 dakika sonra yakaladi ve sure bitti. Not sert hata degildir: cok dosyali degisikligin ortasinda kirmizi
+# test beklenebilir. KOD_AJANI_ANLIK=0 kapatir.
+ANLIK_KONTROL = os.environ.get("KOD_AJANI_ANLIK", "1") != "0"
+ANLIK_NOT_SINIRI = 1200  # karakter; nota eklenen test ciktisi
 
 
 def _cikis_kodu(sonuc: str) -> int | None:
@@ -2497,6 +2506,7 @@ class Ajan:
         self.mesajlar: list[dict] = []
         self.cagri_olcumleri: list[dict] = []
         self.cagri_izleri: list[dict] = []  # her model cagrisinin bitis bilgisi (olcum --iz icin)
+        self.anlik_izleri: list[dict] = []  # duzenleme sonrasi anlik test kosulari: sure ve yeni bozulan sayisi
         self.silinen_tur: list[dict] = []  # hata/durdurmada gecmisten silinen son tur (olcum --iz icin)
         self.sifirla()
 
@@ -2594,6 +2604,43 @@ class Ajan:
         if time.monotonic() - bas > TEST_SURE_SINIRI or "saniyede bitmedigi icin durduruldu" in sonuc:
             return
         self._test_taban = (komut, basarisiz_testler(sonuc), _cikis_kodu(sonuc))
+
+    def _anlik_kontrol(self, arg: dict) -> str:
+        """Python dosyasi duzenlendikten hemen sonra bilinen hizli testleri calistirir; duzenleme sonucuna eklenecek not.
+
+        Yalniz turun basinda test komutu bulunup TEST_SURE_SINIRI icinde bittiyse calisir (_test_ilk_durum);
+        bir kosu siniri asarsa bu tur bir daha calismaz. Notta yalniz duzenlemeden once gecen ve simdi bozulan testler yer alir.
+        """
+        taban = getattr(self, "_test_taban", None)
+        if not ANLIK_KONTROL or not taban or getattr(self, "_anlik_kapali", False):
+            return ""
+        if not str(arg.get("path") or "").endswith(".py"):
+            return ""
+        komut, once, once_kod = taban
+        bas = time.monotonic()
+        sonuc = self._sessiz_komut(komut)
+        sure = round(time.monotonic() - bas, 1)
+        if sure > TEST_SURE_SINIRI or "saniyede bitmedigi icin durduruldu" in sonuc:
+            self._anlik_kapali = True
+            self.anlik_izleri.append({"sure": sure, "yeni": None})
+            return ""
+        yeni = sorted(basarisiz_testler(sonuc) - once)
+        kod = _cikis_kodu(sonuc)
+        self.anlik_izleri.append({"sure": sure, "yeni": len(yeni)})
+        if "No module named" in sonuc and not basarisiz_testler(sonuc):  # ortamin sorunu, kodun degil
+            return ""
+        if not yeni and not (once_kod == 0 and kod not in (0, None, 5)):
+            return "\n\n[Note] The project's tests ran automatically after this edit: nothing that passed before fails now."
+        self.arayuz.uyari(L(f"Anlık test: bu düzenlemeden sonra {len(yeni) or 'test'} bozuldu; modele bilgi olarak iletildi.",
+                            f"Quick test: after this edit {len(yeni) or 'the test run'} failed; passed on to the model as a note."))
+        if yeni:
+            fazla = f"\n- ... and {len(yeni) - 8} more" if len(yeni) > 8 else ""
+            ne = "these tests passed before and fail now:\n" + "\n".join("- " + t for t in yeni[:8]) + fazla
+        else:
+            ne = f"`{komut}` passed before and fails now."
+        return ("\n\n[Note] The project's tests ran automatically after this edit; " + ne
+                + "\nIf you are partway through a change across several files this can be expected; otherwise check this edit."
+                + "\nOutput:\n" + kisalt(model_sonucu(sonuc), ANLIK_NOT_SINIRI))
 
     def _statik_tara(self) -> dict[str, str] | None:
         if not STATIK_ACIK:
@@ -3151,6 +3198,8 @@ class Ajan:
                     sonuc = self._arac_uygula(ad, arg)
                     if sonuc == REDDEDILDI:
                         reddedilen[imza] = 1
+                    elif ad in ("write_file", "edit_file") and not sonuc.startswith("HATA"):
+                        sonuc += self._anlik_kontrol(arg)
                     self.mesajlar.append({"role": "tool", "tool_name": ad, "content": model_sonucu(sonuc)})
                     if sonuc.startswith("HATA"):
                         # Arada dosya okusa da ayni hatali cagriyi tekrarlamak ilerleme degildir.

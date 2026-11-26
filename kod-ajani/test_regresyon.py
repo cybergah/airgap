@@ -18,6 +18,8 @@ class BasarisizTestAdlariTesti(unittest.TestCase):
         cikti = "FAIL: test_x (test_a.T.test_x)\n----\nERROR: test_y (test_a.T)\nRan 2 tests\n[cikis kodu: 1]"
         self.assertEqual(a.basarisiz_testler(cikti), {"test_a.T.test_x.test_x", "test_a.T.test_y"})
         self.assertEqual(a.basarisiz_testler("OK\n[cikis kodu: 0]"), set())
+        self.assertEqual(a.basarisiz_testler(cikti + "\nFAILED (failures=6, skipped=5)"), {"test_a.T.test_x.test_x", "test_a.T.test_y"},
+                         "unittest ozet satiri test adi sayilmaz")
 
 
 class RegresyonTesti(ModelTesti):
@@ -31,6 +33,9 @@ class RegresyonTesti(ModelTesti):
         imaj = patch.object(a, "TEST_IMAJI", "sahte-test-imaji")
         imaj.start()
         self.addCleanup(imaj.stop)
+        anlik = patch.object(a, "ANLIK_KONTROL", False)  # burada bitisteki otomatik test sinanir
+        anlik.start()
+        self.addCleanup(anlik.stop)
         self.komutlar = []
 
     def kur(self, once, *sonra):

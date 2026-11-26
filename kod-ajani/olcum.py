@@ -232,6 +232,7 @@ def tek_gorev(g: dict, model: str, maks_adim: int, harita: int) -> dict:
         sonuc["yanlis_iddia"] = bool(not basari and tur_tamam and g["tur"] != "soru" and not ITIRAF.search(k["yanit"][-800:]))
         sonuc["gereksiz_dosya"] = beklenmeyen_dosyalar(g, degisen)
         sonuc["baglam"] = baglam_ozeti(ajan.cagri_olcumleri, ajan.baglam)
+        sonuc["anlik"] = ajan.anlik_izleri
         iz_yaz(g, model, sonuc, ajan.mesajlar + ajan.silinen_tur, ajan.cagri_izleri)
         return sonuc
     finally:
