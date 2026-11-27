@@ -1,0 +1,77 @@
+# Builds the single-file Airgap.exe on a clean Windows runner, checks that it starts and serves its UI,
+# and writes Airgap.exe.sha256. On a published release both files are attached to it; a manual run
+# (Actions -> exe -> Run workflow) only keeps them as a downloadable workflow artifact.
+name: exe
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  exe:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: kod-ajani/masaustu/arayuz/package-lock.json
+
+      - name: Tag must match the extension version
+        if: github.event_name == 'release'
+        shell: pwsh
+        run: |
+          $v = (Get-Content kod-ajani/vscode-eklenti/package.json -Raw | ConvertFrom-Json).version
+          if ("v$v" -ne "${{ github.event.release.tag_name }}") {
+            throw "Release tag ${{ github.event.release.tag_name }} does not match extension version v$v"
+          }
+
+      - name: UI dependencies
+        working-directory: kod-ajani/masaustu/arayuz
+        run: npm ci
+
+      - name: PyInstaller
+        run: python -m pip install --disable-pip-version-check pyinstaller==6.22.3
+
+      - name: Build Airgap.exe
+        working-directory: kod-ajani
+        run: python masaustu/paketle_exe.py
+
+      - name: Smoke test (starts without a window, serves the UI)
+        working-directory: kod-ajani
+        run: python masaustu/duman_exe.py
+
+      - name: Checksum
+        shell: pwsh
+        run: |
+          $h = (Get-FileHash dist/Airgap.exe -Algorithm SHA256).Hash.ToLower()
+          [IO.File]::WriteAllText("$PWD/dist/Airgap.exe.sha256", "$h  Airgap.exe`n")
+          Get-Content dist/Airgap.exe.sha256
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Airgap-exe
+          path: |
+            dist/Airgap.exe
+            dist/Airgap.exe.sha256
+          if-no-files-found: error
+
+      - name: Attach to the release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          files: |
+            dist/Airgap.exe
+            dist/Airgap.exe.sha256

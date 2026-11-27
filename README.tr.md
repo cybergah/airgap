@@ -57,7 +57,9 @@ python masaustu/uygulama.py
 
 Python ve Node gerektirmeyen tek dosyalık `Airgap.exe` için: `python -m pip install pyinstaller`, sonra
 `python masaustu/paketle_exe.py` (çıktı: `dist/Airgap.exe`). Pencere, Windows 11'de yerleşik Edge'in uygulama
-kipidir. Gerçek modelle uçtan uca deneme: `python masaustu/uctan_uca.py`.
+kipidir. Gerçek modelle uçtan uca deneme: `python masaustu/uctan_uca.py`. Sürümdeki exe CI'da derlenir: `exe`
+iş akışı temiz bir Windows makinesinde `Airgap.exe`'yi derler, açıldığını dener (`masaustu/duman_exe.py`) ve
+`Airgap.exe.sha256` ile birlikte sürüme ekler.
 
 **Arayüz dili:** Varsayılan İngilizcedir. Türkçe için VS Code'da **Airgap › Dil** ayarını `tr` yap; terminalde `AIRGAP_LANG=tr` (PowerShell: `$env:AIRGAP_LANG="tr"`). Yalnız ekranda gördüklerin değişir; modele giden metinler aynı kalır.
 

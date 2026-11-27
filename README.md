@@ -175,7 +175,9 @@ python masaustu/uygulama.py
 To build a single `Airgap.exe` that needs neither Python nor Node:
 `python -m pip install pyinstaller`, then `python masaustu/paketle_exe.py` (writes `airgap/dist/Airgap.exe`).
 The window is Microsoft Edge in app mode (built into Windows 11). End-to-end checks with a real model:
-`python masaustu/uctan_uca.py`.
+`python masaustu/uctan_uca.py`. Release builds come from CI: the `exe` workflow builds
+`Airgap.exe` on a clean Windows runner, checks that it starts (`masaustu/duman_exe.py`) and attaches it with
+`Airgap.exe.sha256` to the release.
 
 **Optional:** better repo maps for JavaScript, TypeScript and C#:
 
