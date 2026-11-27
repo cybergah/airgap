@@ -445,6 +445,16 @@ class DusunmeSiniriTesti(ModelTesti):
                 self.kapatildi.append(True)
         return patch.object(a, "model_akisi", akis)
 
+    def test_aralikli_kesintiler_turu_durdurmaz(self):
+        """Sayac yalniz art arda kesintileri sayar; araya basarili bir cevap girince sifirlanir."""
+        self.ajan.dusun = True
+        uzun = [{"message": {"thinking": "x" * 31_000}}]
+        arac = [{"message": {"tool_calls": [{"function": {"name": "list_files", "arguments": {}}}]}, "done": True}]
+        with self.akis(uzun, arac, uzun, uzun, arac, uzun, uzun, arac):
+            self.assertTrue(self.ajan.tur("bir sey yap"), "toplam 5 kesinti ama hic 3 art arda yok")
+        self.assertEqual(len([m for m in self.ajan.mesajlar if m.get("content") == a.UZUN_DUSUNME_NOTU]), 5)
+        self.assertEqual(self.ajan.arayuz.hatalar, [])
+
     def test_uzun_dusunme_kesilir_kisa_dusunerek_yeniden_denenir(self):
         self.ajan.dusun = True
         uzun = [{"message": {"thinking": "x" * 1000}} for _ in range(40)]  # 40.000 karakter

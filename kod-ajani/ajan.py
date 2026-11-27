@@ -3126,6 +3126,8 @@ class Ajan:
                                         "The model wrote a broken tool call; retrying."))
                     self.mesajlar.append({"role": "user", "content": BOZUK_CAGRI_NOTU})
                     continue
+                # Yalniz art arda kesintiler turu durdurur: olculdu, toplam sayinca 19. adimda ilerleyen bir tur kesildi.
+                uzun_dusunme = 0
                 cagrilar = yanit["tool_calls"]
                 if not cagrilar:
                     if not yanit["content"]:
